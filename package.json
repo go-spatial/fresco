@@ -16,13 +16,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "babel-preset-flow": "^6.23.0",
+    "gh-pages": "^1.1.0",
     "js-file-download": "^0.4.1",
     "jshint": "^2.9.5",
-    "jsonlint": "git+ssh://git@github.com/josdejong/jsonlint.git",
+    "jsonlint": "github:josdejong/jsonlint",
     "mapbox-gl": "^0.44.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
