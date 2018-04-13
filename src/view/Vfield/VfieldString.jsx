@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Vfield extends React.Component {
+export default class VfieldString extends React.Component {
 
 	static propTypes = {
 		type: PropTypes.string.isRequired,
@@ -44,10 +44,10 @@ export default class Vfield extends React.Component {
 
 	render (){
 		const {field, controlled} = this.props;
-		const value = controlled ? this.state.value : this.props.value;
+		const value = controlled ? this.state.value : field.value;
 
-		return <div className="form-group">
-			<label>{field.label}</label>
+		return <div className="form-group mb-2">
+			<label className="mb-0">{field.label}</label>
 			<input type="text" className="form-control" 
 				placeholder={field.placeholder} value={value}
 				onChange={this.handle.change}/>

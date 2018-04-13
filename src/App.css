@@ -2,15 +2,27 @@ ul{padding:0;}
 li{list-style-type:none;}
 body{background-color:#37474F;}
 h2{font-size:1.2em;color:#273237;}
+a{color:#00ACC1;}
+a:hover{text-decoration:none;color:#0094A0;}
 
 .bg-dk{background-color:#273237;}
 
 .flex-2{flex:2;}
 
+.form-group label{font-size:0.8em;}
+
 .inline-block{display:inline-block;}
+
+.alert{font-size:0.8em;}
+.alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
+.alert-dismissible .close{padding:0.5rem;}
+
+.btn.btn-primary{background-color:#00ACC1;}
+.btn.btn-primary:hover{background-color:#0094A0;}
 
 /* Rules for sizing the icon. */
 .material-icons{vertical-align:middle;}
+.material-icons.md-14 { font-size: 14px; }
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
@@ -27,7 +39,12 @@ h2{font-size:1.2em;color:#273237;}
 	overflow-wrap:break-word;word-wrap:break-word;word-break: break-word;
 	font-weight:400;}
 .link-list:hover{color:#273237;text-decoration:none;background-color:#FFF;}
-.link-list.active{background-color:#FFF;font-weight:600;}
+.link-list.active{background-color:#FFF;}
+.link-list.error{color:#D33D34;}
+/*
+.link-list.error:after{content:'';background-color:#D33D34;position:absolute;right:7px;top:7px;
+	width:6px;height:6px;border-radius:4px;}
+	*/
 
 .list-border-right{border-right:1px solid #E6E6E6;}
 .list-border-right.active{border-right:1px solid #FFF;}
@@ -35,14 +52,22 @@ h2{font-size:1.2em;color:#273237;}
 .list-right{position:absolute;right:10px;top:3px;}
 .list-left{position:absolute;left:10px;top:3px;}
 
-.nav-link{border-bottom:3px solid transparent;cursor:pointer;}
+.nav-link{border-bottom:3px solid transparent;cursor:pointer;position:relative;}
 /*.nav-link.active{border-bottom:3px solid #FFF;}*/
 
 .nav-link.nav-bb.active{border-bottom:3px solid #FFF;}
+.nav-link.error:after{content:'';background-color:#D33D34;position:absolute;right:7px;top:7px;
+	width:6px;height:6px;border-radius:4px;}
+
+.layer-nav-link{border-bottom:3px solid transparent;cursor:pointer;}
+.layer-nav-link.active{border-bottom:3px solid #273237;}
 
 .link-list.p-list{padding-left:34px!important;padding-right:30px!important;}
 .link-list.pr-list{padding-right:30px!important;}
 .link-list.pl-list{padding-left:30px!important;}
+
+.o-scroll{overflow:scroll;}
+.o-y-scroll{overflow-y:auto;}
 
 .text-nav{line-height:34px;font-size:1em;}
 

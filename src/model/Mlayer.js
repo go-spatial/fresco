@@ -1,9 +1,12 @@
 import Store from '../Store';
+
+import Mstyle from './Mstyle';
 //import Model from './Model';
 
 export default {
 
 	add:(layer)=>{
+
 		return new Promise((resolve,reject)=>{
 			if (!layer.id) throw new Error('no layerId');
 
@@ -11,6 +14,8 @@ export default {
 				type:'LAYER_ADD',
 				payload:layer
 			});
+
+			Mstyle.save();
 			return resolve();
 		});
 
@@ -25,6 +30,8 @@ export default {
 				layerId:layerId,
 				payload:layer
 			});
+
+			Mstyle.save();
 			return resolve();
 		});
 
@@ -40,6 +47,8 @@ export default {
 				prop:prop,
 				payload:val
 			});
+
+			Mstyle.save();
 			return resolve();
 		});
 
@@ -51,6 +60,13 @@ export default {
 			return layer.get('id') === layerId;
 		});
 		return Store.getState().style.getIn(['rec','layers',ind])
+	},
+
+	getInd:function(layerId){
+		return Store.getState().style.getIn(['rec','layers']).findIndex((layer)=>{
+			//console.log('layer:',layer)
+			return layer.get('id') === layerId;
+		});
 	},
 
 };

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MapboxError from '../../utility/MapboxError';
+
 //import Valert from '../Valert';
-import VfieldJSON from '../Vfield/VfieldJSON';
+import Vfield from '../Vfield';
+import Valert from '../Valert';
 
 
 export default class VlayerEditJSON extends React.Component {
@@ -28,9 +31,19 @@ export default class VlayerEditJSON extends React.Component {
 	}
 
 	render (){
-		const {layer} = this.props;
+		const {layer, error} = this.props;
 
-		return <VfieldJSON key={layer.get('id')} json={layer.toJS()} handle={this.handle}/>;
+		// convert error to JSON position
+		//console.log('json error:',error);
+
+		const field = {
+			value:layer.toJS(),
+			error:error
+		};
+		return <div>
+			<Vfield type="JSON" key={layer.get('id')} field={field} handle={this.handle}/>
+			
+		</div>;
 
 		/*
 

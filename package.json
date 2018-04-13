@@ -5,21 +5,25 @@
   "dependencies": {
     "axios": "^0.18.0",
     "codemirror": "^5.36.0",
+    "flow-bin": "^0.69.0",
     "immutable": "^3.8.2",
-    "mapbox-gl": "^0.44.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow": "flow"
   },
   "devDependencies": {
+    "babel-preset-flow": "^6.23.0",
+    "js-file-download": "^0.4.1",
     "jshint": "^2.9.5",
-    "jsonlint": "github:josdejong/jsonlint",
+    "jsonlint": "git+ssh://git@github.com/josdejong/jsonlint.git",
+    "mapbox-gl": "^0.44.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapboxGl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+import Mstyle from '../../model/Mstyle';
 
 export default class Vmap extends React.Component {
 
@@ -38,6 +40,9 @@ export default class Vmap extends React.Component {
 		MapboxGl.accessToken = metadata['maputnik:mapbox_access_token'] || tokens.mapbox
 		*/
 
+		// clear prev errors
+		Mstyle.errorsSet();
+
 		this.state.map.setStyle(styleJS.toJS(),{diff: true});
   }
 
@@ -46,7 +51,7 @@ export default class Vmap extends React.Component {
 
 		this.setState({styleJS:styleJS});
 
-		console.log('map style:',styleJS);
+		console.log('map style:',styleJS,MapboxGl);
 
 		const map = new MapboxGl.Map({
 			container: this.container,
@@ -64,6 +69,11 @@ export default class Vmap extends React.Component {
 
 		const nav = new MapboxGl.NavigationControl();
 		map.addControl(nav, 'top-right');
+
+		map.on('error',(e)=>{
+			//console.log('map error:',e.error.message);
+			Mstyle.errorAdd(e.error);
+		});
 
 		this.setState({map:map});
 

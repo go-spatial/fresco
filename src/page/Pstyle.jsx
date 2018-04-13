@@ -9,7 +9,8 @@ import Vmap from '../view/Vmap';
 
 const mapStoreToProps = (store)=>{
 	return {
-		style:store.style
+		style:store.style,
+		error:store.styleError
 	} // props
 };
 const mapDispatchToProps = {};
@@ -25,6 +26,7 @@ class Pstyle extends React.Component {
 		this.id = props.match.params.id;
 
 		Mstyle.load(this.id);
+		Mstyle.errorsSet();
 		
 		this.handle = {
 			route:(path)=>{
@@ -47,18 +49,17 @@ class Pstyle extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps){
-		const {style} = nextProps;
+		const {style, error} = nextProps;
 
-		if (this.state.styleRec !== undefined && !this.state.styleRec.equals(style.get('rec'))) Mstyle.save();
-		this.setState({styleRec:style.get('rec')});
+		this.setState({styleRec:style.get('rec')});		
 	}
 
 	render (){
-		const {style, match} = this.props;
+		const {style, match, error} = this.props;
 
 		return <div>
-			<Vmap handle={this.handle} style={style.get('rec')} match={match}/>
-			<Vstyle handle={this.handle} style={style.get('rec')} match={match}/>
+			<Vmap handle={this.handle} style={style.get('rec')} match={match} error={error}/>
+			<Vstyle handle={this.handle} style={style.get('rec')} match={match} error={error}/>
 		</div>
 	}
 };

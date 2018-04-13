@@ -3,11 +3,19 @@ import React from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
 //import styles from '../model/styles';
 
+import DateFormat from '../../utility/DateFormat';
+
 import VstyleAdd from './VstyleAdd';
 
 export default class Vstyles extends React.Component {
 	constructor(props) {
 		super(props);
+
+		const {styles, handle} = props;
+
+		if (styles.size < 1){
+			handle.routeReplace('add/new');
+		}
 
 		this.handle = {
 
@@ -36,10 +44,10 @@ export default class Vstyles extends React.Component {
 					//console.log('style:',style);
 					let path = '/style/'+style.get('id');
 					return <li key={style.get('id')} className="p-3 col-sm-6 col-lg-4">
-						<div className="">
-							<h5 className=""><Link to={path}>{style.get('name')}</Link></h5>
-							<p className=""><small className="text-muted">Last updated 3 mins ago</small></p>
-						</div>
+						<Link to={path}>
+							<h5 className="mb-0">{style.get('name')}</h5>
+							<p className="mb-0"><small className="text-muted">Last updated {DateFormat.ago(style.getIn(['_store','updated']))}</small></p>
+						</Link>
 					</li>
 				})}
 				</ul>

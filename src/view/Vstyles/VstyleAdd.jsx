@@ -13,7 +13,8 @@ export default class VstyleAdd extends React.Component {
 
 		this.state = {
 			name:'',
-			url:''
+			url:'',
+			file:undefined
 		};
 
 		console.log('props:',props);
@@ -22,7 +23,7 @@ export default class VstyleAdd extends React.Component {
 			submitNew:(e)=>{
 				e.preventDefault();
 
-				Mstyle.add(this.state).then((style)=>{
+				Mstyle.add({name:this.state.name}).then((style)=>{
 					handle.route('style/'+style.id+'/source/add');
 				}).catch((e)=>{
 					console.error(e);
@@ -41,15 +42,39 @@ export default class VstyleAdd extends React.Component {
 					console.error(e);
 				});
 			},
+			submitUpload:(e)=>{
+				e.preventDefault();
+				
+				if (!this.state.file) return; //error
+
+				var reader = new FileReader();
+				reader.onloadend = (e)=>{
+					console.log('text:',e.target.result);
+					const text = e.target.result;
+					let json;
+					try {
+						json = JSON.parse(text);
+					} catch (e){
+						return console.error(e);
+					}
+					Mstyle.add(json).then((style)=>{
+						handle.route('style/'+style.id);
+						MstyleSource.setStyleSourceJSON(style);
+					}).catch((e)=>{
+						console.error(e);
+					});
+				};
+				reader.readAsText(this.state.file);
+			},
 			nameChange:(val)=>{
 				this.setState({name:val});
 			},
 			urlChange:(val)=>{
 				this.setState({url:val});
 			},
-			fileChange:(val)=>{
-				console.log('file change:',val);
-				this.setState({file:val});
+			fileChange:(file)=>{
+				//console.log('file change:',val);
+				this.setState({file:file});
 			}
 		};
 

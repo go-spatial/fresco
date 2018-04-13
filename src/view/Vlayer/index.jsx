@@ -3,17 +3,24 @@ import {NavLink, Link, Route, Switch} from 'react-router-dom';
 
 import LayerIcon from '../../utility/LayerIcon';
 
+import Mstyle from '../../model/Mstyle';
+
 import VlayerAdd from './VlayerAdd';
 import VlayerEdit from './VlayerEdit';
 
 export default class Vlayers extends React.Component {
 	constructor(props) {
 		super(props);
-		const {handle} = this.props;
+		const {handle, style} = this.props;
 
 		this.state = {
 			layerAddShown:false
 		};
+
+		if (style.has('layers') && style.get('layers').size > 0){
+			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
+				'id'])));
+		}
 
 		this.handle = {
 			layerAdd:()=>{
@@ -32,9 +39,10 @@ export default class Vlayers extends React.Component {
 			return <VlayerAdd handle={handle} style={style}/>;
 		}
 
-		let layers = style.get('layers');
+		const layers = style.get('layers');
+		const errors = Mstyle.errorsGet();
 		
-		return <div className="row h-100">
+		return <div className="row mr-0 h-100">
 			<div className="col-sm-5 pr-0">
 				<div className="pl-1 py-1">
 					<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right">
@@ -52,15 +60,16 @@ export default class Vlayers extends React.Component {
 						{layers !== undefined && layers.map((layer,i)=>{
 							//console.log('layer:',layer);
 
+							let className = 'px-2 py-1 d-block link-list list-border-right position-relative p-list';
+							if (errors.hasIn(['layers',i])) className += ' error';
+
 							return <NavLink to={`${match.url}/${layer.get('id')}`} 
-								className="px-2 py-1 d-block link-list list-border-right position-relative p-list" key={layer.get('id')}>
+								className={className} key={layer.get('id')}>
 
-									<div className="list-left mr-2 inline-block">
-										<i className="material-icons md-18" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
-									</div>
-									{layer.get('id')}
-
-								
+								<div className="list-left mr-2 inline-block">
+									<i className="material-icons md-18" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
+								</div>
+								{layer.get('id')}
 								<div className="list-right ml-2">
 									<i className="material-icons md-18">visibility</i>
 								</div>
@@ -69,15 +78,13 @@ export default class Vlayers extends React.Component {
 					</div>
 				</div>
 			</div>
-			<div className="col-sm-7 pl-0">
+			<div className="col-sm-7 px-0">
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 
 							render={(props) => <VlayerAdd style={style} handle={handle} {...props}/>}/>
 						<Route path={`${match.url}/:id`} 
 							render={(props) => <VlayerEdit style={style} handle={handle} {...props}/>}/>
-						<Route path={match.url}
-							render={(props) => <VlayerEdit style={style} handle={handle} id={layers.getIn([0,'id'])} {...props}/>}/>
 					</Switch>
 				</div>
 			</div>

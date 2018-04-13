@@ -1,9 +1,14 @@
 import React from 'react';
 import {Switch, Link, NavLink, Route} from 'react-router-dom';
 
+import Mstyle from '../../model/Mstyle';
+
+import Vcode from '../Vcode';
 import Vlayer from '../Vlayer';
-import Vsource from '../Vsource';
 import Vsave from '../Vsave';
+import Vsetting from '../Vsetting';
+import Vsource from '../Vsource';
+import Valert from '../Valert';
 
 export default class Vstyle extends React.Component {
 	constructor(props) {
@@ -12,7 +17,12 @@ export default class Vstyle extends React.Component {
 	}
 
 	render (){
-		const {match, style, handle} = this.props;
+		const {match, style, handle, error} = this.props;
+
+		const maxContentH = window.innerHeight - 44;
+
+		//check for error in style
+		//console.log('error:',error);
 
 		if (!style){
 			return <div className="container">
@@ -30,33 +40,43 @@ export default class Vstyle extends React.Component {
 						<Link className="navbar-brand flex-2 text-light text-nav" to={match.url}>
 							{style.get('name')}
 						</Link>
-						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/root`}>
+						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/setting`}>
 							<i className="material-icons icon-btn white md-24">settings</i>
 						</NavLink>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/source`}>
 							<i className="material-icons icon-btn white md-24">wallpaper</i>
 						</NavLink>
-						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/layer`}>
+						<NavLink className={'nav-link nav-bb px-2 '+(error.has('layers')? 'error': '')} 
+							activeClassName="active" to={`${match.url}/layer`}>
 							<i className="material-icons icon-btn white md-24">layers</i>
 						</NavLink>
-						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/download`}>
-							<i className="material-icons icon-btn white md-24">cloud_download</i>
+						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/code`}>
+							<i className="material-icons icon-btn white md-24">code</i>
 						</NavLink>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/save`}>
 							<i className="material-icons icon-btn white md-24">save</i>
 						</NavLink>
 					</nav>
 
-					<div className="w-100 bg-white">
+					<div className="w-100 bg-white o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 						<Switch>
+							<Route path={`${match.url}/code`} 
+								render={(props) => <Vcode style={style} handle={handle} {...props}/>}/>
 							<Route path={`${match.url}/layer`} 
 								render={(props) => <Vlayer style={style} handle={handle} {...props}/>}/>
-							<Route path={`${match.url}/source`} 
-								render={(props) => <Vsource style={style} handle={handle} {...props}/>}/>
 							<Route path={`${match.url}/save`} 
 								render={(props) => <Vsave style={style} handle={handle} {...props}/>}/>
-
+							<Route path={`${match.url}/setting`} 
+								render={(props) => <Vsetting style={style} handle={handle} {...props}/>}/>
+							<Route path={`${match.url}/source`} 
+								render={(props) => <Vsource style={style} handle={handle} {...props}/>}/>
 						</Switch>
+					</div>
+
+					<div className="fixed-bottom">
+						{error.has('general') && 
+							<Valert message={error.get('general')}/>
+						}
 					</div>
 				</div>
 			</div>

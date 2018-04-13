@@ -3,17 +3,20 @@ import React from 'react';
 import Valert from '../Valert';
 import VlayerEditId from './VlayerEditId';
 import VlayerEditJSON from './VlayerEditJSON';
+import VlayerEditor from './VlayerEditor';
 
 import Mlayer from '../../model/Mlayer';
+import Mstyle from '../../model/Mstyle';
 
 export default class VlayerEdit extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {handle} = this.props;
+		const {handle, mode} = this.props;
 
 		this.state = {
-			editId:false
+			editId:false,
+			mode:mode || 'json'
 		};
 
 		this.handle = {
@@ -29,6 +32,12 @@ export default class VlayerEdit extends React.Component {
 			},
 			jsonChange:(json)=>{
 				Mlayer.set(this.id,json);
+			},
+			clickEdit:()=>{
+				this.setState({mode:'edit'});
+			},
+			clickJson:()=>{
+				this.setState({mode:'json'});
 			}
 		};
 
@@ -43,8 +52,11 @@ export default class VlayerEdit extends React.Component {
 		this.id = id || match.params.id;
 
 		const layer = Mlayer.get(this.id);
+		const errors = Mstyle.errorsGet();
 
-		//console.log('active layer:',layer);
+		const error = errors.getIn(['layers',Mlayer.getInd(this.id)]);
+
+		//console.log('layer err:',error);
 
 		// change map mode to show_hidden source layers
 
@@ -54,18 +66,26 @@ export default class VlayerEdit extends React.Component {
 
 		return <div className="">
 			{this.state.editId?
-				<VlayerEditId handle={{change:this.handle.changeId}} style={style} layer={layer}/>
+				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={error} layer={layer}/>
 			:
 				<h2 className="px-2 py-1 m-0 text-nav bg-light">
 					{layer.get('id')}
 					<div className="float-right">
-						<i className="material-icons md-18 icon-btn gray">mode_edit</i>
-						<i className="material-icons md-18 icon-btn gray ml-2">code</i>
+						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-2 '+(this.state.mode === 'edit' ? 'active': '')}>
+							<i className="material-icons md-18 icon-btn gray">mode_edit</i>
+						</div>
+						<div  onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-2 '+(this.state.mode === 'json' ? 'active': '')}>
+							<i className="material-icons md-18 icon-btn gray">code</i>
+						</div>
 					</div>
 				</h2>
 			}
 			<div>
-				<VlayerEditJSON handle={{change:this.handle.jsonChange}} layer={layer}/>
+			{this.state.mode === 'json' ?
+				<VlayerEditJSON handle={{change:this.handle.jsonChange}} error={error} layer={layer}/>
+				:
+				<VlayerEditor handle={{}} error={error} layer={layer}/>
+			}
 			</div>
 		</div>;
 	}

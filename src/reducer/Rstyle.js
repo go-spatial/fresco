@@ -13,25 +13,30 @@ export default function(state = iState, action){
 	switch (action.type){
 		case 'STYLE_DEFINE':{
 			const rec = fromJS(action.payload);
-			return Map({
+			const style = Map({
 				rec:rec,
-				loaded:true
+				_store:Map()
 			});
+			return setUpdated(style);
 		}
 		case 'STYLE_SETIN':{
-			console.log('style setIn:',action.key,action.payload)
-			return state.setIn(action.key,action.payload);
+			//console.log('style setIn:',action.key,action.payload);
+			const style = state.setIn(action.key,action.payload);
+			return setUpdated(style);
 		}
 		case 'STYLE_STORE_SETIN':{
-			return state.setIn(['rec','_store',...action.key],fromJS(action.payload));
+			const style = state.setIn(['rec','_store',...action.key],fromJS(action.payload));
+			return setUpdated(style);
 		}
 		case 'LAYER_ADD':{
 			const layer = fromJS(action.payload);
 			if (!state.hasIn(['rec','layers'])){
-				return state.setIn(['rec','layers'],List([layer]));
+				const style = state.setIn(['rec','layers'],List([layer]));
+				return setUpdated(style);
 			}
 			const layers = state.getIn(['rec','layers']).push(layer);
-			return state.setIn(['rec','layers'],layers);
+			const style = state.setIn(['rec','layers'],layers);
+			return setUpdated(style);
 		}
 		case 'LAYER_SET':{
 			const ind = state.getIn(['rec','layers']).findIndex((layer)=>{
@@ -39,7 +44,8 @@ export default function(state = iState, action){
 			});
 			if (ind === -1) throw new Error('layer matching layerId not found');
 			const layer = fromJS(action.payload);
-			return state.setIn(['rec','layers',ind],layer);
+			const style = state.setIn(['rec','layers',ind],layer);
+			return setUpdated(style);
 		}
 		case 'LAYER_SETIN':{
 			const ind = state.getIn(['rec','layers']).findIndex((layer)=>{
@@ -47,13 +53,20 @@ export default function(state = iState, action){
 			});
 			if (ind === -1) throw new Error('layer matching layerId not found');
 			const val = fromJS(action.payload);
-			return state.setIn(['rec','layers',ind, ...action.prop],val);
+			const style = state.setIn(['rec','layers',ind, ...action.prop],val);
+			return setUpdated(style);
 		}
 		case 'SOURCE_ADD':{
 			const source = fromJS(action.payload);
-			return state.setIn(['rec','sources',source.get('url')],source);
+			const style = state.setIn(['rec','sources',source.get('url')],source);
+			return setUpdated(style);
 		}
 		default:
 			return state;
 	}
 }
+
+const setUpdated = (state)=>{
+	const now = new Date().getTime();
+	return state.setIn(['rec','_store','updated'],now);
+};

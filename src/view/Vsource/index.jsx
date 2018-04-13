@@ -9,10 +9,18 @@ import NameFromUrl from '../../utility/NameFromUrl';
 export default class Vsources extends React.Component {
 	constructor(props) {
 		super(props);
+
+		const {style, handle} = props;
+
 		this.state = {};
 
 		this.handle = {
 		};
+
+		if (style.has('sources') && style.get('sources').size > 0){
+			handle.routeReplace('source/'+encodeURIComponent(style.get('sources').keySeq().first()));
+		}
+
 		for (let i in this.handle){
 			this.handle[i] = this.handle[i].bind(this);
 		}
@@ -27,7 +35,7 @@ export default class Vsources extends React.Component {
 
 		const sources = style.get('sources');
 
-		return <div className="row h-100">
+		return <div className="row h-100 mr-0">
 			<div className="col-sm-5 pr-0">
 				<div className="pl-1 py-1">
 					<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right">
@@ -42,8 +50,9 @@ export default class Vsources extends React.Component {
 						</div>
 					</h2>
 					<ul>
-					{sources.valueSeq().map((source)=>{
-						const path = '/style/'+style.get('id')+'/source/'+encodeURIComponent(source.get('url'));
+					{sources.keySeq().map((key)=>{
+						const source = sources.get(key);
+						const path = '/style/'+style.get('id')+'/source/'+encodeURIComponent(key);
 						return <NavLink to={path} 
 									className="px-2 py-1 d-block link-list list-border-right position-relative pr-list" 
 									key={source.get('url')}>
@@ -55,7 +64,7 @@ export default class Vsources extends React.Component {
 					</ul>
 				</div>
 			</div>
-			<div className="col-sm-7 pl-0">
+			<div className="col-sm-7 px-0">
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 

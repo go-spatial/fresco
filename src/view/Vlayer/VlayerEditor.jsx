@@ -1,30 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Valert from '../Valert';
-import VlayerEditId from './VlayerEditId';
+import Vfield from '../Vfield';
 
 import Mlayer from '../../model/Mlayer';
 
-export default class Vsource extends React.Component {
+export default class VlayerEditor extends React.Component {
+	static propTypes = {
+		layer: PropTypes.object.isRequired,
+		handle: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
-		const {handle} = this.props;
+		const {handle,layer} = this.props;
 
 		this.state = {
-			editId:false
+
 		};
 
 		this.handle = {
-			change:(e)=>{
-				//this.setState({value:e.target.value});
-				//handle.change(e.target.value);
-			},
-			changeId:(newId)=>{
-				// route to new id
-				Mlayer.setIn(this.id,['id'],newId).then(()=>{
-					handle.routeReplace('layer/'+newId);
-				});
+			change:(field)=>{
+				Mlayer.setIn(layer.get('id'),[field.name],field.val);
 			}
 		};
 
@@ -34,32 +32,40 @@ export default class Vsource extends React.Component {
 	}
 
 	render (){
-		const {match, style, id} = this.props;
+		const {layer} = this.props;
 
-		this.id = id || match.params.id;
+		const typeOptions = [
+			{name:'fill',value:'fill'},
+			{name:'line',value:'line'},
+			{name:'symbol',value:'symbol'},
+			{name:'circle',value:'circle'},
+			{name:'heatmap',value:'heatmap'},
+			{name:'fill-extrusion',value:'fill-extrusion'},
+			{name:'raster',value:'raster'},
+			{name:'hillshade',value:'hillshade'},
+			{name:'background',value:'background'},
+		];
 
-		const layer = Mlayer.get(this.id);
+		// loop through editable layer props and display edit interface for each
 
-		//console.log('active layer:',layer);
+		return <div className="p-2">	
+			<Vfield field={{
+				type:'select',
+				name:'type',
+				label:'Type',
+				value:layer.get('type'),
+				placeholder:'Select a layer type',
+				options:typeOptions
+			}} type="select" handle={{change:val => this.handle.change({name:'select',val:val})}}/>
 
-		// change map mode to show_hidden source layers
-
-		if (layer === undefined){
-			return <Valert message="no layer found"/>;
-		}
-
-		return <div className="">
-			{this.state.editId?
-				<VlayerEditId handle={{change:this.handle.changeId}} style={style} layer={layer}/>
-			:
-				<h2 className="px-2 py-1 m-0 text-nav bg-light">
-					{layer.get('id')}
-					<div className="float-right">
-						<i className="material-icons md-18">mode_edit</i>
-						<i className="material-icons md-18">code</i>
-					</div>
-				</h2>
-			}
+			<Vfield field={{
+				type:'string',
+				name:'source',	
+				label:'Source',
+				value:layer.get('source'),
+				placeholder:'Name of the source'
+			}} type="string" handle={{change:val => this.handle.change({name:'source',val:val})}}/>
+			
 		</div>;
 	}
 };

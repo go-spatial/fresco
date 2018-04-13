@@ -8,7 +8,7 @@ export default class VfieldFile extends React.Component {
 		field: PropTypes.shape({
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
-			value: PropTypes.string,
+			value: PropTypes.object,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string
@@ -28,16 +28,11 @@ export default class VfieldFile extends React.Component {
 
 		this.handle = {
 			change:(e)=>{
-				console.log('files selected:',e.target.files);
-				//if (controlled) this.setState({value:e.target.value});
-				//handle && handle.change && handle.change(e.target.value);
 				const file = e.target.files[0];
-
-				var reader = new FileReader();
-				reader.onloadend = (e)=>{
-					console.log('text:',e.target.result);
-				};
-				reader.readAsText(file);
+				if (controlled){
+					this.setState({value:file});
+				}
+				handle.change(file);
 			}
 		};
 
@@ -54,10 +49,10 @@ export default class VfieldFile extends React.Component {
 		const {field, controlled} = this.props;
 		const value = controlled ? this.state.value : this.props.value;
 
-		return <div className="form-group">
-			<label>{field.label}</label>
+		return <div className="form-group mb-2">
+			<label className="mb-0">{field.label}</label>
 			<input type="file" className="form-control" 
-				placeholder={field.placeholder} value={value}
+				placeholder={field.placeholder} value={value && value.name}
 				onChange={this.handle.change}/>
 			<small className="form-text text-muted">{field.helper}</small>
 		</div>

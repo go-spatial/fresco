@@ -11,30 +11,52 @@ import Msource from '../../model/Msource';
 export default class Vsource extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+
+		this.state = {
+			path:null,
+			source:null,
+			sourceLayers:null
+		};
+
+		this.setSourceFromPath();
+	}
+
+	componentWillReceiveProps (){
+		this.setSourceFromPath();
+	}
+
+	setSourceFromPath (){
+		const {match} = this.props;
+
+		const path = decodeURIComponent(match.params.path);
+
+		if (this.state.path === path) return;
+
+		const source = Msource.get(path);
+
+		this.setState({
+			path:path,
+			source:source,
+			sourceLayers:Msource.getLayers(path)
+		});
+
+		Msource.setJSON(path,source);
 	}
 
 	render (){
-		const {match, style, handle, path} = this.props;
-
-		this.path = path || decodeURIComponent(match.params.path);
-		if (this.path === 'add'){
-			return <VsourceAdd handle={handle} style={style}/>;
-		}
-		const source = Msource.get(this.path);
-		const sourceLayers = Msource.getLayers(this.path);
-
-		console.log('sourceLayers:',sourceLayers);
+		const {style, handle} = this.props;
 
 		// change map mode to show_hidden source layers
 
-		if (source === undefined){
-			return <Valert message="no source found" className="container"/>;
+		if (this.state.source === null){
+			return <div/>;
 		}
 		return <div>
-			<h2 className="px-2 py-1 m-0 text-nav bg-light">{NameFromUrl.get(source.get('url'))}</h2>
+			<h2 className="px-2 py-1 m-0 text-nav bg-light">
+				{NameFromUrl.get(this.state.path)}
+			</h2>
 			<div className="py-3 px-2">
-				<VsourceLayers source={source} sourceLayers={sourceLayers}/>
+				<VsourceLayers source={this.state.source} sourceLayers={this.state.sourceLayers}/>
 			</div>
 		</div>;
 	}

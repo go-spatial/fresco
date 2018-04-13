@@ -37,5 +37,13 @@ export default {
 				reject(e);
 			});
 		});
+	},
+
+	setStyleSourceJSON:function(style){
+		if (!style.has('sources') || style.get('sources').size < 1) return;
+
+		style.get('sources').keySeq().map((key)=>{
+			Msource.setJSON(key,style.getIn(['sources','key']));
+		});
 	}
 }

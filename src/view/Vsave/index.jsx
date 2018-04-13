@@ -1,17 +1,23 @@
 import React from 'react';
+import fileDownload from 'js-file-download';
+
 import Valert from '../Valert';
 import Mstyle from '../../model/Mstyle';
 
 export default class Vsave extends React.Component {
 	constructor(props) {
 		super(props);
-		const {} = this.props;
+		const {style} = this.props;
 
 		this.state = {};
 
 		this.handle = {
-			download:()=>{
+			download:(e)=>{
+				e.preventDefault();
 				const json = Mstyle.getJSforMapbox();
+				const name = style.get('name')+'.json';
+				const parsed = JSON.stringify(json, null, 2);
+				fileDownload(parsed, name);
 			}
 		};
 		for (let i in this.handle){
@@ -25,18 +31,11 @@ export default class Vsave extends React.Component {
 		return <div className="row h-100">
 			<div className="col-sm-12">
 				<div className="p-1">
-					<h2 className="px-2 py-1 m-0 text-nav bg-light">
-						Save
-						<div className="float-right">
-							
-						</div>
-					</h2>
-					Save
-					<Valert message="save error"/>
-					Download stylesheet
-					<form onSubmit={this.handle.download}>
-						<button type="submit" className="btn btn-secondary">Download</button>
-					</form>
+					<div className="p-2 text-right">
+						<form onSubmit={this.handle.download}>
+							<button type="submit" className="btn btn-primary">Download</button>
+						</form>
+					</div>
 				</div>
 			</div>
 

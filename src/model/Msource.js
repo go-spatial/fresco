@@ -2,6 +2,8 @@ import Store from '../Store';
 import SourceReader from '../utility/SourceReader';
 import MaterialColor from '../utility/MaterialColor';
 
+import Mstyle from './Mstyle';
+
 export default {
 
 	add:function(source){
@@ -24,6 +26,7 @@ export default {
 				const sourceLayers = sourceJson.vector_layers;
 				this.setupInitialLayers(source, sourceLayers);
 
+				Mstyle.save();
 				return resolve(source);
 			}).catch((e)=>{
 				return reject(e);
@@ -31,6 +34,22 @@ export default {
 		});
 
 	},
+
+	setJSON:function(key,source){
+		//console.log('setJSON source:',source);
+		return new Promise((resolve,reject)=>{
+			SourceReader.load(source.get('url')).then((sourceJson)=>{
+				Store.dispatch({
+					type:'STYLE_STORE_SETIN',
+					key:['sourceJson',key],
+					payload:sourceJson
+				});
+			}).catch((e)=>{
+				return reject(e);
+			});
+		});
+	},
+
 	setupInitialLayers:function(source, sourceLayers){
 		return new Promise((resolve,reject)=>{
 			sourceLayers.map((sourceLayer)=>{
@@ -71,17 +90,20 @@ export default {
 				});
 				return null;
 			});
+
+			Mstyle.save();
+
 			return resolve();
 		});
 	},
-	get:function(sourceUrl){
-		return Store.getState().style.getIn(['rec','sources',sourceUrl]);
+	get:function(key){
+		return Store.getState().style.getIn(['rec','sources',key]);
 	},
-	getLayers:function(sourceUrl){
-		return Store.getState().style.getIn(['rec','_store','sourceJson',sourceUrl,'vector_layers']);
+	getLayers:function(key){
+		return Store.getState().style.getIn(['rec','_store','sourceJson',key,'vector_layers']);
 	},
-	getJson:function(sourceUrl){
-		return Store.getState().style.getIn(['rec','_store','sourceJson',sourceUrl]);
+	getJson:function(key){
+		return Store.getState().style.getIn(['rec','_store','sourceJson',key]);
 	}
 
 };
