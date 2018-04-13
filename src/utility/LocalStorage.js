@@ -6,9 +6,14 @@ export default {
 	getAll:()=>{
 		let items = {};
 		//console.log('localStorage:',window.localStorage);
-		for (var i=0,len=window.localStorage.length;i<len;i++){
-			//console.log('item:',window.localStorage.getItem(window.localStorage.key(i)));
-		   items[window.localStorage.key(i)] = JSON.parse(window.localStorage.getItem(window.localStorage.key(i)));
+		try{
+			for (var i=0,len=window.localStorage.length;i<len;i++){
+				//console.log('item:',window.localStorage.getItem(window.localStorage.key(i)));
+			   items[window.localStorage.key(i)] = JSON.parse(window.localStorage.getItem(window.localStorage.key(i)));
+			}
+		} catch(e){
+			console.error('localstorage json parse error:',e);
+			window.localStorage.clear();
 		}
 		console.log('items:',items);
 		return items;

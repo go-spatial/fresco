@@ -56,7 +56,7 @@ export default class Vmap extends React.Component {
 		const map = new MapboxGl.Map({
 			container: this.container,
 			style: styleJS.toJS(),
-			hash: true
+			hash: false
 		});
 
 
