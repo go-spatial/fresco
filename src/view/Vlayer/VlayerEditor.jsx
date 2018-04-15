@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Vfield from '../Vfield';
 
 import Mlayer from '../../model/Mlayer';
+import Msource from '../../model/Msource';
 
 export default class VlayerEditor extends React.Component {
 	static propTypes = {
@@ -22,7 +23,7 @@ export default class VlayerEditor extends React.Component {
 
 		this.handle = {
 			change:(field)=>{
-				Mlayer.setIn(layer.get('id'),[field.name],field.val);
+				Mlayer.setIn(layer.get('id'),[field.name],field.value);
 			}
 		};
 
@@ -32,20 +33,11 @@ export default class VlayerEditor extends React.Component {
 	}
 
 	render (){
-		const {layer} = this.props;
+		const {style, layer} = this.props;
 
-		const typeOptions = [
-			{name:'fill',value:'fill'},
-			{name:'line',value:'line'},
-			{name:'symbol',value:'symbol'},
-			{name:'circle',value:'circle'},
-			{name:'heatmap',value:'heatmap'},
-			{name:'fill-extrusion',value:'fill-extrusion'},
-			{name:'raster',value:'raster'},
-			{name:'hillshade',value:'hillshade'},
-			{name:'background',value:'background'},
-		];
-
+		const typeOptions = Mlayer.getTypes();
+		const sourceOptions = Msource.getOptions();
+		//console.log('source options:',sourceOptions);
 		// loop through editable layer props and display edit interface for each
 
 		return <div className="p-2">	
@@ -55,16 +47,19 @@ export default class VlayerEditor extends React.Component {
 				label:'Type',
 				value:layer.get('type'),
 				placeholder:'Select a layer type',
-				options:typeOptions
-			}} type="select" handle={{change:val => this.handle.change({name:'select',val:val})}}/>
+				options:typeOptions,
+				controlled:false
+			}} key="type" handle={this.handle}/>
 
 			<Vfield field={{
-				type:'string',
+				type:'select',
 				name:'source',	
 				label:'Source',
 				value:layer.get('source'),
-				placeholder:'Name of the source'
-			}} type="string" handle={{change:val => this.handle.change({name:'source',val:val})}}/>
+				placeholder:'Name of the source',
+				controlled:false,
+				options:sourceOptions
+			}} key="source" handle={this.handle}/>
 			
 		</div>;
 	}

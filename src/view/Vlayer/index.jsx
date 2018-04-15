@@ -9,15 +9,17 @@ import VlayerAdd from './VlayerAdd';
 import VlayerEdit from './VlayerEdit';
 
 export default class Vlayers extends React.Component {
-	constructor(props) {
+	constructor (props){
 		super(props);
-		const {handle, style} = this.props;
+		const {handle, match, style} = this.props;
 
 		this.state = {
 			layerAddShown:false
 		};
 
-		if (style.has('layers') && style.get('layers').size > 0){
+		console.log('match:',match);
+
+		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
 			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
 				'id'])));
 		}
@@ -29,6 +31,14 @@ export default class Vlayers extends React.Component {
 		};
 		for (let i in this.handle){
 			this.handle[i] = this.handle[i].bind(this);
+		}
+	}
+
+	componentWillReceiveProps (nextProps){
+		const {handle, match, style} = nextProps;
+		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
+			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
+				'id'])));
 		}
 	}
 

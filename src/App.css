@@ -66,6 +66,13 @@ a:hover{text-decoration:none;color:#0094A0;}
 .link-list.pr-list{padding-right:30px!important;}
 .link-list.pl-list{padding-left:30px!important;}
 
+.map-inspect-list{}
+.map-inspect-list li{line-height:1.8;font-size:1.00em;cursor:pointer;}
+.map-inspect-list li:hover{background:#EEEEEE;}
+.map-inspect-list li:active{color:#FFFFFF;background:#00ACC1;}
+.map-inspect-list a{color:inherit;}
+.map-inspect-list .list-left{top:-1px;left:0;}
+
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 

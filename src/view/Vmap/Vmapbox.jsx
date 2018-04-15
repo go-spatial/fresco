@@ -5,6 +5,12 @@ import MapboxGl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Mstyle from '../../model/Mstyle';
+import Mlayer from '../../model/Mlayer';
+
+import LayerIcon from '../../utility/LayerIcon';
+
+import 'mapbox-gl-inspect/dist/mapbox-gl-inspect.css';
+var MapboxInspect = require('mapbox-gl-inspect');
 
 export default class Vmap extends React.Component {
 
@@ -44,7 +50,28 @@ export default class Vmap extends React.Component {
 		Mstyle.errorsSet();
 
 		this.state.map.setStyle(styleJS.toJS(),{diff: true});
-  }
+	}
+
+	renderPopup (features){
+		//console.log('features:',features);
+		let html = '<ul class="mb-0 map-inspect-list">';
+		let layers = {};
+		features.forEach((feature)=>{
+			layers[feature.layer.id] = layers[feature.layer.id] || {count:0};
+			layers[feature.layer.id].count++;
+		});
+		for (let i in layers){
+			const layer = Mlayer.get(i);
+			const path = '#/style/'+Mstyle.get().getIn(['rec','id'])+'/layer/'+layer.get('id');
+			html += '<li><a href="'+path+'">'+
+				'<div class="list-left mr-2 inline-block position-relative">'+
+				'<i class="material-icons md-18" style="color:'+
+				LayerIcon.getColor(layer)+'">'+LayerIcon.getIcon(layer)+
+				'</i></div>'+
+				i+' <span class="badge">'+layers[i].count+'</span></a></li>';
+		}
+		return html;
+	}
 
 	componentDidMount() {
 		const {styleJS} = this.props;
@@ -59,6 +86,18 @@ export default class Vmap extends React.Component {
 			hash: false
 		});
 
+		map.addControl(new MapboxInspect({
+			popup: new MapboxGl.Popup({
+				closeButton: false,
+   			closeOnClick: false
+			}),
+			showInspectButton: false,
+			showMapPopup: true,
+			showMapPopupOnHover: false,
+			showInspectMapPopupOnHover: false,
+			renderPopup: this.renderPopup
+		}));
+
 
 		//console.log('map:',MapboxGl);
 
@@ -72,6 +111,8 @@ export default class Vmap extends React.Component {
 
 		map.on('error',(e)=>{
 			//console.log('map error:',e.error.message);
+			console.log('map error:',e);
+			if (e.source) return Mstyle.errorAdd({message:'error loading source: '+e.source.url});
 			Mstyle.errorAdd(e.error);
 		});
 

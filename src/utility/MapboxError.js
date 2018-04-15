@@ -1,6 +1,6 @@
 export default {
 	getKey:(error)=>{
-		if (error.message.indexOf(':') === -1) return ['general'];
+		if (!error || !error.message || error.message.indexOf(':') === -1) return ['general'];
 		// error.message is defined
 		const prefix = error.message.split(':')[0];
 		const parts = prefix.split('.');
@@ -21,6 +21,7 @@ export default {
 		return key;
 	},
 	getMessage:(error)=>{
+		if (!error || !error.message) return 'unidentified error';
 		if (error.message.indexOf(':') === -1) return error.message;
 		return error.message.split(':')[1];
 	}

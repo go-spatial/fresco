@@ -97,7 +97,24 @@ export default {
 		});
 	},
 	get:function(key){
+		if (key === undefined) return Store.getState().style.getIn(['rec','sources']);
 		return Store.getState().style.getIn(['rec','sources',key]);
+	},
+	getOptions:function(){
+		let options = [];
+		const sources = this.get();
+
+		//console.log('sources:',sources);
+		sources.keySeq().toArray().forEach((key)=>{
+			//console.log('sources key:',key);
+			//const source = sources.get(key);
+			options.push({
+				name:key,
+				value:key
+			});
+			return;
+		});
+		return options;
 	},
 	getLayers:function(key){
 		return Store.getState().style.getIn(['rec','_store','sourceJson',key,'vector_layers']);

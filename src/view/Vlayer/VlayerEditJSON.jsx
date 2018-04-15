@@ -38,11 +38,11 @@ export default class VlayerEditJSON extends React.Component {
 
 		const field = {
 			value:layer.toJS(),
-			error:error
+			error:error,
+			type:'JSON'
 		};
 		return <div>
-			<Vfield type="JSON" key={layer.get('id')} field={field} handle={this.handle}/>
-			
+			<Vfield key={layer.get('id')} field={field} handle={this.handle}/>
 		</div>;
 
 		/*

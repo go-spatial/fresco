@@ -10,7 +10,7 @@ export default class Vsources extends React.Component {
 
 		this.handle = {
 			change(code){
-				Mstyle.define(code);
+				Mstyle.update(code);
 			}
 		};
 		for (let i in this.handle){
@@ -27,12 +27,13 @@ export default class Vsources extends React.Component {
 
 		const field = {
 			value:Mstyle.getMapStyle(),
-			error:errors
+			error:errors,
+			type:'JSON'
 		};
 
 		return <div className="row h-100 mr-0">
 			<div className="col-sm-12">
-				<Vfield type="JSON" field={field} handle={this.handle}/>
+				<Vfield field={field} handle={this.handle}/>
 			</div>
 		</div>
 	}

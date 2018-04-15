@@ -10,19 +10,27 @@ export default class Vsources extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {style, handle} = props;
+		const {style, handle, match} = props;
 
 		this.state = {};
 
 		this.handle = {
 		};
 
-		if (style.has('sources') && style.get('sources').size > 0){
+		if (style.has('sources') && style.get('sources').size > 0 && match.isExact){
 			handle.routeReplace('source/'+encodeURIComponent(style.get('sources').keySeq().first()));
 		}
 
 		for (let i in this.handle){
 			this.handle[i] = this.handle[i].bind(this);
+		}
+	}
+
+	componentWillReceiveProps (nextProps){
+		const {handle, match, style} = nextProps;
+		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
+			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
+				'id'])));
 		}
 	}
 

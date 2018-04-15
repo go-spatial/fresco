@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export default class VfieldFile extends React.Component {
 
 	static propTypes = {
-		type: PropTypes.string.isRequired,
 		field: PropTypes.shape({
+			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.object,
@@ -29,6 +29,7 @@ export default class VfieldFile extends React.Component {
 		this.handle = {
 			change:(e)=>{
 				const file = e.target.files[0];
+				const name = e.target.name;
 				if (controlled){
 					this.setState({value:file});
 				}

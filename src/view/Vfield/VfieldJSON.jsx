@@ -14,8 +14,8 @@ import Valert from '../Valert';
 
 export default class VfieldJSON extends React.Component {
 	static propTypes = {
-		type: PropTypes.string.isRequired,
 		field:PropTypes.shape({
+			type: PropTypes.string.isRequired,
 			value:PropTypes.object,
 			error:PropTypes.oneOfType([
 				PropTypes.string,

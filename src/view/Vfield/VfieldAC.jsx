@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export default class VfieldAC extends React.Component {
 
 	static propTypes = {
-		type: PropTypes.string.isRequired,
 		field: PropTypes.shape({
+			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,

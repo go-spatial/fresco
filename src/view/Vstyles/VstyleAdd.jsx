@@ -66,11 +66,11 @@ export default class VstyleAdd extends React.Component {
 				};
 				reader.readAsText(this.state.file);
 			},
-			nameChange:(val)=>{
-				this.setState({name:val});
+			nameChange:(field)=>{
+				this.setState({name:field.value});
 			},
-			urlChange:(val)=>{
-				this.setState({url:val});
+			urlChange:(field)=>{
+				this.setState({url:field.value});
 			},
 			fileChange:(file)=>{
 				//console.log('file change:',val);
@@ -103,7 +103,8 @@ export default class VstyleAdd extends React.Component {
 				<Switch>
 					<Route path="/add/new">
 						<form onSubmit={this.handle.submitNew} className="mt-2">
-							<Vfield key="name" type="string" field={{
+							<Vfield key="name" field={{
+								type:'string',
 								label:'Style name',
 								name:'styleName',
 								value:this.state.name,
@@ -115,7 +116,8 @@ export default class VstyleAdd extends React.Component {
 					</Route>
 					<Route path="/add/upload">
 						<form onSubmit={this.handle.submitUpload} className="mt-2">
-							<Vfield key="style" type="file" field={{
+							<Vfield key="style" field={{
+								type:'file',
 								label:'Style JSON',
 								name:'styleFile',
 								value:this.state.file,
@@ -128,6 +130,7 @@ export default class VstyleAdd extends React.Component {
 					<Route path="/add/fromSource">
 						<form onSubmit={this.handle.submitFromSource} className="mt-2">
 							<Vfield key="style" type="string" field={{
+								type:'string',
 								label:'URL',
 								name:'styleUrl',
 								value:this.state.url,

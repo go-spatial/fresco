@@ -11,8 +11,9 @@ import VfieldString from './VfieldString';
 export default class Vfield extends React.Component {
 
 	static propTypes = {
-		type: PropTypes.string.isRequired,
-		field: PropTypes.object,
+		field: PropTypes.shape({ 
+			type: PropTypes.string.isRequired
+		}),
 		handle: PropTypes.object
 	}
 
@@ -26,17 +27,17 @@ export default class Vfield extends React.Component {
 	}
 
 	render (){
-		const {type, field, handle} = this.props;
+		const {field, handle} = this.props;
 
-		switch (type){
+		switch (field.type){
 			case 'file':
-				return <VfieldFile type={type} field={field} handle={handle}/>;
+				return <VfieldFile type={field.type} field={field} handle={handle}/>;
 			case 'select':
-				return <VfieldSelect type={type} field={field} handle={handle}/>;
+				return <VfieldSelect type={field.type} field={field} handle={handle}/>;
 			case 'string':
-				return <VfieldString type={type} field={field} handle={handle}/>;
+				return <VfieldString type={field.type} field={field} handle={handle}/>;
 			case 'JSON':
-				return <VfieldJSON type={type} field={field} handle={handle}/>;
+				return <VfieldJSON type={field.type} field={field} handle={handle}/>;
 			
 
 		}

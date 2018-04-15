@@ -4,23 +4,26 @@ import PropTypes from 'prop-types';
 export default class VfieldString extends React.Component {
 
 	static propTypes = {
-		type: PropTypes.string.isRequired,
 		field: PropTypes.shape({
+			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
-			error: PropTypes.string
+			error: PropTypes.string,
+			controlled: PropTypes.boolean
 		}),
 		handle: PropTypes.object
 	}
 
 	constructor(props) {
 		super(props);
-		const {handle, field, controlled} = this.props;
+		const {handle, field} = this.props;
 
-		if (controlled){
+		console.log('field:',field);
+
+		if (field.controlled){
 			this.state = {
 				value:field.value
 			};
@@ -28,8 +31,11 @@ export default class VfieldString extends React.Component {
 
 		this.handle = {
 			change:(e)=>{
-				if (controlled) this.setState({value:e.target.value});
-				handle && handle.change && handle.change(e.target.value);
+				if (field.controlled) this.setState({value:e.target.value});
+				handle && handle.change && handle.change({
+					name:e.target.name,
+					value:e.target.value
+				});
 			}
 		};
 
@@ -38,17 +44,13 @@ export default class VfieldString extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps){
-		this.setState({value:nextProps.field.value});
-	}
-
 	render (){
-		const {field, controlled} = this.props;
-		const value = controlled ? this.state.value : field.value;
+		const {field} = this.props;
+		const value = field.controlled ? this.state.value : field.value || '';
 
 		return <div className="form-group mb-2">
 			<label className="mb-0">{field.label}</label>
-			<input type="text" className="form-control" 
+			<input type="text" className="form-control" name={field.name}
 				placeholder={field.placeholder} value={value}
 				onChange={this.handle.change}/>
 			<small className="form-text text-muted">{field.helper}</small>

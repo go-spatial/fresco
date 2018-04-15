@@ -56,6 +56,19 @@ const Mstyle = {
 		});
 	},
 
+	update:function(style){
+		return new Promise((resolve,reject)=>{
+			Store.dispatch({
+				type:'STYLE_DEFINE',
+				payload:style
+			});
+
+			this.save();
+
+			return resolve();
+		});
+	},
+
 	save:function(){
 		return new Promise((resolve,reject)=>{
 			const style = this.getJS();

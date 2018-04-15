@@ -11,30 +11,9 @@ export default class Vsetting extends React.Component {
 
 		console.log('style',style.get('name'));
 
-		this.state = {
-			name:style.get('name'),
-			sprite:style.get('sprite'),
-			glyphs:style.get('glyphs')
-		};
-
 		this.handle = {
-			submit:(e)=>{
-				e.preventDefault();
-				Mstyle.setIn(['name'],this.state.name);
-				Mstyle.setIn(['sprite'],this.state.sprite);
-				Mstyle.setIn(['glyphs'],this.state.glyphs);
-			},
-			nameChange:(val)=>{
-				this.setState({name:val});
-				Mstyle.setIn(['name'],val);
-			},
-			spriteChange:(val)=>{
-				this.setState({sprite:val});
-				Mstyle.setIn(['sprite'],val);
-			},
-			glyphChange:(val)=>{
-				this.setState({glyphs:val});
-				Mstyle.setIn(['glyphs'],val);
+			change:(field)=>{
+				Mstyle.setIn([field.name],field.value);
 			}
 		};
 		for (let i in this.handle){
@@ -53,28 +32,31 @@ export default class Vsetting extends React.Component {
 						
 					</div>
 				</h2>
-				<form onSubmit={this.handle.submit} className="p-2">
-					<Vfield key="name" type="string" field={{
+				<form className="p-2">
+					<Vfield key="name" field={{
+						type:'string',
 						label:'Name',
-						name:'styleName',
-						value:this.state.name,
+						name:'name',
+						value:style.get('name'),
 						placeholder:'name of this style',
 						controlled:false
-					}} handle={{change:this.handle.nameChange}}/>
-					<Vfield key="sprite" type="string" field={{
+					}} handle={this.handle}/>
+					<Vfield key="sprite" field={{
+						type:'string',
 						label:'Sprite URL',
 						name:'sprite',
-						value:this.state.sprite,
+						value:style.get('sprite'),
 						placeholder:'points to the style sprites',
 						controlled:false
-					}} handle={{change:this.handle.spriteChange}}/>
-					<Vfield key="glyphs" type="string" field={{
+					}} handle={this.handle}/>
+					<Vfield key="glyphs" field={{
+						type:'string',
 						label:'Glyph URL',
 						name:'glyphs',
-						value:this.state.glyphs,
+						value:style.get('glyphs'),
 						placeholder:'points to the style glyphs',
 						controlled:false
-					}} handle={{change:this.handle.glyphChange}}/>
+					}} handle={this.handle}/>
 				</form>
 			</div>
 		</div>

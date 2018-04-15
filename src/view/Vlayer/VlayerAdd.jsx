@@ -43,6 +43,8 @@ export default class VlayerAdd extends React.Component {
 		return <form onSubmit={this.handle.submit}>
 			<h2 className="px-2 py-1 m-0 text-nav bg-light">Add Layer</h2>
 			<div className="py-3 px-2">
+				
+
 				<div className="form-group">
 					<label>Layer ID</label>
 					<input type="text" className="form-control" placeholder="Unique identifier for layer"
