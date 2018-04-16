@@ -9,6 +9,8 @@ import {Provider} from 'react-redux';
 
 import Store from './Store';
 
+// npm install --save-dev josdejong/jsonlint
+
 export default class App extends Component {
 
    render (){

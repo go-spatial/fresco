@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Valert from '../Valert';
+import VfieldAC from './VfieldAC';
 import VfieldFile from './VfieldFile';
 import VfieldJSON from './VfieldJSON';
 import VfieldSelect from './VfieldSelect';
@@ -30,6 +31,8 @@ export default class Vfield extends React.Component {
 		const {field, handle} = this.props;
 
 		switch (field.type){
+			case 'AC':
+				return <VfieldAC type={field.type} field={field} handle={handle}/>;
 			case 'file':
 				return <VfieldFile type={field.type} field={field} handle={handle}/>;
 			case 'select':

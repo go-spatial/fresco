@@ -44,6 +44,8 @@ export default {
 					key:['sourceJson',key],
 					payload:sourceJson
 				});
+
+				Mstyle.save();
 			}).catch((e)=>{
 				return reject(e);
 			});
@@ -111,6 +113,24 @@ export default {
 			options.push({
 				name:key,
 				value:key
+			});
+			return;
+		});
+		return options;
+	},
+	getLayerOptions:function(key){
+		let options = [];
+		const sourceLayers = this.getLayers(key);
+
+		if (!sourceLayers) return null;
+
+		//console.log('sources:',sources);
+		sourceLayers.map((layer)=>{
+			//console.log('source layer:',layer);
+			//const source = sources.get(key);
+			options.push({
+				name:layer.get('name'),
+				value:layer.get('name')
 			});
 			return;
 		});

@@ -49,13 +49,14 @@ export default class VfieldSelect extends React.Component {
 
 	render (){
 		const {field} = this.props;
-		const value = field.controlled ? this.state.value : field.value;
+		const value = field.controlled ? this.state.value : field.value || '';
 
 		return <div className="form-group mb-2">
 			<label className="mb-0">{field.label}</label>
 			<select type="text" className="form-control" name={field.name}
 				placeholder={field.placeholder} value={value}
 				onChange={this.handle.change}>
+				<option key="default" value="">**Select one**</option>
 				{field.options.map((option)=>{
 					return <option key={option.value} value={option.value}>{option.name}</option>
 				})}

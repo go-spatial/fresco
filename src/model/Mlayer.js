@@ -20,7 +20,7 @@ export default {
 	add:(layer)=>{
 
 		return new Promise((resolve,reject)=>{
-			if (!layer.id) throw new Error('no layerId');
+			if (!layer.id) return reject('no layerId');
 
 			Store.dispatch({
 				type:'LAYER_ADD',
@@ -28,14 +28,14 @@ export default {
 			});
 
 			Mstyle.save();
-			return resolve();
+			return resolve(layer);
 		});
 
 	},
 
 	set:(layerId,layer)=>{
 		return new Promise((resolve,reject)=>{
-			if (!layerId) throw new Error('no layerId');
+			if (!layerId) return reject('no layerId');
 
 			Store.dispatch({
 				type:'LAYER_SET',
@@ -51,7 +51,7 @@ export default {
 
 	setIn:(layerId,prop,val)=>{
 		return new Promise((resolve,reject)=>{
-			if (!layerId) throw new Error('no layerId');
+			if (!layerId) return reject('no layerId');
 
 			Store.dispatch({
 				type:'LAYER_SETIN',

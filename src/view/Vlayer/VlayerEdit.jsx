@@ -71,10 +71,10 @@ export default class VlayerEdit extends React.Component {
 				<h2 className="px-2 py-1 m-0 text-nav bg-light">
 					{layer.get('id')}
 					<div className="float-right">
-						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-2 '+(this.state.mode === 'edit' ? 'active': '')}>
+						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
 							<i className="material-icons md-18 icon-btn gray">mode_edit</i>
 						</div>
-						<div  onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-2 '+(this.state.mode === 'json' ? 'active': '')}>
+						<div  onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
 							<i className="material-icons md-18 icon-btn gray">code</i>
 						</div>
 					</div>

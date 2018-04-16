@@ -19,12 +19,13 @@ export default class Vfield extends React.Component {
 	}
 
 	render (){
+		const {handle} = this.props;
 
 		//get style
 		switch (this.state.renderer){
 			case 'mapbox':
 				const styleJS = Mstyle.getMapStyle();
-				return <Vmapbox styleJS={styleJS}/>
+				return <Vmapbox styleJS={styleJS} handle={handle}/>
 		}
 
 		return <Valert message="renderer not found"/>;

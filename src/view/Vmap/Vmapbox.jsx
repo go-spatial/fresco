@@ -15,10 +15,11 @@ var MapboxInspect = require('mapbox-gl-inspect');
 export default class Vmap extends React.Component {
 
 	static propTypes = {
-		styleJS: PropTypes.object.isRequired
+		styleJS: PropTypes.object.isRequired,
+		handle: PropTypes.object
 	}
 
-	constructor(props) {
+	constructor (props){
 		super(props);
 		this.state = {
 			map:undefined,
@@ -29,7 +30,9 @@ export default class Vmap extends React.Component {
 	render (){
 		return <div id="map" className="" ref={el => this.container = el}></div>
 	}
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps){
+
+
 		if(!this.state.map) return;
 
 		const {styleJS} = nextProps;
@@ -53,8 +56,20 @@ export default class Vmap extends React.Component {
 	}
 
 	renderPopup (features){
+
+		//console.log('render popup:',this);
+
+		const {handle} = this.props;
+
+		// ReactDOM.render(element, document.getElementById('root'));
+
+		window.layerClick = (path)=>{
+			handle.route(path);
+		};
+
 		//console.log('features:',features);
-		let html = '<ul class="mb-0 map-inspect-list">';
+		let html = '<div class="map-inspect">'+
+			'<ul class="mb-0 mt-1 map-inspect-list">';
 		let layers = {};
 		features.forEach((feature)=>{
 			layers[feature.layer.id] = layers[feature.layer.id] || {count:0};
@@ -62,18 +77,19 @@ export default class Vmap extends React.Component {
 		});
 		for (let i in layers){
 			const layer = Mlayer.get(i);
-			const path = '#/style/'+Mstyle.get().getIn(['rec','id'])+'/layer/'+layer.get('id');
-			html += '<li><a href="'+path+'">'+
+			const path = 'layer/'+layer.get('id');
+			html += '<li><a href="javascript://" onclick="layerClick(\''+path+'\')">'+
 				'<div class="list-left mr-2 inline-block position-relative">'+
 				'<i class="material-icons md-18" style="color:'+
 				LayerIcon.getColor(layer)+'">'+LayerIcon.getIcon(layer)+
 				'</i></div>'+
 				i+' <span class="badge">'+layers[i].count+'</span></a></li>';
 		}
+		html += '</ul></div>'
 		return html;
 	}
 
-	componentDidMount() {
+	componentDidMount (){
 		const {styleJS} = this.props;
 
 		this.setState({styleJS:styleJS});
@@ -88,14 +104,14 @@ export default class Vmap extends React.Component {
 
 		map.addControl(new MapboxInspect({
 			popup: new MapboxGl.Popup({
-				closeButton: false,
+				closeButton: true,
    			closeOnClick: false
 			}),
 			showInspectButton: false,
 			showMapPopup: true,
 			showMapPopupOnHover: false,
 			showInspectMapPopupOnHover: false,
-			renderPopup: this.renderPopup
+			renderPopup: this.renderPopup.bind(this)
 		}));
 
 

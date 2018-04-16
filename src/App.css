@@ -13,12 +13,22 @@ a:hover{text-decoration:none;color:#0094A0;}
 
 .inline-block{display:inline-block;}
 
+.ac-dropdown{position:absolute;top:61px;left:0;right:0;border:1px solid #BDBDBD;
+	background-color:#FFFFFF;z-index:2;}
+.ac-dropdown .link-list{cursor:pointer;}
+.ac-dropdown .link-list:hover{background-color:#F1F1F1;}
+.ac-dropdown .link-list:active, .ac-dropdown .link-list.active{background-color:#00ACC1;color:#fff;}
+
+
 .alert{font-size:0.8em;}
 .alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
 .alert-dismissible .close{padding:0.5rem;}
 
-.btn.btn-primary{background-color:#00ACC1;}
-.btn.btn-primary:hover{background-color:#0094A0;}
+.btn.btn-primary{background-color:#00ACC1;border-color:#00A7B6;}
+.btn.btn-primary:hover{background-color:#00A7B6;border-color:#0094A0;}
+.btn.btn-primary:active{background-color:#0094A0;border-color:#0094A0;}
+
+.btn.btn-light:focus{box-shadow:0 0 0 0.2rem rgba(0,123,255,.25);}
 
 /* Rules for sizing the icon. */
 .material-icons{vertical-align:middle;}
@@ -35,9 +45,11 @@ a:hover{text-decoration:none;color:#0094A0;}
 .icon-btn.gray{color:#37474F;}
 .icon-btn.gray:hover{color:#273237;}
 
+.form-control .btn-right{float:right;position:relative;top:-3px;right:-9px;}
+
 .link-list{font-size:0.88em;color:#37474F;text-decoration:none;
 	overflow-wrap:break-word;word-wrap:break-word;word-break: break-word;
-	font-weight:400;}
+	font-weight:400;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
 .link-list:hover{color:#273237;text-decoration:none;background-color:#FFF;}
 .link-list.active{background-color:#FFF;}
 .link-list.error{color:#D33D34;}
