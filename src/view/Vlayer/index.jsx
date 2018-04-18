@@ -115,7 +115,7 @@ export default class Vlayers extends React.Component {
 						{layers !== undefined && layers.map((layer,i)=>{
 							//console.log('layer:',layer);
 
-							if (this.state.search && layer.get('id').indexOf(this.state.search) === -1) return;
+							if (this.state.search && layer.get('id').toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return;
 
 							let className = 'px-2 py-1 d-block link-list list-border-right position-relative p-list';
 							if (errors.hasIn(['layers',i])) className += ' error';

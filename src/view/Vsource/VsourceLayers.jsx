@@ -25,14 +25,11 @@ export default class VsourceLayers extends React.Component {
 		}
 
 		return <div className="">
-			<h4 className="py-1 px-2 m-0">Source Layers ({sourceLayers.size})</h4>
+			<div className="py-1 px-2 m-0">Source Layers ({sourceLayers.size})</div>
 			<ul className="">
 				{sourceLayers.valueSeq().map((layer)=>{
-					return <div className="py-1 px-2" key={layer.get('name')}>
+					return <div className="px-2 py-1 d-block link-list position-relative" key={layer.get('name')}>
 						{layer.get('name')}
-						<div className="ml-2 inline-block float-right">
-							<i className="material-icons">check_box</i>
-						</div>
 					</div>
 				})}
 			</ul>

@@ -190,6 +190,18 @@ const Mstyle = {
 		*/
 	},
 
+	remove:function(){
+		return new Promise((resolve,reject)=>{
+			const style = this.get();
+
+			console.log('remove style:',style.getIn(['rec','id']));
+			// remove ocalStorage
+			LocalStorage.remove(style.getIn(['rec','id']));
+
+			return resolve();
+		});
+	},
+
 	validate:function(){
 		return new Promise((resolve,reject)=>{
 			const errors = validateStyle(this.getJSforMapbox());

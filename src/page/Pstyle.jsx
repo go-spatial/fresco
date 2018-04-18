@@ -32,6 +32,9 @@ class Pstyle extends React.Component {
 			route:(path)=>{
 				this.props.history.push('/style/'+this.id+'/'+path);
 			},
+			routeHome:()=>{
+				this.props.history.push('/');
+			},
 			routeReplace:(path)=>{
 				this.props.history.replace('/style/'+this.id+'/'+path);
 			},
