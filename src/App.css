@@ -50,6 +50,8 @@ ul{padding:0;}
 .layer-nav-link{border-bottom:3px solid transparent;cursor:pointer;}
 .layer-nav-link.active{border-bottom:3px solid #273237;}
 
+.layer-search-pos{right:34px;left:6px;top:6px;}
+
 .link-list{font-size:0.88em;color:#37474F;text-decoration:none;
 	overflow-wrap:break-word;word-wrap:break-word;word-break: break-word;
 	font-weight:400;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}

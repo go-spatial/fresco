@@ -12,7 +12,10 @@ export default class VfieldString extends React.Component {
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean
+			controlled: PropTypes.boolean,
+			inputClass: PropTypes.string,
+			inputNoAC: PropTypes.boolean,
+			autoFocus: PropTypes.boolean
 		}),
 		handle: PropTypes.object
 	}
@@ -49,9 +52,11 @@ export default class VfieldString extends React.Component {
 		const value = field.controlled ? this.state.value : field.value || '';
 
 		return <div className="form-group mb-2">
-			<label className="mb-0">{field.label}</label>
-			<input type="text" className="form-control" name={field.name}
-				placeholder={field.placeholder} value={value}
+			{field.label && <label className="mb-0">{field.label}</label>}
+			<input type="text" className={'form-control '+field.inputClass} name={field.name}
+				placeholder={field.placeholder} value={value} 
+				autoComplete={field.inputNoAC ? 'off' : 'on'}
+				ref={input => input && field.autoFocus && input.focus()}
 				onChange={this.handle.change}/>
 			<small className="form-text text-muted">{field.helper}</small>
 		</div>
