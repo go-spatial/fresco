@@ -28,8 +28,8 @@ export default class Vsave extends React.Component {
 	render (){
 		const {} = this.props;
 
-		return <div className="row h-100">
-			<div className="col-sm-12">
+		return <div className="row h-100 m-0">
+			<div className="col-sm-12 p-0">
 				<div className="p-1">
 					<div className="p-2 text-right">
 						<form onSubmit={this.handle.download}>

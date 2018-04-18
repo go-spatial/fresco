@@ -35,7 +35,7 @@ export default class Vmap extends React.Component {
 
 		if(!this.state.map) return;
 
-		const {styleJS} = nextProps;
+		const {styleJS, handle} = nextProps;
 
 		//console.log('compare:',this.state.styleJS,styleJS);
 
@@ -52,7 +52,13 @@ export default class Vmap extends React.Component {
 		// clear prev errors
 		Mstyle.errorsSet();
 
-		this.state.map.setStyle(styleJS.toJS(),{diff: true});
+		try {
+			this.state.map.setStyle(styleJS.toJS(),{diff: true});
+		} catch(e){
+			//console.error('map style error:',e);
+			Mstyle.errorAdd(e);
+			//handle.error(e);
+		}
 	}
 
 	renderPopup (features){
@@ -80,7 +86,7 @@ export default class Vmap extends React.Component {
 			const path = 'layer/'+layer.get('id');
 			html += '<li><a href="javascript://" onclick="layerClick(\''+path+'\')">'+
 				'<div class="list-left mr-2 inline-block position-relative">'+
-				'<i class="material-icons md-18" style="color:'+
+				'<i class="material-icons md-18 md-shadow" style="color:'+
 				LayerIcon.getColor(layer)+'">'+LayerIcon.getIcon(layer)+
 				'</i></div>'+
 				i+' <span class="badge">'+layers[i].count+'</span></a></li>';

@@ -1,17 +1,9 @@
-ul{padding:0;}
-li{list-style-type:none;}
-body{background-color:#37474F;}
-h2{font-size:1.2em;color:#273237;}
 a{color:#00ACC1;}
 a:hover{text-decoration:none;color:#0094A0;}
-
-.bg-dk{background-color:#273237;}
-
-.flex-2{flex:2;}
-
-.form-group label{font-size:0.8em;}
-
-.inline-block{display:inline-block;}
+body{background-color:#37474F;}
+h2{font-size:1.2em;color:#273237;}
+li{list-style-type:none;}
+ul{padding:0;}
 
 .ac-dropdown{position:absolute;top:61px;left:0;right:0;border:1px solid #BDBDBD;
 	background-color:#FFFFFF;z-index:2;}
@@ -19,10 +11,11 @@ a:hover{text-decoration:none;color:#0094A0;}
 .ac-dropdown .link-list:hover{background-color:#F1F1F1;}
 .ac-dropdown .link-list:active, .ac-dropdown .link-list.active{background-color:#00ACC1;color:#fff;}
 
-
 .alert{font-size:0.8em;}
 .alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
 .alert-dismissible .close{padding:0.5rem;}
+
+.bg-dk{background-color:#273237;}
 
 .btn.btn-primary{background-color:#00ACC1;border-color:#00A7B6;}
 .btn.btn-primary:hover{background-color:#00A7B6;border-color:#0094A0;}
@@ -30,13 +23,18 @@ a:hover{text-decoration:none;color:#0094A0;}
 
 .btn.btn-light:focus{box-shadow:0 0 0 0.2rem rgba(0,123,255,.25);}
 
-/* Rules for sizing the icon. */
-.material-icons{vertical-align:middle;}
-.material-icons.md-14 { font-size: 14px; }
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+/* Code mirror */
+.CodeMirror{width:100%;height:auto;font-size:0.9em;margin-left:-4px;}
+.CodeMirror-linenumbers{}
+
+.CodeMirror-gutters{background:transparent;border-right:1px solid transparent;}
+.cm-s-default .cm-string{color: #03838F;}
+.cm-s-default .cm-number { color: #9C27B0; }
+.cm-s-default .cm-property { color: #273237; }
+
+.flex-2{flex:2;}
+
+.form-group label{font-size:0.8em;}
 
 .icon-btn{cursor:pointer;}
 .icon-btn.white{color:#EFEBE9;}
@@ -45,7 +43,12 @@ a:hover{text-decoration:none;color:#0094A0;}
 .icon-btn.gray{color:#37474F;}
 .icon-btn.gray:hover{color:#273237;}
 
+.inline-block{display:inline-block;}
+
 .form-control .btn-right{float:right;position:relative;top:-3px;right:-9px;}
+
+.layer-nav-link{border-bottom:3px solid transparent;cursor:pointer;}
+.layer-nav-link.active{border-bottom:3px solid #273237;}
 
 .link-list{font-size:0.88em;color:#37474F;text-decoration:none;
 	overflow-wrap:break-word;word-wrap:break-word;word-break: break-word;
@@ -53,26 +56,17 @@ a:hover{text-decoration:none;color:#0094A0;}
 .link-list:hover{color:#273237;text-decoration:none;background-color:#FFF;}
 .link-list.active{background-color:#FFF;}
 .link-list.error{color:#D33D34;}
+
 /*
 .link-list.error:after{content:'';background-color:#D33D34;position:absolute;right:7px;top:7px;
 	width:6px;height:6px;border-radius:4px;}
 	*/
 
-.list-border-right{border-right:1px solid #E6E6E6;}
-.list-border-right.active{border-right:1px solid #FFF;}
+.list-border-right{border-right:3px solid #E6E6E6;}
+.list-border-right.active{border-right:3px solid #273237;}
 
 .list-right{position:absolute;right:10px;top:3px;}
 .list-left{position:absolute;left:10px;top:3px;}
-
-.nav-link{border-bottom:3px solid transparent;cursor:pointer;position:relative;}
-/*.nav-link.active{border-bottom:3px solid #FFF;}*/
-
-.nav-link.nav-bb.active{border-bottom:3px solid #FFF;}
-.nav-link.error:after{content:'';background-color:#D33D34;position:absolute;right:7px;top:7px;
-	width:6px;height:6px;border-radius:4px;}
-
-.layer-nav-link{border-bottom:3px solid transparent;cursor:pointer;}
-.layer-nav-link.active{border-bottom:3px solid #273237;}
 
 .link-list.p-list{padding-left:34px!important;padding-right:30px!important;}
 .link-list.pr-list{padding-right:30px!important;}
@@ -85,18 +79,35 @@ a:hover{text-decoration:none;color:#0094A0;}
 .map-inspect-list a{color:inherit;}
 .map-inspect-list .list-left{top:-1px;left:0;}
 
+.mapboxgl-popup-close-button{color:#AEAEAE;}
+.mapboxgl-popup-close-button:hover{color:#747474;}
+
+/* Rules for sizing the icon. */
+.material-icons{vertical-align:middle;}
+.material-icons.md-14 { font-size: 14px; }
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.md-shadow{text-shadow:1px 1px 2px rgba(0,0,0,0.2);}
+.md-muted{opacity:0.2;}
+
+.nav-link{border-bottom:3px solid transparent;cursor:pointer;position:relative;}
+/*.nav-link.active{border-bottom:3px solid #FFF;}*/
+
+.nav-link.nav-bb.active{border-bottom:3px solid #FFF;}
+.nav-link.error:after{content:'';background-color:#D33D34;position:absolute;right:7px;top:7px;
+	width:6px;height:6px;border-radius:4px;}
+
+/*.md-shadow{text-shadow:1px 1px rgba(0,0,0,0.2), 1px -1px rgba(0,0,0,0.1),
+		-1px 1px rgba(0,0,0,0.2), -1px -1px rgba(0,0,0,0.2);}*/
+
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 
 .text-nav{line-height:34px;font-size:1em;}
 
+.w-max-500{max-width:500px;}
+
 #map{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;}
 
-/* Code mirror */
-.CodeMirror{width:100%;height:auto;font-size:0.9em;margin-left:-4px;}
-.CodeMirror-linenumbers{}
-
-.CodeMirror-gutters{background:transparent;border-right:1px solid transparent;}
-.cm-s-default .cm-string{color: #03838F;}
-.cm-s-default .cm-number { color: #9C27B0; }
-.cm-s-default .cm-property { color: #273237; }

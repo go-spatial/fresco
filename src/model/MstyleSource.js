@@ -2,13 +2,13 @@
 //import Store from '../Store';
 import Mstyle from './Mstyle';
 import Msource from './Msource';
-import NameFromUrl from '../utility/NameFromUrl';
+import NameFromURL from '../utility/NameFromURL';
 
 export default {
 	addFromSource:function(sourceUrl){
 		return new Promise((resolve,reject)=>{
 			const rec = {
-				name:NameFromUrl.get(sourceUrl)
+				name:NameFromURL.get(sourceUrl)
 			};
 			Mstyle.add(rec).then((style)=>{
 				Mstyle.define(style);
@@ -40,6 +40,7 @@ export default {
 	},
 
 	setStyleSourceJSON:function(style){
+		console.log('style',style);
 		if (!style.has('sources') || style.get('sources').size < 1) return;
 
 		style.get('sources').keySeq().map((key)=>{

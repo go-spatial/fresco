@@ -1,5 +1,7 @@
 import React from 'react';
 
+import NameFromURL from '../../utility/NameFromURL';
+
 import Mlayer from '../../model/Mlayer';
 import Msource from '../../model/Msource';
 
@@ -31,15 +33,44 @@ export default class VlayerAdd extends React.Component {
 					console.log('added:',layer);
 					handle.route('layer/'+layer.id);
 				});
-
-				
 			},
 
 			change:(field)=>{
+				if (field.name !== 'id'){
+					let parts = [];
+					field.name === 'source-layer' ? parts.push(NameFromURL.get(field.value)) :
+						this.state['source-layer'] && parts.push(NameFromURL.get(this.state['source-layer']));
 
+					let id = parts.join('.'), newId;
+
+					if (id){
+						let num = 1,
+							newId = id,
+							existing;
+						while (existing = Mlayer.get(newId)){
+							num++;
+							newId = id+'_'+num;
+						}
+						id = newId;
+					}
+
+					console.log('id:',id);
+					this.setState({id:id});
+				}
 				this.setState({
 					[field.name]:field.value
 				})
+			},
+
+			changeId:()=>{
+				// generate unique id based on defined source
+				let parts = [];
+				if (this.state.source) parts.push(NameFromURL.get(this.state.source));
+				if (this.state['source-layer']) parts.push(this.state['source-layer']);
+				if (this.state.type) parts.push(this.state.type);
+				const id = parts.join('.');
+				console.log('id:',id);
+				this.setState({id:id});
 			}
 		};
 		for (let i in this.handle){
@@ -58,17 +89,7 @@ export default class VlayerAdd extends React.Component {
 
 		return <form onSubmit={this.handle.submit}>
 			<h2 className="px-2 py-1 m-0 text-nav bg-light">Add Layer</h2>
-			<div className="py-3 px-2">
-
-				<Vfield field={{
-					type:'string',
-					name:'id',
-					label:'Layer ID',
-					value:this.state.id,
-					placeholder:'Unique identifier for layer',
-					controlled:false
-				}} key="id" handle={this.handle}/>
-
+			<div className="p-2">
 				<Vfield field={{
 					type:'select',
 					name:'type',	
@@ -100,6 +121,15 @@ export default class VlayerAdd extends React.Component {
 						options:sourceLayerOptions
 					}} key="source-layer" handle={this.handle}/>
 				}
+
+				<Vfield field={{
+					type:'string',
+					name:'id',
+					label:'Layer ID',
+					value:this.state.id,
+					placeholder:'Unique identifier for layer',
+					controlled:false
+				}} key="id" handle={this.handle}/>
 
 				<div className="form-group mt-3 text-right">
 					<button type="submit" className="btn btn-primary">Add</button>

@@ -47,7 +47,7 @@ export default class VlayerEdit extends React.Component {
 	}
 
 	render (){
-		const {match, style, id} = this.props;
+		const {match, style, id, handle} = this.props;
 
 		this.id = id || match.params.id;
 
@@ -84,7 +84,7 @@ export default class VlayerEdit extends React.Component {
 			{this.state.mode === 'json' ?
 				<VlayerEditJSON handle={{change:this.handle.jsonChange}} error={error} layer={layer}/>
 				:
-				<VlayerEditor handle={{}} error={error} layer={layer}/>
+				<VlayerEditor key={this.id} handle={handle} error={error} layer={layer}/>
 			}
 			</div>
 		</div>;

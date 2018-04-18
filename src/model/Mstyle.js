@@ -14,7 +14,10 @@ const Mstyle = {
 	add:function(style){
 		return new Promise((resolve,reject)=>{
 			if (!style.name) return reject('no name');
-			style.id = style.id || Uid.make();
+			style.id = /*style.id ||*/ Uid.make();
+
+			//check if id already exists, if so warn user
+
 			style.version = style.version || 8;
 			style.sources = style.sources || {};
 			style.layers = style.layers || [
@@ -107,6 +110,11 @@ const Mstyle = {
 	},
 
 	getJSforMapbox:function(){
+
+		// apply interactive transformations to style
+		
+
+
 		return this.get().get('rec').delete('_store').toJS();
 	},
 

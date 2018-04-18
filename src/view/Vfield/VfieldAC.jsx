@@ -24,7 +24,7 @@ export default class VfieldAC extends React.Component {
 		this.state = {
 			inputValue:'',
 			value:null,
-			mode:'edit',
+			mode:null,
 			focused:false
 		};
 
@@ -168,7 +168,7 @@ export default class VfieldAC extends React.Component {
 		const {field, handle} = this.props;
 		const value = field.controlled ? this.state.value : field.value;
 
-		//console.log('handle change:',this.state.value);
+		console.log('handle change:',value);
 		if (value !== null && value.length > 0 && (!this.state.mode || this.state.mode === 'view')){
 
 			//check if value is valid option, if not show error

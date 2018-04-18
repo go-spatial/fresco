@@ -31,8 +31,8 @@ export default class Vsources extends React.Component {
 			type:'JSON'
 		};
 
-		return <div className="row h-100 mr-0">
-			<div className="col-sm-12">
+		return <div className="row h-100 m-0">
+			<div className="col-sm-12 p-0">
 				<Vfield field={field} handle={this.handle}/>
 			</div>
 		</div>

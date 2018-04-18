@@ -134,14 +134,12 @@ export default class VfieldJSON extends React.Component {
 	componentWillReceiveProps(nextProps){
 		const {field} = nextProps;
 
-		const code = this.jsonToStr(nextProps.value);
+		const code = this.jsonToStr(field.value);
+		//console.log('err:',code === this.cm.getValue());
+		if (this.cm) this.errorsShow(nextProps);
 		if (code === this.cm.getValue()) return;
 
-		if (this.cm) this.errorsShow(nextProps);
-
-		//console.log('err:',field.error);
-
-		//if (!this.state.focused) this.cm.setValue(code);
+		if (!this.state.focused && code) this.cm.setValue(code);
 	}
 
 	shouldComponentUpdate(nextProps, nextState){

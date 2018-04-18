@@ -4,7 +4,7 @@ import {Link, NavLink, Switch, Route} from 'react-router-dom';
 import VsourceAdd from './VsourceAdd';
 import VsourceEdit from './VsourceEdit';
 
-import NameFromUrl from '../../utility/NameFromUrl';
+import NameFromURL from '../../utility/NameFromURL';
 
 export default class Vsources extends React.Component {
 	constructor(props) {
@@ -64,7 +64,7 @@ export default class Vsources extends React.Component {
 						return <NavLink to={path} 
 									className="px-2 py-1 d-block link-list list-border-right position-relative pr-list" 
 									key={source.get('url')}>
-										{NameFromUrl.get(source.get('url'))}
+										{NameFromURL.get(source.get('url'))}
 									<div className="list-right ml-2">
 									</div>
 								</NavLink>

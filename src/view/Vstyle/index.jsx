@@ -31,7 +31,7 @@ export default class Vstyle extends React.Component {
 		}
 		return <div className="container-fluid h-100">
 			<div className="row">
-				<div className="col-xs-6 col-sm-8 col-md-6 bg-dk p-0">
+				<div className="col-xs-6 col-sm-8 col-lg-6 col-xl-5 w-max-500 bg-dk p-0">
 
 					<nav className="nav w-100">
 						<div className="nav-link nav-bb px-2" onClick={handle.goUp}>

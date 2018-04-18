@@ -17,7 +17,7 @@ const types = [
 
 export default {
 
-	add:(layer)=>{
+	add:function(layer){
 
 		return new Promise((resolve,reject)=>{
 			if (!layer.id) return reject('no layerId');
@@ -33,7 +33,7 @@ export default {
 
 	},
 
-	set:(layerId,layer)=>{
+	set:function(layerId,layer){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');
 
@@ -49,7 +49,7 @@ export default {
 
 	},
 
-	setIn:(layerId,prop,val)=>{
+	setIn:function(layerId,prop,val){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');
 
@@ -66,11 +66,39 @@ export default {
 
 	},
 
+	visibilityToggle:function(layerId){
+		return new Promise((resolve,reject)=>{
+			const layer = this.get(layerId);
+			const visible = layer.getIn(['layout','visibility']);
+			console.log('layer:',layer,visible);
+			if (visible === 'none'){
+				this.setIn(layerId,['layout','visibility'],'visible');
+			} else { //assume visible
+				this.setIn(layerId,['layout','visibility'],'none');
+			}
+		});
+	},
+
+	remove:function(layerId){
+		return new Promise((resolve,reject)=>{
+			if (!layerId) return reject('no layerId');
+
+			Store.dispatch({
+				type:'LAYER_REMOVE',
+				layerId:layerId
+			});
+
+			Mstyle.save();
+			return resolve();
+		});
+	},
+
 	get:function(layerId){
 		const ind = Store.getState().style.getIn(['rec','layers']).findIndex((layer)=>{
 			//console.log('layer:',layer)
 			return layer.get('id') === layerId;
 		});
+		if (ind === -1) return null;
 		return Store.getState().style.getIn(['rec','layers',ind])
 	},
 

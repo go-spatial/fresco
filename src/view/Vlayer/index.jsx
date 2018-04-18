@@ -4,6 +4,7 @@ import {NavLink, Link, Route, Switch} from 'react-router-dom';
 import LayerIcon from '../../utility/LayerIcon';
 
 import Mstyle from '../../model/Mstyle';
+import Mlayer from '../../model/Mlayer';
 
 import VlayerAdd from './VlayerAdd';
 import VlayerEdit from './VlayerEdit';
@@ -27,6 +28,9 @@ export default class Vlayers extends React.Component {
 		this.handle = {
 			layerAdd:()=>{
 				handle.route('layerAdd');
+			},
+			visibility:(layerId)=>{
+				Mlayer.visibilityToggle(layerId);
 			}
 		};
 		for (let i in this.handle){
@@ -77,11 +81,15 @@ export default class Vlayers extends React.Component {
 								className={className} key={layer.get('id')}>
 
 								<div className="list-left mr-2 inline-block">
-									<i className="material-icons md-18" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
+									<i className="material-icons md-18 md-shadow" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
 								</div>
 								{layer.get('id')}
-								<div className="list-right ml-2">
-									<i className="material-icons md-18">visibility</i>
+								<div onClick={()=>{this.handle.visibility(layer.get('id'))}} className="list-right ml-2">
+									{layer.getIn(['layout','visibility']) === 'none' ?
+										<i className="material-icons md-18 md-muted">visibility_off</i>
+										:
+										<i className="material-icons md-18">visibility</i>
+									}
 								</div>
 							</NavLink>
 						})}

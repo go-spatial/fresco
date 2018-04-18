@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NameFromUrl from '../../utility/NameFromUrl';
+import NameFromURL from '../../utility/NameFromURL';
 
 import Valert from '../Valert';
 import VsourceLayers from './VsourceLayers';
@@ -35,7 +35,7 @@ export default class Vsource extends React.Component {
 		}
 		return <div>
 			<h2 className="px-2 py-1 m-0 text-nav bg-light">
-				{NameFromUrl.get(path)}
+				{NameFromURL.get(path)}
 			</h2>
 			<div className="py-3 px-2">
 				<VsourceLayers source={source} sourceLayers={Msource.getLayers(path)}/>
