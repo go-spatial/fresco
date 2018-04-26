@@ -13,7 +13,8 @@ export default class VfieldSelect extends React.Component {
 			helper: PropTypes.string,
 			options: PropTypes.array,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean
+			controlled: PropTypes.boolean,
+			autoFocus: PropTypes.boolean
 		}),
 		handle: PropTypes.object
 	}
@@ -35,6 +36,12 @@ export default class VfieldSelect extends React.Component {
 					name:e.target.name,
 					value:e.target.value
 				});
+			},
+			focus:(e)=>{
+				handle.focus && handle.focus(e.target.name);
+			},
+			blur:(e)=>{
+				handle.blur && handle.blur(e.target.name);
 			}
 		};
 
@@ -53,9 +60,14 @@ export default class VfieldSelect extends React.Component {
 
 		return <div className="form-group mb-2">
 			<label className="mb-0">{field.label}</label>
-			<select type="text" className="form-control" name={field.name}
-				placeholder={field.placeholder} value={value}
-				onChange={this.handle.change}>
+			<select type="text" className="form-control" 
+				name={field.name}
+				placeholder={field.placeholder} 
+				value={value}
+				ref={input => input && field.autoFocus && input.focus()}
+				onChange={this.handle.change}
+				onFocus={this.handle.focus}
+				onBlur={this.handle.blur}>
 				<option key="default" value="">**Select one**</option>
 				{field.options.map((option)=>{
 					return <option key={option.value} value={option.value}>{option.name}</option>

@@ -4,6 +4,7 @@ import Valert from '../Valert';
 import VlayerEditId from './VlayerEditId';
 import VlayerEditJSON from './VlayerEditJSON';
 import VlayerEditor from './VlayerEditor';
+import VlayerOperation from './VlayerOperation';
 
 import Mlayer from '../../model/Mlayer';
 import Mstyle from '../../model/Mstyle';
@@ -38,6 +39,9 @@ export default class VlayerEdit extends React.Component {
 			},
 			clickJson:()=>{
 				this.setState({mode:'json'});
+			},
+			clickOperation:()=>{
+				this.setState({mode:'operation'});
 			}
 		};
 
@@ -64,6 +68,19 @@ export default class VlayerEdit extends React.Component {
 			return <Valert message="no layer found"/>;
 		}
 
+		let section;
+		switch (this.state.mode){
+			case 'json':
+				section = <VlayerEditJSON handle={{change:this.handle.jsonChange}} error={error} layer={layer}/>;
+				break;
+			case 'edit':
+				section = <VlayerEditor key={this.id} handle={handle} error={error} layer={layer}/>;
+				break;
+			case 'operation':
+				section = <VlayerOperation key={this.id} handle={handle} error={error} layer={layer}/>;
+				break;
+		}
+
 		return <div className="">
 			{this.state.editId?
 				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={error} layer={layer}/>
@@ -74,18 +91,18 @@ export default class VlayerEdit extends React.Component {
 						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
 							<i className="material-icons md-18 icon-btn gray">mode_edit</i>
 						</div>
-						<div  onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
+						<div onClick={this.handle.clickOperation} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'operation' ? 'active': '')}>
+							<i className="material-icons md-18 icon-btn gray">build</i>
+						</div>
+						<div onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
 							<i className="material-icons md-18 icon-btn gray">code</i>
 						</div>
+						
 					</div>
 				</h2>
 			}
 			<div>
-			{this.state.mode === 'json' ?
-				<VlayerEditJSON handle={{change:this.handle.jsonChange}} error={error} layer={layer}/>
-				:
-				<VlayerEditor key={this.id} handle={handle} error={error} layer={layer}/>
-			}
+			{section}
 			</div>
 		</div>;
 	}

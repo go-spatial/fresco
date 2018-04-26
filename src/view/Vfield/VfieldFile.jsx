@@ -7,6 +7,7 @@ export default class VfieldFile extends React.Component {
 		field: PropTypes.shape({
 			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
+			helper: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.object,
 			placeholder: PropTypes.string,
@@ -34,6 +35,12 @@ export default class VfieldFile extends React.Component {
 					this.setState({value:file});
 				}
 				handle.change(file);
+			},
+			focus:(e)=>{
+				handle.focus && handle.focus(e.target.name);
+			},
+			blur:(e)=>{
+				handle.blur && handle.blur(e.target.name);
 			}
 		};
 
@@ -54,7 +61,9 @@ export default class VfieldFile extends React.Component {
 			<label className="mb-0">{field.label}</label>
 			<input type="file" className="form-control" 
 				placeholder={field.placeholder} value={value && value.name}
-				onChange={this.handle.change}/>
+				onChange={this.handle.change}
+				onFocus={this.handle.focus}
+				onBlur={this.handle.blur}/>
 			<small className="form-text text-muted">{field.helper}</small>
 		</div>
 	}

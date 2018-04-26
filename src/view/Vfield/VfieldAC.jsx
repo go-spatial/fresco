@@ -7,12 +7,15 @@ export default class VfieldAC extends React.Component {
 		field: PropTypes.shape({
 			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
+			icon: PropTypes.string,
+			helper: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string,
-			options: PropTypes.array
+			options: PropTypes.array,
+			autoFocus: PropTypes.boolean
 		}),
 		handle: PropTypes.object
 	}
@@ -31,6 +34,8 @@ export default class VfieldAC extends React.Component {
 		if (field.controlled){
 			this.state.value = field.value;
 		}
+
+		console.log('AC handle:',handle);
 
 		this.handle = {
 			inputChange:(e)=>{
@@ -99,7 +104,7 @@ export default class VfieldAC extends React.Component {
 			},
 			cancel:()=>{
 				//this.setState({selected:null});
-				handle.clear();
+				if (handle.clear) handle.clear();
 			},
 
 			selectedKeyPress:(e)=>{
@@ -168,7 +173,7 @@ export default class VfieldAC extends React.Component {
 		const {field, handle} = this.props;
 		const value = field.controlled ? this.state.value : field.value;
 
-		console.log('handle change:',value);
+		//console.log('handle change:',value);
 		if (value !== null && value.length > 0 && (!this.state.mode || this.state.mode === 'view')){
 
 			//check if value is valid option, if not show error
@@ -180,10 +185,11 @@ export default class VfieldAC extends React.Component {
 				}
 			}
 
-			let error = (!found)? 'expression not found': null; 
+			let error = null; //(!found)? 'expression not found': null; 
 
 			return <div className="form-group mb-2 position-relative">
 				{field.label && <label className="mb-0">{field.label}</label>}
+				{field.icon && <i className="material-icons md-18">{field.icon}</i>}
 				<div className="form-control">
 					{value}
 					<button type="button" className="btn btn-light btn-sm btn-right" 
@@ -195,7 +201,7 @@ export default class VfieldAC extends React.Component {
 						onFocus={this.handle.focus} 
 						ref={input => input && this.props.focus && input.focus()} 
 					>
-						<i className="material-icons md-18">close</i>
+						<i className="material-icons md-14">close</i>
 					</button>
 				</div>
 				{error && (
@@ -206,32 +212,35 @@ export default class VfieldAC extends React.Component {
 		let count = 0;
 		return <div className="form-group mb-2 position-relative">
 			{field.label && <label className="mb-0">{field.label}</label>}
-			<input type="text" className="form-control" placeholder={field.placeholder}
-				onBlur={this.handle.blur} 
-				onChange={this.handle.inputChange}
-				onFocus={this.handle.focus} 
-				onKeyUp={this.handle.keyUp}
-				ref={input => input && this.props.focus && input.focus()}
-				value={this.state.inputValue} />
-			{this.handle.focusIs() && 
-				<div className="ac-dropdown"
-					onMouseEnter={this.handle.dropdownMouseEnter} 
-					onMouseLeave={this.handle.dropdownMouseLeave}>
-					{field.options.map((exp,i)=>{
-						
-						if (exp.value.indexOf(this.state.inputValue) === -1) return null;
-						count++;
-						if (count > 10) return null;
+			{field.icon && <i className="material-icons md-18">{field.icon}</i>}
+			<div className="position-relative">
+				<input type="text" className="form-control" placeholder={field.placeholder}
+					onBlur={this.handle.blur} 
+					onChange={this.handle.inputChange}
+					onFocus={this.handle.focus} 
+					onKeyUp={this.handle.keyUp}
+					ref={input => input && field.autoFocus && input.focus()}
+					value={this.state.inputValue} />
+				{this.handle.focusIs() && 
+					<div className="ac-dropdown"
+						onMouseEnter={this.handle.dropdownMouseEnter} 
+						onMouseLeave={this.handle.dropdownMouseLeave}>
+						{field.options.map((exp,i)=>{
+							
+							if (exp.value.indexOf(this.state.inputValue) === -1) return null;
+							count++;
+							if (count > 10) return null;
 
-						let className = 'link-list px-2 py-1'
-						if (this.state.value === exp.value) className += ' active';
+							let className = 'link-list px-2 py-1'
+							if (this.state.value === exp.value) className += ' active';
 
-						return <li className={className}
-							onClick={(e)=>{this.handle.liClick(exp.value)}} 
-							key={exp.value}>{exp.value}</li>
-					})}
-				</div>
-			}
+							return <li className={className}
+								onClick={(e)=>{this.handle.liClick(exp.value)}} 
+								key={exp.value}>{exp.value}</li>
+						})}
+					</div>
+				}
+			</div>
 		</div>
 
 		return <div className="form-group mb-2">

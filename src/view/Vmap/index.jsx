@@ -5,7 +5,7 @@ import Mstyle from '../../model/Mstyle';
 import Valert from '../Valert';
 import Vmapbox from './Vmapbox';
 
-export default class Vfield extends React.Component {
+export default class Vmap extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -19,13 +19,13 @@ export default class Vfield extends React.Component {
 	}
 
 	render (){
-		const {handle} = this.props;
+		const {handle, match} = this.props;
 
 		//get style
 		switch (this.state.renderer){
 			case 'mapbox':
 				const styleJS = Mstyle.getMapStyle();
-				return <Vmapbox styleJS={styleJS} handle={handle}/>
+				return <Vmapbox styleJS={styleJS} handle={handle} match={match}/>
 		}
 
 		return <Valert message="renderer not found"/>;

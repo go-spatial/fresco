@@ -1,5 +1,5 @@
 
-import validateStyle from '../vendor/style-spec/validate_style'
+import validateStyle from '../vendor/style-spec/validate_style';
 
 import Store from '../Store';
 

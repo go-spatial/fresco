@@ -16,7 +16,8 @@ export default class Vmap extends React.Component {
 
 	static propTypes = {
 		styleJS: PropTypes.object.isRequired,
-		handle: PropTypes.object
+		handle: PropTypes.object,
+		match: PropTypes.object
 	}
 
 	constructor (props){
@@ -35,7 +36,9 @@ export default class Vmap extends React.Component {
 
 		if(!this.state.map) return;
 
-		const {styleJS, handle} = nextProps;
+		const {styleJS, handle, match} = nextProps;
+
+		console.log('map match:',match);
 
 		//console.log('compare:',this.state.styleJS,styleJS);
 
@@ -105,7 +108,7 @@ export default class Vmap extends React.Component {
 		const map = new MapboxGl.Map({
 			container: this.container,
 			style: styleJS.toJS(),
-			hash: false
+			hash: true
 		});
 
 		map.addControl(new MapboxInspect({

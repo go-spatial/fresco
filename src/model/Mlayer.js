@@ -49,9 +49,33 @@ export default {
 
 	},
 
+	removeIn:function(layerId,key){
+		return new Promise((resolve,reject)=>{
+			if (!layerId) return reject('no layerId');
+
+			// clear out key, if is a list (expression), clear out expression
+
+			Store.dispatch({
+				type:'LAYER_REMOVEIN',
+				layerId:layerId,
+				prop:key,
+				payload:null
+			});
+
+			Mstyle.save();
+			return resolve();
+		});
+
+	},
+
 	setIn:function(layerId,prop,val){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');
+
+			// if val is [ turn into a list
+			if (typeof val === 'string' && val === '['){
+				val = [];
+			}
 
 			Store.dispatch({
 				type:'LAYER_SETIN',

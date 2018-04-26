@@ -37,7 +37,7 @@ export default class Vstyle extends React.Component {
 						<div className="nav-link nav-bb px-2" onClick={handle.goUp}>
 							<i className="material-icons icon-btn white md-24">arrow_back</i>
 						</div>
-						<Link className="navbar-brand flex-2 text-light text-nav" to={match.url}>
+						<Link className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis" to={match.url}>
 							{style.get('name')}
 						</Link>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/setting`}>

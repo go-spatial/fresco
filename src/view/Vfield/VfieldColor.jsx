@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class VfieldString extends React.Component {
+export default class VfieldColor extends React.Component {
 
 	static propTypes = {
 		field: PropTypes.shape({
 			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
+			icon: PropTypes.string,
+			helper: PropTypes.string,
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean,
-			inputClass: PropTypes.string,
-			inputNoAC: PropTypes.boolean,
+			options: PropTypes.array,
 			autoFocus: PropTypes.boolean
 		}),
 		handle: PropTypes.object
@@ -22,9 +22,7 @@ export default class VfieldString extends React.Component {
 
 	constructor(props) {
 		super(props);
-		const {handle, field} = this.props;
-
-		//console.log('field:',field);
+		const {field, handle} = this.props;
 
 		if (field.controlled){
 			this.state = {
@@ -53,7 +51,6 @@ export default class VfieldString extends React.Component {
 						value:e.target.value
 					});
 				}
-				console.log('handle key:',e.key);
 				if (e.key === 'Backspace' && e.target.value === ''){
 					if (this.backoutOnce){
 						this.backoutOnce = false;
@@ -85,23 +82,31 @@ export default class VfieldString extends React.Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps){
+		this.setState({value:nextProps.field.value});
+	}
+
 	render (){
-		const {field} = this.props;
+		const {field, handle, error} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
-		return <div className="form-group mb-2">
+		return <div className="form-group mb-2 position-relative">
 			{field.label && <label className="mb-0">{field.label}</label>}
-			<input type="text" 
-				className={'form-control '+field.inputClass} 
-				name={field.name}
-				placeholder={field.placeholder} 
-				value={value} 
-				autoComplete={field.inputNoAC ? 'off' : 'on'}
-				ref={input => input && field.autoFocus && input.focus()}
-				onChange={this.handle.change}
-				onFocus={this.handle.focus}
-				onBlur={this.handle.blur}
-				onKeyUp={this.handle.keyUp}/>
+			{field.icon && <i className="material-icons md-18">{field.icon}</i>}
+			<div className="position-relative">
+				<div style={{backgroundColor:value}} className="swatch position-absolute swatch-pos"></div>
+				<input type="text" 
+					className="form-control swatch-input-pl" 
+					placeholder={field.placeholder}
+					name={field.name}
+					onChange={this.handle.change}
+					ref={input => input && field.autoFocus && input.focus()}
+					value={value} 
+					onFocus={this.handle.focus}
+					onBlur={this.handle.blur}
+					onKeyUp={this.handle.keyUp}/>
+			</div>
+			{error && <div>{error}</div>}
 			{field.helper && <small className="form-text text-muted">{field.helper}</small>}
 		</div>
 	}

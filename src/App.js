@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Pstyles from './page/Pstyles';
 import Pstyle from './page/Pstyle';
-import {HashRouter as Router,Route,Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
 import './App.css';
 
@@ -24,7 +24,7 @@ export default class App extends Component {
             <Router>
                <Switch>
                   <Route exact path="/" component={Pstyles}/>
-                  <Route path="/style/:id" component={Pstyle}/>
+                  <Route path="/style/:id" render={(props) => <Pstyle {...props} />}/>
                   <Route path="/add" component={Pstyles}/>
                </Switch>
             </Router>

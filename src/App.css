@@ -5,8 +5,8 @@ h2{font-size:1.2em;color:#273237;}
 li{list-style-type:none;}
 ul{padding:0;}
 
-.ac-dropdown{position:absolute;top:61px;left:0;right:0;border:1px solid #BDBDBD;
-	background-color:#FFFFFF;z-index:2;}
+.ac-dropdown{position:absolute;top:33px;left:0;right:0;border:1px solid #BDBDBD;
+	background-color:#FFFFFF;z-index:10;}
 .ac-dropdown .link-list{cursor:pointer;}
 .ac-dropdown .link-list:hover{background-color:#F1F1F1;}
 .ac-dropdown .link-list:active, .ac-dropdown .link-list.active{background-color:#00ACC1;color:#fff;}
@@ -14,6 +14,9 @@ ul{padding:0;}
 .alert{font-size:0.8em;}
 .alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
 .alert-dismissible .close{padding:0.5rem;}
+
+label .badge{position:relative;top:2px;}
+.badge-secondary{background-color:#273237;}
 
 .bg-dk{background-color:#273237;}
 
@@ -32,9 +35,46 @@ ul{padding:0;}
 .cm-s-default .cm-number { color: #9C27B0; }
 .cm-s-default .cm-property { color: #273237; }
 
+.exp-ml{margin-left:12px;}
+.exp-arrow{left:-16px;top:10px;
+	border-radius:4px;
+	width:14px;
+	height:14px;
+	position:relative;
+	color:#FFFFFF;
+	background-color:#273237;
+	cursor:pointer;
+}
+.exp-arrow i{
+	position:relative;top:-6px;left:-2px;
+}
+.exp-path{position:absolute;width:10px;top:14px;bottom:10px;
+	border-left:2px solid #273237;left:-10px;}
+.exp-dot{position:absolute;
+	left:-12px;
+	top:14px;
+	border-radius:4px;
+	width:6px;
+	height:6px;
+	border:2px solid #333;
+	background-color:#FFFFFF;
+	z-index:2;
+	cursor:pointer;}
+.exp-line-end{
+	position:absolute;
+	bottom:0;
+	top:16px;
+	left:-12px;
+	background-color:#FFFFFF;
+	width:4px;
+	z-index:1;
+}
+
 .flex-2{flex:2;}
 
 .form-group label{font-size:0.8em;}
+.form-control{font-size:0.85em;}
+.form-control .btn{line-height:1.2;}
 
 .icon-btn{cursor:pointer;}
 .icon-btn.white{color:#EFEBE9;}
@@ -107,7 +147,12 @@ ul{padding:0;}
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 
+.swatch{width:22px;height:22px;}
+.swatch-pos{left:6px;top:6px;}
+.swatch-input-pl{padding-left:38px;}
+
 .text-nav{line-height:34px;font-size:1em;}
+.text-overflow-ellipsis{text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
 
 .w-max-500{max-width:500px;}
 

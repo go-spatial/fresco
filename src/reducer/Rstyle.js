@@ -67,6 +67,15 @@ export default function(state = iState, action){
 			const style = state.setIn(['rec','layers'],layers);
 			return setUpdated(style);
 		}
+		case 'LAYER_REMOVEIN':{
+			const ind = state.getIn(['rec','layers']).findIndex((layer)=>{
+				return layer.get('id') === action.layerId;
+			});
+			if (ind === -1) throw new Error('layer matching layerId not found');
+			const val = fromJS(action.payload);
+			const style = state.removeIn(['rec','layers',ind, ...action.prop]);
+			return setUpdated(style);
+		}
 		case 'SOURCE_ADD':{
 			const source = fromJS(action.payload);
 			const style = state.setIn(['rec','sources',source.get('url')],source);

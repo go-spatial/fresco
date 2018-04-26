@@ -7,7 +7,7 @@ import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/javascript-lint';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/lint/lint.css';
-import jsonlint from 'jsonlint';
+import jsonlint from '../../vendor/jsonlint';
 import {JSHINT} from 'jshint';
 
 import Valert from '../Valert';

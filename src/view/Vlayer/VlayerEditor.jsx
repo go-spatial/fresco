@@ -1,10 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ArrayHelpers from '../../utility/ArrayHelpers';
+
 import Vfield from '../Vfield';
+
+import VlayerGroup from './VlayerGroup';
 
 import Mlayer from '../../model/Mlayer';
 import Msource from '../../model/Msource';
+
+
+const getNextPos = (pos)=>{
+	let copy = [...pos];
+	copy[copy.length-1]++;
+	return copy;
+};
+
+const getPrevPos = (pos)=>{
+	let copy = [...pos];
+	copy[copy.length-1]--;
+	if (copy[copy.length-1] < 1){
+		copy.pop();
+	}
+	return copy;
+};
+
+const nameToPos = (name)=>{
+	let key = name.split('.');
+	key.forEach((k,i)=>{
+		if (/^\d+$/.test(k)) key[i] = Number(k);
+	});
+	return key;
+};
+
+const posToName = (pos)=>{
+	return pos.join('.');
+};
 
 export default class VlayerEditor extends React.Component {
 	static propTypes = {
@@ -18,32 +50,125 @@ export default class VlayerEditor extends React.Component {
 		const {handle,layer} = this.props;
 
 		this.state = {
-			deleteShow:false
+			focus:null // update with current focused element
+
+			// focus ['paint','fill-color',0]
 		};
 
 		this.handle = {
+
+			focus:(pos)=>{ // pos is an array of the position in the layer ['paint','fill-color',0]
+				this.setState({focus:pos});
+			},
+			focusNext:(pos)=>{
+				let nextPos = getNextPos(pos);
+				if (!layer.hasIn(nextPos)) return;
+				this.handle.focus(nextPos);
+			},
+			focusPrev:(pos)=>{
+				let prevPos = getPrevPos(pos);
+				if (!layer.hasIn(prevPos)) return;
+				this.handle.focus(prevPos);
+			},
+			change:(field)=>{
+				let key = field.name.split('.');
+				key.forEach((k,i)=>{
+					if (/^\d+$/.test(k)) key[i] = Number(k);
+				});
+				Mlayer.setIn(layer.get('id'),key,field.value);
+			},
+
+			layerHasIn:(pos)=>{
+				return layer.hasIn(pos);
+			},
+			layerRemoveIn:(pos)=>{
+				Mlayer.removeIn(layer.get('id'),pos);
+			},
+
+
+
+
+			/*
+
+			clear:(key)=>{
+				Mlayer.removeIn(layer.get('id'),key);
+			},
+			update:(key,value)=>{
+				Mlayer.setIn(layer.get('id'),key,value);
+			},
+			
+
+
+
+
+			// maybe
+			isFocus:(pos)=>{
+				return ArrayHelpers.equals(this.state.focus, pos);
+			},
+
+			/*
+
+			blur:()=>{
+				this.setState({focus:null});
+			},
+			focusNextAdd:(pos,focusPos)=>{ // move focus to next pos, if doesn't exist make it
+				// get next pos
+				let nextPos = this.getNextPos(pos);
+				if (!this.handle.isDefined(nextPos)){
+					console.log('next pos not defined:',this.handle.isDefined(nextPos),pos,nextPos);
+					this.handle.vectorUpdate(nextPos,'');	
+				}
+				this.handle.focusFromTo(focusPos || pos,nextPos);
+			},
+			focusUpAdd:(pos,focusPos)=>{ // move focus to next pos up one level, if doesn't exist make it
+				// get next pos
+				let upPos = this.getUpPos(pos);
+				this.handle.focusNextAdd(upPos,pos);
+			},
+			focusFromTo:(fromPos,toPos)=>{ // move focus to a pos
+				if (this.handle.focusIs(fromPos)){
+					this.focusPrev = fromPos;
+					this.handle.focusIn(toPos);
+				}
+			},
+			focusPrev:(pos)=>{ // move focus to next pos, if doesn't exist make it
+				// get next pos
+				let prevPos = this.getPrevPos(pos);
+				if (!this.handle.isDefined(prevPos)) return;
+				this.handle.focusFromTo(pos,prevPos);
+			},
+			focusBackout:(pos)=>{
+				let prevPos = this.getPrevPos(pos);
+				if (pos === '0'){
+					this.handle.vectorUpdate(pos,'');
+					return;
+				}
+				this.handle.focusFromTo(pos,prevPos);
+				this.handle.vectorRemove(pos);
+			},
+
+			focusOut:(pos)=>{
+				//console.log('focus out:',pos);
+				// do not reset if another focus action triggered change
+				if (this.focusPrev === pos){
+					this.focusPrev = null;
+					return;
+				}
+				this.setState({focus:null});
+			},
+
 			change:(field)=>{
 				console.log('change:',field);
 				Mlayer.setIn(layer.get('id'),[field.name],field.value);
-			},
-			deleteConfirm:()=>{
-				handle.route('layer');
-				Mlayer.remove(layer.get('id')).then(()=>{
-
-				});
-			},
-			deleteShow:()=>{
-				this.setState({deleteShow:true});
-			},
-			deleteHide:()=>{
-				this.setState({deleteShow:false});
-			}
+			}*/
 		};
 
 		for (let i in this.handle){
 			this.handle[i] = this.handle[i].bind(this);
 		}
 	}
+
+	
 
 	render (){
 		const {style, layer} = this.props;
@@ -58,59 +183,15 @@ export default class VlayerEditor extends React.Component {
 		//console.log('source options:',sourceOptions);
 		// loop through editable layer props and display edit interface for each
 
+		// settings has a null group
+
 		return <div>
 			<div className="p-2">
-				<Vfield field={{
-					type:'select',
-					name:'type',	
-					label:'Type',
-					value:layer.get('type'),
-					placeholder:'Type of layer style',
-					controlled:false,
-					options:typeOptions
-				}} key="type" handle={this.handle}/>
-
-				{layer.get('type') !== 'background' && 
-					<Vfield field={{
-						type:'select',
-						name:'source',	
-						label:'Source',
-						value:layer.get('source'),
-						placeholder:'Name of the source',
-						controlled:false,
-						options:sourceOptions
-					}} key="source" handle={this.handle}/>
-				}
-
-				{layer.has('source') && 
-					<Vfield field={{
-						type:'AC',
-						name:'source-layer',	
-						label:'Source Layer',
-						value:layer.get('source-layer'),
-						placeholder:'Source Layer name',
-						controlled:false,
-						options:sourceLayerOptions
-					}} key="source-layer" handle={this.handle}/>
-				}
-
-				{this.state.deleteShow ?
-					<div className="form-group mt-4 text-right">
-						<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
-							Delete
-						</button>
-						<button onClick={this.handle.deleteHide} type="submit" className="btn btn-light btn-sm">
-							<i className="material-icons md-18">close</i>
-						</button>
-					</div>
-					:
-					<div className="form-group mt-4 text-right">
-						<button onClick={this.handle.deleteShow} type="submit" className="btn btn-light btn-sm">
-							<i className="material-icons md-18">delete</i>
-						</button>
-					</div>
-				}
+				<VlayerGroup type="settings" handle={this.handle} focus={this.state.focus} layer={layer}/>
+				
 			</div>
 		</div>;
+
+		//<VlayerGroup type="paint" handle={this.handle} focus={this.state.focus} layer={layer}/>
 	}
 };
