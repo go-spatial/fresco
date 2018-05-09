@@ -1,0 +1,27 @@
+language: node_js
+
+apt:
+  update: true
+
+git:
+  depth: 2
+
+node_js:
+  - node
+
+go:
+  - 1.x
+
+script:
+  - echo "skipping tests."
+  - bash -x ci/build_viewer.sh
+
+deploy:
+  provider: releases
+  api_key:
+    secure: Bu21GK4lUA/h/d710zTvP9aS2oxzxiwgCETv7fDqJ86xeVla9PGUu1v0G60l5zmTBO9ft1fmdk5S3TinZWWT4Q+uRslzB6VEM/04+/ZnEdmDlfO0r0+K9MzVy6l5C1NVyA1f+Zp30fDKgKy/0qSo3bHs+eztvG9aFD2rkyj3K8cS+vTzxVzShdg5zFL+56rV+IwwV1D2bKzkY+6cbrd6657Uk2TpV6OILo3mjMRWJMR7NcHi8nGh3nAT1qMkP5mBnZfkKR5ni76qGBGeW2PexsPnlwNqgYCLugTqzO7HsIxiMSsaqJWvuY83jXzY9BqdyksRITD9lwCBUVUSVwXW5kelWvK3rb5QKTnqxcSh8gsle1QowZxxHbjfc3bn7GQhuYE5Ic+AYw3GMxBKxe7Ma38y354xsECjmRuXTgjoBw7iypJ/jPPdfLTxMYKtGNfpdFTySbOlyOyB8rvX1P7J86V+fTxklLrKeF2nwI27YkupBDu3WzQEwo+guWqNp+xIQuwXqiicTgabLnIbZIddk3L5Nmc38Y9EaxM6rW5Zfps821a0OEq/34HHirCSYrkFTy8Oqdqb9NDSV5UwcwdBCyavRnUAIwTWjzLcmAqaXTndGbenv+2Hl2J/MrgnaJT4lEedppZbdt9nVA5vfJEEjM18E8K0iy3wFb1d9sOR12g=
+  file_glob: true
+  file: releases/*
+  skip_cleanup: true
+  on:
+    tags: true
