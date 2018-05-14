@@ -111,7 +111,9 @@ export default class VstyleAdd extends React.Component {
 								placeholder:'any name, you can change it later',
 								controlled:false
 							}} handle={{change:this.handle.nameChange}}/>
-							<button type="submit" className="btn btn-primary">Add</button>
+							<div className="mt-3">
+								<button type="submit" className="btn btn-primary">Add</button>
+							</div>
 						</form>
 					</Route>
 					<Route path="/add/upload">
@@ -124,7 +126,9 @@ export default class VstyleAdd extends React.Component {
 								placeholder:'map stylesheet',
 								controlled:false
 							}} handle={{change:this.handle.fileChange}}/>
-							<button type="submit" className="btn btn-primary">Upload</button>
+							<div className="mt-3">
+								<button type="submit" className="btn btn-primary">Upload</button>
+							</div>
 						</form>
 					</Route>
 					<Route path="/add/fromSource">
@@ -137,7 +141,9 @@ export default class VstyleAdd extends React.Component {
 								placeholder:'map data url (Tegola endpoint)',
 								controlled:false
 							}} handle={{change:this.handle.urlChange}}/>
-							<button type="submit" className="btn btn-primary">Add</button>
+							<div className="mt-3">
+								<button type="submit" className="btn btn-primary">Add</button>
+							</div>
 						</form>
 					</Route>
 				</Switch>

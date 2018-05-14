@@ -49,33 +49,39 @@ export default class Vsetting extends React.Component {
 					</div>
 				</h2>
 				<div className="p-2">
-					<Vfield key="name" field={{
-						type:'string',
-						label:'Name',
-						name:'name',
-						value:style.get('name'),
-						placeholder:'name of this style',
-						controlled:false
-					}} handle={this.handle}/>
-					<Vfield key="sprite" field={{
-						type:'string',
-						label:'Sprite URL',
-						name:'sprite',
-						value:style.get('sprite'),
-						placeholder:'points to the style sprites',
-						controlled:false
-					}} handle={this.handle}/>
-					<Vfield key="glyphs" field={{
-						type:'string',
-						label:'Glyph URL',
-						name:'glyphs',
-						value:style.get('glyphs'),
-						placeholder:'points to the style glyphs',
-						controlled:false
-					}} handle={this.handle}/>
+					<div className="">
+						<Vfield key="name" field={{
+							type:'string',
+							label:'Name',
+							name:'name',
+							value:style.get('name'),
+							placeholder:'name of this style',
+							controlled:false
+						}} handle={this.handle}/>
+					</div>
+					<div className="mt-2">
+						<Vfield key="sprite" field={{
+							type:'string',
+							label:'Sprite URL',
+							name:'sprite',
+							value:style.get('sprite'),
+							placeholder:'points to the style sprites',
+							controlled:false
+						}} handle={this.handle}/>
+					</div>
+					<div className="mt-2">
+						<Vfield key="glyphs" field={{
+							type:'string',
+							label:'Glyph URL',
+							name:'glyphs',
+							value:style.get('glyphs'),
+							placeholder:'points to the style glyphs',
+							controlled:false
+						}} handle={this.handle}/>
+					</div>
 
 					{this.state.deleteShow ?
-						<div className="form-group mt-4 text-right">
+						<div className="form-group mt-2 text-right">
 							<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
 								Delete Style
 							</button>
