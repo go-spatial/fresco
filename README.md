@@ -19,7 +19,7 @@ Coming soon:
 
 ## Installation
 
-1. Download the latest version of Node.js [Nodejs](https://nodejs.org/en/download/)
+1. Download the latest version of [Node.js](https://nodejs.org/en/download/)
 2. Clone this repository to your computer
 3. Navigate to this repo on your computer
 4. Run `npm install`
