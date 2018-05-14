@@ -58,7 +58,7 @@ export default class VfieldArray extends React.Component {
 		const {field} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
-		return <div className="form-group mb-2">
+		return <div className="form-group mb-0">
 			{field.label && <label className="mb-0">{field.label}</label>}
 			<input type="text" className={'form-control '+field.inputClass} name={field.name}
 				placeholder={field.placeholder} value={value} 

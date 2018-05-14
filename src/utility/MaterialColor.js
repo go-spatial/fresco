@@ -50,7 +50,11 @@ export default {
 		//console.log('code:',code,ratio,color,shade,shadeInd,over);
 
 		return colors[color][shade];
-	}
+	},
+
+    getAll:()=>{
+        return colors;
+    }
 };
 
 const hashCode = (str)=>{

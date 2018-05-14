@@ -60,8 +60,6 @@ class Pstyle extends React.Component {
 	render (){
 		const {style, match, error} = this.props;
 
-		console.log('Pstyle props:',this.props);
-
 		return <div>
 			<Vmap handle={this.handle} style={style.get('rec')} match={match} error={error}/>
 			<Vstyle handle={this.handle} style={style.get('rec')} match={match} error={error}/>

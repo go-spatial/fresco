@@ -15,7 +15,8 @@ export default class VfieldAC extends React.Component {
 			helper: PropTypes.string,
 			error: PropTypes.string,
 			options: PropTypes.array,
-			autoFocus: PropTypes.boolean
+			autoFocus: PropTypes.boolean,
+			size: PropTypes.string
 		}),
 		handle: PropTypes.object
 	}
@@ -31,11 +32,13 @@ export default class VfieldAC extends React.Component {
 			focused:false
 		};
 
+		if (field.autoFocus) this.state.focused = true;
+
 		if (field.controlled){
 			this.state.value = field.value;
 		}
 
-		console.log('AC handle:',handle);
+		//console.log('AC handle:',handle);
 
 		this.handle = {
 			inputChange:(e)=>{
@@ -104,6 +107,7 @@ export default class VfieldAC extends React.Component {
 			},
 			cancel:()=>{
 				//this.setState({selected:null});
+				
 				if (handle.clear) handle.clear();
 			},
 
@@ -115,6 +119,7 @@ export default class VfieldAC extends React.Component {
 			selectedClick:(e)=>{
 				console.log('selected click');
 				this.selectedEnter = true;
+				this.handle.focus();
 				this.setState({mode:'edit'});
 				if (handle.selectedClick) handle.selectedClick();
 			},
@@ -138,7 +143,7 @@ export default class VfieldAC extends React.Component {
 
 			focus:()=>{
 				this.setState({focused:true});
-				if (handle.focus) handle.focus();
+				if (handle.focus) handle.focus(field.name);
 			},
 			focusIs:()=>{
 				//return handle.focusIs();
@@ -187,7 +192,7 @@ export default class VfieldAC extends React.Component {
 
 			let error = null; //(!found)? 'expression not found': null; 
 
-			return <div className="form-group mb-2 position-relative">
+			return <div className="form-group mb-0 position-relative">
 				{field.label && <label className="mb-0">{field.label}</label>}
 				{field.icon && <i className="material-icons md-18">{field.icon}</i>}
 				<div className="form-control">
@@ -199,7 +204,7 @@ export default class VfieldAC extends React.Component {
 						onKeyPress={this.handle.selectedKeyPress}
 						onKeyUp={this.handle.selectedKeyUp} 
 						onFocus={this.handle.focus} 
-						ref={input => input && this.props.focus && input.focus()} 
+						ref={input => input && field.autoFocus && input.focus()} 
 					>
 						<i className="material-icons md-14">close</i>
 					</button>
@@ -210,16 +215,18 @@ export default class VfieldAC extends React.Component {
 			</div>
 		}
 		let count = 0;
+		let inputClass = 'form-control';
+		if (field.size && field.size === 'sm') inputClass += ' form-control-sm';
 		return <div className="form-group mb-2 position-relative">
 			{field.label && <label className="mb-0">{field.label}</label>}
 			{field.icon && <i className="material-icons md-18">{field.icon}</i>}
 			<div className="position-relative">
-				<input type="text" className="form-control" placeholder={field.placeholder}
+				<input type="text" className={inputClass} placeholder={field.placeholder}
 					onBlur={this.handle.blur} 
 					onChange={this.handle.inputChange}
 					onFocus={this.handle.focus} 
 					onKeyUp={this.handle.keyUp}
-					ref={input => input && field.autoFocus && input.focus()}
+					ref={input => input && this.state.focused && field.autoFocus && input.focus()}
 					value={this.state.inputValue} />
 				{this.handle.focusIs() && 
 					<div className="ac-dropdown"

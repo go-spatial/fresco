@@ -57,7 +57,7 @@ export default class VfieldFile extends React.Component {
 		const {field, controlled} = this.props;
 		const value = controlled ? this.state.value : this.props.value;
 
-		return <div className="form-group mb-2">
+		return <div className="form-group mb-0">
 			<label className="mb-0">{field.label}</label>
 			<input type="file" className="form-control" 
 				placeholder={field.placeholder} value={value && value.name}

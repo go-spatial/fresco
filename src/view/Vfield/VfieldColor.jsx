@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MaterialColor from '../../utility/MaterialColor';
+
 export default class VfieldColor extends React.Component {
 
 	static propTypes = {
@@ -24,10 +26,11 @@ export default class VfieldColor extends React.Component {
 		super(props);
 		const {field, handle} = this.props;
 
+		this.state = {
+			panelOpen:false
+		}
 		if (field.controlled){
-			this.state = {
-				value:field.value
-			};
+			this.state.value = field.value;
 		}
 
 		this.handle = {
@@ -39,9 +42,13 @@ export default class VfieldColor extends React.Component {
 				});
 			},
 			focus:(e)=>{
+				this.dropdownOver = false;
 				handle.focus && handle.focus(e.target.name);
 			},
 			blur:(e)=>{
+				if (this.dropdownOver) return;
+				this.focused = false;
+				if (this.state.panelOpen) this.setState({panelOpen:false});
 				handle.blur && handle.blur(e.target.name);
 			},
 			keyUp:(e)=>{
@@ -74,6 +81,27 @@ export default class VfieldColor extends React.Component {
 						value:e.target.value
 					});
 				}
+			},
+			colorSet:(color)=>{
+				console.log('color:',color);
+				handle && handle.change && handle.change({
+					name:field.name,
+					value:color
+				});
+				//this.setState({panelOpen:false});
+			},
+			panelToggle:()=>{
+				if (this.state.panelOpen){
+					this.setState({panelOpen:false});
+				} else {
+					this.setState({panelOpen:true});
+				}
+			},
+			dropdownMouseEnter:()=>{
+				this.dropdownOver = true;
+			},
+			dropdownMouseLeave:()=>{
+				this.dropdownOver = false;
 			}
 		};
 
@@ -82,29 +110,63 @@ export default class VfieldColor extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps){
-		this.setState({value:nextProps.field.value});
-	}
-
 	render (){
 		const {field, handle, error} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
-		return <div className="form-group mb-2 position-relative">
+		const colors = MaterialColor.getAll();
+
+		const colorOptionsGet = ()=>{
+			let colorOptions = [];
+			for (let i in colors){
+				let colorGroup = colors[i];
+				let colorRow = [];
+				for (let j in colorGroup){
+					let className = 'swatch-flex';
+					if (field.value === colorGroup[j]) className += ' active';
+					colorRow.push(<div key={i+'.'+j} className={className} 
+						onClick={e => {this.handle.colorSet(colorGroup[j])}} 
+						style={{
+							backgroundColor:colorGroup[j]
+						}}/>);
+				}
+				colorOptions.push(<div key={i} className="row m-0">{colorRow}</div>);
+			}
+			return colorOptions;
+		};
+
+		return <div className="form-group mb-0 position-relative">
 			{field.label && <label className="mb-0">{field.label}</label>}
 			{field.icon && <i className="material-icons md-18">{field.icon}</i>}
 			<div className="position-relative">
-				<div style={{backgroundColor:value}} className="swatch position-absolute swatch-pos"></div>
+				<div style={{backgroundColor:value}} className="swatch position-absolute swatch-pos swatch-border"
+					onClick={this.handle.panelToggle}/>
 				<input type="text" 
 					className="form-control swatch-input-pl" 
 					placeholder={field.placeholder}
 					name={field.name}
 					onChange={this.handle.change}
-					ref={input => input && field.autoFocus && input.focus()}
+					ref={input => {
+						if (input && field.autoFocus){
+							input.focus();
+							if (!this.focused) input.setSelectionRange(value.length,value.length);
+							this.focused = true;
+						}		
+					}}
 					value={value} 
 					onFocus={this.handle.focus}
 					onBlur={this.handle.blur}
 					onKeyUp={this.handle.keyUp}/>
+				{this.state.panelOpen && 
+					<div className="ac-dropdown p-2"
+						onMouseEnter={this.handle.dropdownMouseEnter} 
+						onMouseLeave={this.handle.dropdownMouseLeave}>
+
+						<div className="">
+							{colorOptionsGet()}
+						</div>
+					</div>
+				}
 			</div>
 			{error && <div>{error}</div>}
 			{field.helper && <small className="form-text text-muted">{field.helper}</small>}

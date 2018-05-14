@@ -11,6 +11,9 @@ ul{padding:0;}
 .ac-dropdown .link-list:hover{background-color:#F1F1F1;}
 .ac-dropdown .link-list:active, .ac-dropdown .link-list.active{background-color:#00ACC1;color:#fff;}
 
+.add-close-pos{right:0;top:0;}
+.add-input-pr{padding-right:40px;}
+
 .alert{font-size:0.8em;}
 .alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
 .alert-dismissible .close{padding:0.5rem;}
@@ -20,6 +23,9 @@ label .badge{position:relative;top:2px;}
 
 .bg-dk{background-color:#273237;}
 
+.border-gray{border:1px solid #273237;}
+
+.btn-xs{padding:0 .1rem;font-size:.8rem;}
 .btn.btn-primary{background-color:#00ACC1;border-color:#00A7B6;}
 .btn.btn-primary:hover{background-color:#00A7B6;border-color:#0094A0;}
 .btn.btn-primary:active{background-color:#0094A0;border-color:#0094A0;}
@@ -35,46 +41,41 @@ label .badge{position:relative;top:2px;}
 .cm-s-default .cm-number { color: #9C27B0; }
 .cm-s-default .cm-property { color: #273237; }
 
+.dropdown-menu{padding:0;}
+.dropdown-menu a{padding:0.25rem 0.5rem;font-size:0.8rem;}
+.dropdown-menu a.active{background-color:#EEEEEE;color:#273237;}
+.dropdown-divider{margin:0.15rem 0;}
+
 .exp-ml{margin-left:12px;}
-.exp-arrow{left:-16px;top:10px;
-	border-radius:4px;
-	width:14px;
-	height:14px;
-	position:relative;
-	color:#FFFFFF;
-	background-color:#273237;
-	cursor:pointer;
-}
+.exp-arrow{left:-16px;top:10px;border-radius:4px;width:14px;height:14px;
+	position:relative;color:#FFFFFF;background-color:#273237;cursor:pointer;}
 .exp-arrow i{
 	position:relative;top:-6px;left:-2px;
 }
 .exp-path{position:absolute;width:10px;top:14px;bottom:10px;
 	border-left:2px solid #273237;left:-10px;}
-.exp-dot{position:absolute;
-	left:-12px;
-	top:14px;
-	border-radius:4px;
-	width:6px;
-	height:6px;
-	border:2px solid #333;
-	background-color:#FFFFFF;
-	z-index:2;
-	cursor:pointer;}
-.exp-line-end{
-	position:absolute;
-	bottom:0;
-	top:16px;
-	left:-12px;
-	background-color:#FFFFFF;
-	width:4px;
-	z-index:1;
-}
+.exp-dot{position:absolute;left:-12px;top:14px;border-radius:4px;width:6px;height:6px;
+	border:2px solid #333;background-color:#FFFFFF;z-index:2;cursor:pointer;}
+.exp-line-end{position:absolute;bottom:0;top:16px;left:-12px;
+	background-color:#FFFFFF;width:4px;z-index:1;}
+
+.field-border-bottom{border-bottom:1px solid #BDBDBD;}
+.focus .field-border-bottom{border-bottom:1px solid #0687D1;}
 
 .flex-2{flex:2;}
 
 .form-group label{font-size:0.8em;}
 .form-control{font-size:0.85em;}
+.form-control-sm{font-size:0.875rem;}
 .form-control .btn{line-height:1.2;}
+
+.func-border{border:2px solid #E6E6E6;border-radius:3px;}
+.func-add{border:1px dashed #EEEEEE;padding:0.2rem;font-size:0.7em;
+	cursor:pointer;}
+.func-add label{display:none;}
+.func-add:hover{border:1px dashed #E6E6E6;cursor:pointer;}
+.func-add.open{border:1px dashed #616161;}
+.func-add:hover label, .func-add.open label{color:#616161;display:block;cursor:pointer;}
 
 .icon-btn{cursor:pointer;}
 .icon-btn.white{color:#EFEBE9;}
@@ -89,6 +90,8 @@ label .badge{position:relative;top:2px;}
 
 .layer-nav-link{border-bottom:3px solid transparent;cursor:pointer;}
 .layer-nav-link.active{border-bottom:3px solid #273237;}
+
+.layer-group-heading.open button{border-bottom-right-radius:0;border-bottom-left-radius:0;}
 
 .layer-search-pos{right:34px;left:6px;top:6px;}
 
@@ -147,8 +150,23 @@ label .badge{position:relative;top:2px;}
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 
-.swatch{width:22px;height:22px;}
-.swatch-pos{left:6px;top:6px;}
+.property{position:relative;}
+.property label{font-size:0.65em;color:#616161;}
+.property input{border:none;border-radius:0px;border-bottom:1px solid #BDBDBD;}
+.property input:focus:focus{border:none;
+	border-radius:0;box-shadow:none;border-bottom:1px solid #0687D1;}
+.property.focus{}
+
+.property .border-left{border-left:1px solid #EEEEEE;}
+.property .error-icon{top:0;left:-15px;}
+
+
+.swatch{width:22px;height:22px;cursor:pointer;}
+.swatch:hover{border:1px solid #AEAEAE;}
+.swatch-flex{flex:1;height:18px;border:1px solid transparent;}
+.swatch-flex.active{border:1px solid #fff;}
+.swatch-border{border:1px solid #E6E6E6;}
+.swatch-pos{left:6px;top:4px;}
 .swatch-input-pl{padding-left:38px;}
 
 .text-nav{line-height:34px;font-size:1em;}

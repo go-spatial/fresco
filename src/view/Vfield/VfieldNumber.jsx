@@ -36,9 +36,10 @@ export default class VfieldNumber extends React.Component {
 			change:(e)=>{
 				//console.log('number changed:',e.target);
 				if (field.controlled) this.setState({value:e.target.value});
+				let value = (e.target.value)? Number(e.target.value): null;
 				handle && handle.change && handle.change({
 					name:e.target.name,
-					value:Number(e.target.value)
+					value:value
 				});
 			},
 			focus:(e)=>{
@@ -46,6 +47,47 @@ export default class VfieldNumber extends React.Component {
 			},
 			blur:(e)=>{
 				handle.blur && handle.blur(e.target.name);
+			},
+			keyUp:(e)=>{
+				if (e.key === 'Enter'){
+					handle && handle.enter && handle.enter({
+						name:e.target.name,
+						value:e.target.value
+					});
+				}
+				//console.log('handle key:',e.key,e.target.value);
+				if (e.key === 'Backspace' && e.target.value === 0){
+
+					handle && handle.change && handle.change({
+						name:e.target.name,
+						value:null
+					});
+					return;
+				}
+
+				if (e.key === 'Backspace' && e.target.value === ''){
+					if (this.backoutOnce){
+						this.backoutOnce = false;
+						handle && handle.backout && handle.backout({
+							name:e.target.name,
+							value:e.target.value
+						});
+						return;
+					}
+					this.backoutOnce = true;
+				}
+				if (e.key === 'ArrowDown'){
+					handle && handle.arrowDown && handle.arrowDown({
+						name:e.target.name,
+						value:e.target.value
+					});
+				}
+				if (e.key === 'ArrowUp'){
+					handle && handle.arrowUp && handle.arrowUp({
+						name:e.target.name,
+						value:e.target.value
+					});
+				}
 			}
 		};
 
@@ -56,9 +98,12 @@ export default class VfieldNumber extends React.Component {
 
 	render (){
 		const {field} = this.props;
-		const value = field.controlled ? this.state.value : field.value || 0;
+		let value = field.controlled ? this.state.value : field.value;
+		if (value === null || value === undefined) value = '';
 
-		return <div className="form-group mb-2">
+		//console.log('number value:',value);
+
+		return <div className="form-group mb-0">
 			{field.label && <label className="mb-0">{field.label}</label>}
 			<input type="number" className={'form-control '+field.inputClass} name={field.name}
 				placeholder={field.placeholder} 
@@ -67,7 +112,8 @@ export default class VfieldNumber extends React.Component {
 				ref={input => input && field.autoFocus && input.focus()}
 				onChange={this.handle.change}
 				onFocus={this.handle.focus}
-				onBlur={this.handle.blur}/>
+				onBlur={this.handle.blur}
+				onKeyUp={this.handle.keyUp}/>
 			<small className="form-text text-muted">{field.helper}</small>
 		</div>
 	}

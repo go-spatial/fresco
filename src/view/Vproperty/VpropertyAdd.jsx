@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 
-import Vfield from '../../Vfield';
+import Vfield from '../Vfield';
 
-export default class VlayerPropertyAdd extends React.Component {
+export default class VpropertyAdd extends React.Component {
 
 	static propTypes = {
 		groupName: PropTypes.string,
@@ -20,6 +20,7 @@ export default class VlayerPropertyAdd extends React.Component {
 		const {groupName, handle, spec} = this.props;
 
 		this.state = {
+			show:false
 		};
 
 		this.handle = {
@@ -29,12 +30,20 @@ export default class VlayerPropertyAdd extends React.Component {
 				const value = spec && spec[prop] && spec[prop].default || null;
 				const name = groupName + '.' + prop;
 
+				this.setState({show:false});
+
 				handle.change({
 					name:name,
 					value:value
 				});
 
 				handle.focus(name);
+			},
+			show:()=>{
+				this.setState({show:true});
+			},
+			hide:()=>{
+				this.setState({show:false});
 			}
 		};
 
@@ -44,29 +53,44 @@ export default class VlayerPropertyAdd extends React.Component {
 	}
 
 	render (){
-		const {spec, handle, layerGroup} = this.props;
+		const {spec, handle, layerGroup, focus} = this.props;
+
+		let group = layerGroup || Map();
 
 		let propOptions = [];
 		for (let i in spec){
-			if (layerGroup.has(i)) continue;
+			if (group.has(i)) continue;
 			propOptions.push({
 				name:i,
 				value:i
 			});
 		}
 
-		//console.log('propOptions:',propOptions,spec);
+		if (propOptions.length < 1) return <div/>;
 
-		return <div>
+		if (!this.state.show){
+			return <div onClick={this.handle.show} className="btn btn-xs btn-light">
+				<i className="material-icons md-14">add</i>
+			</div>
+		}
+
+		//const autoFocus = true;
+		return <div className="position-relative add-input-pr">
 			<Vfield field={{
 				type:'AC',
 				name:'property',
-				icon:'add',
 				value:null,
 				placeholder:'Property name',
 				controlled:false,
-				options:propOptions
+				options:propOptions,
+				size:'sm'
 			}} key="source-layer" handle={this.handle}/>
+
+			<div className="position-absolute add-close-pos">
+				<button onClick={this.handle.hide} className="btn btn-light btn-sm" type="button">
+					<i className="material-icons md-14">close</i>
+				</button>
+			</div>
 		</div>
 
 

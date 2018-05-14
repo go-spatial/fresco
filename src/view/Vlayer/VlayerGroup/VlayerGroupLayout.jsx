@@ -9,9 +9,9 @@ import Msource from '../../../model/Msource';
 import Vproperty from '../../Vproperty';
 import VpropertyAdd from '../../Vproperty/VpropertyAdd';
 
-const group = 'paint';
+const group = 'layout';
 
-export default class VlayerGroupPaint extends React.Component {
+export default class VlayerGroupLayout extends React.Component {
 	static propTypes = {
 		layer: PropTypes.object.isRequired,
 		handle: PropTypes.object,
@@ -51,10 +51,10 @@ export default class VlayerGroupPaint extends React.Component {
 
 		const layerGroup = layer.get(group);
 
-		//console.log('paint error:',error);
+		//console.log('layout error:',error);
 
 		return <div className="p-1">
-			{layerGroup.keySeq().map((key)=>{
+			{layerGroup && layerGroup.keySeq().map((key)=>{
 				let name = group+'.'+key;
 			
 				return <Vproperty property={{
@@ -65,7 +65,6 @@ export default class VlayerGroupPaint extends React.Component {
 					error:error && error.get && error.get(key)
 				}} key={name} focus={focus} handle={handle}/>
 			})}
-
 			<div className="property">
 				<VpropertyAdd 
 					spec={spec} 

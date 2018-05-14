@@ -10,33 +10,11 @@ import VlayerGroup from './VlayerGroup';
 import Mlayer from '../../model/Mlayer';
 import Msource from '../../model/Msource';
 
+/*
+state
+- focus for all children
 
-const getNextPos = (pos)=>{
-	let copy = [...pos];
-	copy[copy.length-1]++;
-	return copy;
-};
-
-const getPrevPos = (pos)=>{
-	let copy = [...pos];
-	copy[copy.length-1]--;
-	if (copy[copy.length-1] < 1){
-		copy.pop();
-	}
-	return copy;
-};
-
-const nameToPos = (name)=>{
-	let key = name.split('.');
-	key.forEach((k,i)=>{
-		if (/^\d+$/.test(k)) key[i] = Number(k);
-	});
-	return key;
-};
-
-const posToName = (pos)=>{
-	return pos.join('.');
-};
+*/
 
 export default class VlayerEditor extends React.Component {
 	static propTypes = {
@@ -50,26 +28,17 @@ export default class VlayerEditor extends React.Component {
 		const {handle,layer} = this.props;
 
 		this.state = {
-			focus:null // update with current focused element
-
-			// focus ['paint','fill-color',0]
+			focus:null, // update with current focused element
+			deleteShow:false
 		};
 
 		this.handle = {
 
-			focus:(pos)=>{ // pos is an array of the position in the layer ['paint','fill-color',0]
+			focus:(pos)=>{
+				//console.log('focus:',pos);
 				this.setState({focus:pos});
 			},
-			focusNext:(pos)=>{
-				let nextPos = getNextPos(pos);
-				if (!layer.hasIn(nextPos)) return;
-				this.handle.focus(nextPos);
-			},
-			focusPrev:(pos)=>{
-				let prevPos = getPrevPos(pos);
-				if (!layer.hasIn(prevPos)) return;
-				this.handle.focus(prevPos);
-			},
+			
 			change:(field)=>{
 				let key = field.name.split('.');
 				key.forEach((k,i)=>{
@@ -78,11 +47,35 @@ export default class VlayerEditor extends React.Component {
 				Mlayer.setIn(layer.get('id'),key,field.value);
 			},
 
+
+			enter:(field)=>{
+				console.log('enter:',field);
+				// focus next
+				//this.setState({focus})
+			},
+
+
 			layerHasIn:(pos)=>{
 				return layer.hasIn(pos);
 			},
+			layerSetIn:(pos,val)=>{
+				Mlayer.setIn(layer.get('id'),pos,val);
+			},
 			layerRemoveIn:(pos)=>{
 				Mlayer.removeIn(layer.get('id'),pos);
+			},
+
+			deleteConfirm:()=>{
+				handle.route('layer');
+				Mlayer.remove(layer.get('id')).then(()=>{
+
+				});
+			},
+			deleteShow:()=>{
+				this.setState({deleteShow:true});
+			},
+			deleteHide:()=>{
+				this.setState({deleteShow:false});
 			},
 
 
@@ -171,7 +164,7 @@ export default class VlayerEditor extends React.Component {
 	
 
 	render (){
-		const {style, layer} = this.props;
+		const {style, layer, error} = this.props;
 
 		const typeOptions = Mlayer.getTypes();
 		const sourceOptions = Msource.getOptions();
@@ -180,18 +173,39 @@ export default class VlayerEditor extends React.Component {
 			null;
 
 		const layerId = layer.get('id');
+
+		//console.log('error:',error);
+
 		//console.log('source options:',sourceOptions);
 		// loop through editable layer props and display edit interface for each
 
 		// settings has a null group
 
-		return <div>
-			<div className="p-2">
-				<VlayerGroup type="settings" handle={this.handle} focus={this.state.focus} layer={layer}/>
-				
+		return <div className="">	
+			
+			<VlayerGroup type="settings" open={false} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
+			<VlayerGroup type="paint" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
+			<VlayerGroup type="layout" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
+			<div>
+				{this.state.deleteShow ?
+					<div className="form-group my-2 text-right">
+						<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
+							Delete Layer
+						</button>
+						<button onClick={this.handle.deleteHide} type="submit" className="btn btn-light btn-sm">
+							<i className="material-icons md-18">close</i>
+						</button>
+					</div>
+					:
+					<div className="form-group my-2 text-right">
+						<button onClick={this.handle.deleteShow} type="submit" className="btn btn-light btn-sm">
+							<i className="material-icons md-18">delete</i>
+						</button>
+					</div>
+				}
 			</div>
 		</div>;
 
-		//<VlayerGroup type="paint" handle={this.handle} focus={this.state.focus} layer={layer}/>
+		//
 	}
 };

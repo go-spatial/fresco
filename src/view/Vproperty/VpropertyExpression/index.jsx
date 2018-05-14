@@ -34,7 +34,7 @@ const getPrevPos = (pos)=>{
 	return ary;
 };
 
-export default class VlayerPropertyExpression extends React.Component {
+export default class VpropertyExpression extends React.Component {
 
 	static propTypes = {
 		field: PropTypes.shape({
@@ -95,6 +95,9 @@ export default class VlayerPropertyExpression extends React.Component {
 					return this.setState({open:false});
 				}
 				this.setState({open:true});
+			},
+			focus:()=>{
+				handle.focus(field.name);
 			}
 		};
 
@@ -104,10 +107,24 @@ export default class VlayerPropertyExpression extends React.Component {
 
 		this.fieldHandle = {
 			change:handle.change,
+			focus:handle.focus,
+
+			focusNext:(pos)=>{
+				let nextPos = getNextPos(pos);
+				if (!handle.layerHasIn(nextPos)) return;
+				this.handle.focus(nextPos);
+			},
+			focusPrev:(pos)=>{
+				let prevPos = getPrevPos(pos);
+				if (!handle.layerHasIn(prevPos)) return;
+				this.handle.focus(prevPos);
+			},
 
 			enter:(f)=>{
 				const pos = nameToPos(f.name);
 				const nextPos = getNextPos(pos);
+
+				console.log('enter:',nextPos, handle.layerHasIn(nextPos));
 
 				if (!handle.layerHasIn(nextPos)){
 					handle.change({
@@ -123,44 +140,6 @@ export default class VlayerPropertyExpression extends React.Component {
 
 				handle.layerRemoveIn(pos);
 				handle.focus(posToName(prevPos));
-			},
-
-
-
-			keyup:(e)=>{
-				if (e.key === 'Enter'){
-					const pos = nameToPos(e.target.name);
-					const nextPos = getNextPos(pos);
-
-					if (!handle.layerHasIn(nextPos)){
-						handle.change({
-							name:posToName(nextPos),
-							value:''
-						});
-					}
-					handle.focus(posToName(nextPos));
-				}
-				if (e.key === 'Backspace' && e.target.value === ''){
-
-					if (this.backoutOnce === e.target.name){
-						const pos = nameToPos(e.target.name);
-						const prevPos = getPrevPos(pos);
-
-						handle.layerRemoveIn(pos);
-						handle.focus(posToName(prevPos));
-					}
-					this.backoutOnce = e.target.name;
-				}
-				if (e.key === 'ArrowDown'){
-					const pos = nameToPos(e.target.name);
-					const nextPos = getNextPos(pos);
-					handle.focus(posToName(nextPos));
-				}
-				if (e.key === 'ArrowUp'){
-					const pos = nameToPos(e.target.name);
-					const prevPos = getPrevPos(pos);
-					handle.focus(posToName(prevPos));
-				}
 			}
 		};
 
@@ -177,7 +156,7 @@ export default class VlayerPropertyExpression extends React.Component {
 
 		if (List.isList(val)){
 			// build an expression
-			return <VlayerPropertyExpression key={name} field={{
+			return <VpropertyExpression key={name} field={{
 				type:'expression',
 				name:name,
 				value:val,
@@ -200,7 +179,13 @@ export default class VlayerPropertyExpression extends React.Component {
 				autoFocus:autoFocus
 			}} handle={this.fieldHandle}/>;
 		} else if (val === null){
-			return <div key={name}>null</div>;
+			return <Vfield key={name} field={{
+				type:'string',
+				name:name,
+				value:val,
+				controlled:false,
+				autoFocus:autoFocus
+			}} handle={this.fieldHandle}/>;
 		} else if (val && typeof val === 'string'){
 			if (val.match(/^[0-9]+$/)){
 				return <Vfield key={name} field={{
@@ -275,19 +260,21 @@ export default class VlayerPropertyExpression extends React.Component {
 					}
 				</div>
 
-				<Vfield key="expName" field={{
-					type:'AC',
-					name:getNextName(),
-					value:expName,
-					controlled:false,
-					options:options,
-					autoFocus:autoFocus
-				}} handle={this.handle}/>
+				<div className="mb-2">
+					<Vfield key="expName" field={{
+						type:'AC',
+						name:getNextName(),
+						value:expName,
+						controlled:false,
+						options:options,
+						autoFocus:autoFocus
+					}} handle={this.handle}/>
+				</div>
 
 				{this.state.open && vals.map((val,ind)=>{
 					//console.log('new pos:',newPos);
 					const name = getNextName();
-					return <div key={name} className="position-relative">
+					return <div key={name} className="position-relative mb-2">
 						<div className="exp-dot"/>
 						{this.renderField(name,val)}
 						{ind === vals.size-1 && 

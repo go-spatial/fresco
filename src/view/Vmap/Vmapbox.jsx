@@ -38,7 +38,7 @@ export default class Vmap extends React.Component {
 
 		const {styleJS, handle, match} = nextProps;
 
-		console.log('map match:',match);
+		//console.log('map match:',match);
 
 		//console.log('compare:',this.state.styleJS,styleJS);
 

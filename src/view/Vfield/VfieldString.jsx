@@ -53,7 +53,7 @@ export default class VfieldString extends React.Component {
 						value:e.target.value
 					});
 				}
-				console.log('handle key:',e.key);
+				//console.log('handle key:',e.key);
 				if (e.key === 'Backspace' && e.target.value === ''){
 					if (this.backoutOnce){
 						this.backoutOnce = false;
@@ -89,7 +89,7 @@ export default class VfieldString extends React.Component {
 		const {field} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
-		return <div className="form-group mb-2">
+		return <div className="form-group mb-0">
 			{field.label && <label className="mb-0">{field.label}</label>}
 			<input type="text" 
 				className={'form-control '+field.inputClass} 

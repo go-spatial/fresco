@@ -58,8 +58,8 @@ export default class VfieldSelect extends React.Component {
 		const {field} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
-		return <div className="form-group mb-2">
-			<label className="mb-0">{field.label}</label>
+		return <div className="form-group mb-0">
+			{field.label && <label className="mb-0">{field.label}</label>}
 			<select type="text" className="form-control" 
 				name={field.name}
 				placeholder={field.placeholder} 
@@ -73,7 +73,7 @@ export default class VfieldSelect extends React.Component {
 					return <option key={option.value} value={option.value}>{option.name}</option>
 				})}
 			</select>
-			<small className="form-text text-muted">{field.helper}</small>
+			{field.helper && <small className="form-text text-muted">{field.helper}</small>}
 		</div>
 	}
 };
