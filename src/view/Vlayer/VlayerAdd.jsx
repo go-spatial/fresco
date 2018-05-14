@@ -90,46 +90,52 @@ export default class VlayerAdd extends React.Component {
 		return <form onSubmit={this.handle.submit}>
 			<h2 className="px-2 py-1 m-0 text-nav bg-light">Add Layer</h2>
 			<div className="p-2">
-				<Vfield field={{
-					type:'select',
-					name:'type',	
-					label:'Type',
-					value:this.state.type,
-					placeholder:'Type of layer style',
-					controlled:false,
-					options:typeOptions
-				}} key="type" handle={this.handle}/>
-
-				<Vfield field={{
-					type:'select',
-					name:'source',	
-					label:'Source',
-					value:this.state.source,
-					placeholder:'Name of the source',
-					controlled:false,
-					options:sourceOptions
-				}} key="source" handle={this.handle}/>
+				<div className="">
+					<Vfield field={{
+						type:'select',
+						name:'type',	
+						label:'Type',
+						value:this.state.type,
+						placeholder:'Type of layer style',
+						controlled:false,
+						options:typeOptions
+					}} key="type" handle={this.handle}/>
+				</div>
+				<div className="mt-2">
+					<Vfield field={{
+						type:'select',
+						name:'source',	
+						label:'Source',
+						value:this.state.source,
+						placeholder:'Name of the source',
+						controlled:false,
+						options:sourceOptions
+					}} key="source" handle={this.handle}/>
+				</div>
 
 				{sourceLayerOptions && 
-					<Vfield field={{
-						type:'AC',
-						name:'source-layer',	
-						label:'Source Layer',
-						value:this.state['source-layer'],
-						placeholder:'Source Layer name',
-						controlled:false,
-						options:sourceLayerOptions
-					}} key="source-layer" handle={this.handle}/>
+					<div className="mt-2">
+						<Vfield field={{
+							type:'AC',
+							name:'source-layer',	
+							label:'Source Layer',
+							value:this.state['source-layer'],
+							placeholder:'Source Layer name',
+							controlled:false,
+							options:sourceLayerOptions
+						}} key="source-layer" handle={this.handle}/>
+					</div>
 				}
-
-				<Vfield field={{
-					type:'string',
-					name:'id',
-					label:'Layer ID',
-					value:this.state.id,
-					placeholder:'Unique identifier for layer',
-					controlled:false
-				}} key="id" handle={this.handle}/>
+				<div className="mt-2">
+					<Vfield field={{
+						type:'string',
+						name:'id',
+						label:'Layer ID',
+						value:this.state.id,
+						placeholder:'Unique identifier for layer',
+						controlled:false
+					}} key="id" handle={this.handle}/>
+				</div>
 
 				<div className="form-group mt-3 text-right">
 					<button type="submit" className="btn btn-primary">Add</button>
