@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Switch, Link, NavLink, Route} from 'react-router-dom';
 
@@ -8,21 +9,36 @@ import Vlayer from '../Vlayer';
 import Vsave from '../Vsave';
 import Vsetting from '../Vsetting';
 import Vsource from '../Vsource';
-import Valert from '../Valert';
 
 export default class Vstyle extends React.Component {
+
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
+		const {handle} = props;
+
 		this.state = {};
+
+		this.handle = {
+			getScrollElem:()=>{
+				return this.scrollElem
+			},
+			...handle
+		}
+		this.handle.getScrollElem.bind(this);
 	}
 
 	render (){
-		const {match, style, handle, error} = this.props;
+		const {match, style} = this.props;
 
 		const maxContentH = window.innerHeight - 44;
 
-		//check for error in style
-		//console.log('error:',error);
+		const error = Mstyle.errorsGet();
 
 		if (!style){
 			return <div className="container">
@@ -34,7 +50,7 @@ export default class Vstyle extends React.Component {
 				<div className="col-xs-6 col-sm-8 col-lg-6 col-xl-5 w-max-500 bg-dk p-0">
 
 					<nav className="nav w-100">
-						<div className="nav-link nav-bb px-2" onClick={handle.goUp}>
+						<div className="nav-link nav-bb px-2" onClick={this.handle.goUp}>
 							<i className="material-icons icon-btn white md-24">arrow_back</i>
 						</div>
 						<Link className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis" to={match.url}>
@@ -58,26 +74,22 @@ export default class Vstyle extends React.Component {
 						</NavLink>
 					</nav>
 
-					<div className="w-100 bg-white o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
+					<div className="w-100 bg-white o-y-scroll" ref={ref => this.scrollElem = ref} style={{maxHeight:maxContentH+'px'}}>
 						<Switch>
 							<Route path={`${match.url}/code`} 
-								render={(props) => <Vcode style={style} handle={handle} {...props}/>}/>
+								render={(props) => <Vcode error={error} handle={this.handle} style={style} {...props}/>}/>
 							<Route path={`${match.url}/layer`} 
-								render={(props) => <Vlayer style={style} handle={handle} {...props}/>}/>
+								render={(props) => <Vlayer error={error} handle={this.handle} style={style} {...props}/>}/>
 							<Route path={`${match.url}/save`} 
-								render={(props) => <Vsave style={style} handle={handle} {...props}/>}/>
+								render={(props) => <Vsave error={error} handle={this.handle} style={style} {...props}/>}/>
 							<Route path={`${match.url}/setting`} 
-								render={(props) => <Vsetting style={style} handle={handle} {...props}/>}/>
+								render={(props) => <Vsetting error={error} handle={this.handle} style={style} {...props}/>}/>
 							<Route path={`${match.url}/source`} 
-								render={(props) => <Vsource style={style} handle={handle} {...props}/>}/>
+								render={(props) => <Vsource error={error} handle={this.handle} style={style} {...props}/>}/>
 						</Switch>
 					</div>
 
-					<div className="fixed-bottom">
-						{error.has('general') && 
-							<Valert message={error.get('general')}/>
-						}
-					</div>
+					
 				</div>
 			</div>
 

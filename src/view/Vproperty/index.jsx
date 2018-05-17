@@ -12,6 +12,8 @@ import VpropertyInfo from './VpropertyInfo';
 export default class Vproperty extends React.Component {
 
 	static propTypes = {
+		focus: PropTypes.string,
+		handle: PropTypes.object,
 		property: PropTypes.shape({
 			name: PropTypes.string.isRequired, // fill_color
 			label: PropTypes.string,
@@ -21,9 +23,7 @@ export default class Vproperty extends React.Component {
 				PropTypes.string,
 				PropTypes.object
 			])
-		}),
-		focus: PropTypes.string,
-		handle: PropTypes.object
+		})
 	}
 
 	constructor(props) {
@@ -35,7 +35,9 @@ export default class Vproperty extends React.Component {
 		//console.log('property:',property);
 
 		this.state = {
-			error: null
+			error: null,
+			dropdownShown: false,
+			dropdownControl: null
 		};
 
 		this.handle = {
@@ -73,6 +75,10 @@ export default class Vproperty extends React.Component {
 			remove:()=>{
 				const pos = property.name.split('.');
 				handle.layerRemoveIn(pos);
+			},
+			dropdownToggle:()=>{
+				if (this.state.dropdownShown) return this.setState({dropdownShown:false});
+				this.setState({dropdownShown:true});
 			}
 		};
 
@@ -84,6 +90,10 @@ export default class Vproperty extends React.Component {
 	componentDidCatch(error, info) { // catch errors
 		//this.setState({error: error});
 		//console.log('error caught:',error);
+	}
+
+	componentDidMount(){
+		this.setState({dropdownControl:this.dropdownControl})
 	}
 
 	render (){
@@ -187,8 +197,9 @@ export default class Vproperty extends React.Component {
 		className += (autoFocus)? ' focus': '';
 
 		const buildOptions = ()=>{
-			let types = [spec.type];
-			if (property.spec['property-function']){
+			let types = [];
+			if (spec.type) types.push(spec.type);
+			if (property.spec && property.spec['property-function']){
 				// add function and exp support
 				types.push('expression');
 				types.push('function');
@@ -202,18 +213,18 @@ export default class Vproperty extends React.Component {
 			}
 
 			return <div>
-				<div className=""
-				 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div className="" ref={ref => this.dropdownControl = ref} data-toggle="dropdown" 
+				 onClick={this.handle.dropdownToggle} aria-haspopup="true" aria-expanded="false">
 					{mode}
 					<i className="material-icons md-14">arrow_drop_down</i>
 				</div>
-				<div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				<div className="dropdown-menu">
 					{types.map((type)=>{
 						let className = 'dropdown-item';
 						if (type === mode) className += ' active';
 						return <a key={type} onClick={e => this.handle.changeType(type,property.value)} className={className} href="javascript:">{type}</a>
 					})}
-					<div className="dropdown-divider"></div>
+					<div key="divider" className="dropdown-divider"/>
 
 					<a key="remove" onClick={this.handle.remove} className="dropdown-item" href="javascript:">remove</a>
 				</div>

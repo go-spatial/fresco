@@ -10,8 +10,8 @@ export default {
 				//if (!response.data.maps) return reject('no maps defined on source');
 				return resolve(response.data);
 			})
-			.catch(function (error) {
-				return reject(error);
+			.catch(function (error){
+				return reject('not found');
 			});
 		});
 	}

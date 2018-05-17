@@ -4,12 +4,12 @@ export default class Valert extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			closed:false,
+			show:true,
 			message:null
 		}
 		this.handle = {
 			close:()=>{
-				this.setState({closed:true});
+				this.setState({show:false});
 			}
 		};
 		for (const i in this.handle){
@@ -18,10 +18,10 @@ export default class Valert extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		if (nextProps.message !== this.state.message){
+		if (!this.state.show || nextProps.message !== this.state.message){
 			this.setState({
 				message:nextProps.message,
-				closed:false
+				show:true
 			});
 		}
 	}
@@ -29,8 +29,9 @@ export default class Valert extends React.Component {
 	render (){
 		const {message} = this.props;
 
-		let className = 'alert alert-danger m-2 alert-dismissible fade';
-		if (!this.state.closed) className += ' show';
+		if (!message || !this.state.show) return <div/>
+
+		let className = 'alert alert-danger alert-dismissible fade show mb-0';
 		return <div className={className}>
 			{message}
 			<button onClick={this.handle.close} type="button" className="close" aria-label="Close">

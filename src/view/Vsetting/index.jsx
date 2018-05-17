@@ -81,7 +81,7 @@ export default class Vsetting extends React.Component {
 					</div>
 
 					{this.state.deleteShow ?
-						<div className="form-group mt-2 text-right">
+						<div className="form-group mt-4 text-right">
 							<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
 								Delete Style
 							</button>

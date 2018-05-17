@@ -1,12 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {NavLink, Route, Switch} from 'react-router-dom';
 
+import Valert from '../Valert';
 import Vfield from '../Vfield';
 
 import Mstyle from '../../model/Mstyle';
 import MstyleSource from '../../model/MstyleSource';
 
 export default class VstyleAdd extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 		const {handle} = props;
@@ -14,18 +21,21 @@ export default class VstyleAdd extends React.Component {
 		this.state = {
 			name:'',
 			url:'',
-			file:undefined
+			file:undefined,
+			error:null
 		};
 
-		console.log('props:',props);
-
 		this.handle = {
+			close:()=>{
+				handle.route('');
+			},
 			submitNew:(e)=>{
 				e.preventDefault();
 
 				Mstyle.add({name:this.state.name}).then((style)=>{
 					handle.route('style/'+style.id+'/source/add');
 				}).catch((e)=>{
+					this.setState({error:e});
 					console.error(e);
 				});
 			},
@@ -39,13 +49,18 @@ export default class VstyleAdd extends React.Component {
 					}
 
 				}).catch((e)=>{
-					console.error(e);
+					console.log('error:',e);
+					this.setState({error:e.message});
+					
 				});
 			},
 			submitUpload:(e)=>{
 				e.preventDefault();
 				
-				if (!this.state.file) return; //error
+				if (!this.state.file){
+					this.setState({error:'select a file'})
+					return; //error
+				} 
 
 				var reader = new FileReader();
 				reader.onloadend = (e)=>{
@@ -61,20 +76,35 @@ export default class VstyleAdd extends React.Component {
 						handle.route('style/'+style.id);
 						MstyleSource.setStyleSourceJSON(style);
 					}).catch((e)=>{
+						this.setState({error:e});
 						console.error(e);
 					});
 				};
 				reader.readAsText(this.state.file);
 			},
 			nameChange:(field)=>{
-				this.setState({name:field.value});
+				this.setState({
+					name:field.value,
+					error:null
+				});
 			},
 			urlChange:(field)=>{
-				this.setState({url:field.value});
+				this.setState({
+					url:field.value,
+					error:null
+				});
 			},
 			fileChange:(file)=>{
 				//console.log('file change:',val);
-				this.setState({file:file});
+				this.setState({
+					file:file,
+					error:null
+				});
+			},
+			clearError:()=>{
+				this.setState({
+					error:null
+				});
 			}
 		};
 
@@ -83,10 +113,17 @@ export default class VstyleAdd extends React.Component {
 		}
 	}
 
-	render (){
-		//const {match} = this.props;
+	componentWillReceiveProps (nextProps){
+		this.setState({error:null});
+	}
 
-		return <div className="p-3 bg-white h-100">
+	render (){
+		return <div className="p-3 bg-white h-100 position-relative">
+			<button onClick={this.handle.close} className="btn btn-light btn-xs position-absolute close-pos">
+				<i className="material-icons md-14">
+					close
+				</i>
+			</button>
 			<h2>Add Style</h2>
 			<ul className="nav nav-tabs">
 				<li className="nav-item">
@@ -147,6 +184,9 @@ export default class VstyleAdd extends React.Component {
 						</form>
 					</Route>
 				</Switch>
+				<div className="mt-3">
+					<Valert message={this.state.error}/>
+				</div>
 			</div>
 		</div>
 	}

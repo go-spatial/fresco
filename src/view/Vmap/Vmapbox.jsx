@@ -103,7 +103,7 @@ export default class Vmap extends React.Component {
 
 		this.setState({styleJS:styleJS});
 
-		console.log('map style:',styleJS,MapboxGl);
+		//console.log('map style:',styleJS,MapboxGl);
 
 		const map = new MapboxGl.Map({
 			container: this.container,

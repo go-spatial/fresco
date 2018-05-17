@@ -78,6 +78,10 @@ export default class VlayerEditor extends React.Component {
 				this.setState({deleteShow:false});
 			},
 
+			getScrollElem:()=>{
+				return handle.getScrollElem();
+			}
+
 
 
 

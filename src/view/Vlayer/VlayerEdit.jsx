@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Valert from '../Valert';
@@ -10,6 +11,15 @@ import Mlayer from '../../model/Mlayer';
 import Mstyle from '../../model/Mstyle';
 
 export default class VlayerEdit extends React.Component {
+
+	static propTypes = {
+		error: PropTypes.object, // map
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		mode: PropTypes.oneOf(['edit','json']),
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -21,10 +31,6 @@ export default class VlayerEdit extends React.Component {
 		};
 
 		this.handle = {
-			change:(e)=>{
-				//this.setState({value:e.target.value});
-				//handle.change(e.target.value);
-			},
 			changeId:(newId)=>{
 				// route to new id
 				Mlayer.setIn(this.id,['id'],newId).then(()=>{
@@ -51,14 +57,13 @@ export default class VlayerEdit extends React.Component {
 	}
 
 	render (){
-		const {match, style, id, handle} = this.props;
+		const {error, match, style, handle} = this.props;
 
-		this.id = id || match.params.id;
+		this.id = match.params.id;
 
 		const layer = Mlayer.get(this.id);
-		const errors = Mstyle.errorsGet();
 
-		const error = errors.getIn(['layers',Mlayer.getInd(this.id)]);
+		const layerError = error.getIn(['layers',Mlayer.getInd(this.id)]);
 
 		//console.log('layer err:',error);
 
@@ -71,19 +76,19 @@ export default class VlayerEdit extends React.Component {
 		let section;
 		switch (this.state.mode){
 			case 'json':
-				section = <VlayerEditJSON handle={{change:this.handle.jsonChange}} error={error} layer={layer}/>;
+				section = <VlayerEditJSON handle={{change:this.handle.jsonChange}} error={layerError} layer={layer}/>;
 				break;
 			case 'edit':
-				section = <VlayerEditor key={this.id} handle={handle} error={error} layer={layer}/>;
+				section = <VlayerEditor key={this.id} handle={handle} error={layerError} layer={layer}/>;
 				break;
 			case 'operation':
-				section = <VlayerOperation key={this.id} handle={handle} error={error} layer={layer}/>;
+				section = <VlayerOperation key={this.id} handle={handle} error={layerError} layer={layer}/>;
 				break;
 		}
 
 		return <div className="">
 			{this.state.editId?
-				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={error} layer={layer}/>
+				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={layerError} layer={layer}/>
 			:
 				<h2 className="px-2 py-1 m-0 text-nav bg-light">
 					{layer.get('id')}

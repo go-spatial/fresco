@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {NavLink, Link, Route, Switch} from 'react-router-dom';
 
@@ -9,9 +10,16 @@ import Mlayer from '../../model/Mlayer';
 import Vfield from '../Vfield';
 import VlayerAdd from './VlayerAdd';
 import VlayerEdit from './VlayerEdit';
-import VlayerSearch from './VlayerSearch';
 
 export default class Vlayers extends React.Component {
+
+	static propTypes = {
+		error: PropTypes.object, // map
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor (props){
 		super(props);
 		const {handle, match, style} = this.props;
@@ -22,17 +30,9 @@ export default class Vlayers extends React.Component {
 			search:null
 		};
 
-		console.log('match:',match);
-
-		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
-			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
-				'id'])));
-		}
+		this.redirectEmpty(handle, match, style);
 
 		this.handle = {
-			layerAdd:()=>{
-				handle.route('layerAdd');
-			},
 			visibility:(layerId)=>{
 				Mlayer.visibilityToggle(layerId);
 			},
@@ -56,6 +56,10 @@ export default class Vlayers extends React.Component {
 
 	componentWillReceiveProps (nextProps){
 		const {handle, match, style} = nextProps;
+		this.redirectEmpty(handle, match, style);
+	}
+
+	redirectEmpty (handle, match, style){
 		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
 			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
 				'id'])));
@@ -63,14 +67,13 @@ export default class Vlayers extends React.Component {
 	}
 
 	render (){
-		const {style, match, handle} = this.props;
+		const {error, match, handle, style} = this.props;
 
 		if (!style.has('layers') || style.get('layers').size < 1){
 			return <VlayerAdd handle={handle} style={style}/>;
 		}
 
 		const layers = style.get('layers');
-		const errors = Mstyle.errorsGet();
 		
 		return <div className="row mr-0 h-100">
 			<div className="col-sm-5 pr-0">
@@ -118,7 +121,7 @@ export default class Vlayers extends React.Component {
 							if (this.state.search && layer.get('id').toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return;
 
 							let className = 'px-2 py-1 d-block link-list list-border-right position-relative p-list';
-							if (errors.hasIn(['layers',i])) className += ' error';
+							if (error.hasIn(['layers',i])) className += ' error';
 
 							return <NavLink to={`${match.url}/${layer.get('id')}`} 
 								className={className} key={layer.get('id')}>
@@ -144,10 +147,8 @@ export default class Vlayers extends React.Component {
 					<Switch>
 						<Route path={`${match.url}/add`} 
 							render={(props) => <VlayerAdd style={style} handle={handle} {...props}/>}/>
-						<Route path={`${match.url}/search`} 
-							render={(props) => <VlayerSearch style={style} handle={handle} {...props}/>}/>
 						<Route path={`${match.url}/:id`} 
-							render={(props) => <VlayerEdit style={style} handle={handle} {...props}/>}/>
+							render={(props) => <VlayerEdit error={error} handle={handle} style={style} {...props}/>}/>
 					</Switch>
 				</div>
 			</div>

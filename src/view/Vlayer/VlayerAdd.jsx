@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import NameFromURL from '../../utility/NameFromURL';
@@ -6,8 +7,15 @@ import Mlayer from '../../model/Mlayer';
 import Msource from '../../model/Msource';
 
 import Vfield from '../Vfield';
+import Valert from '../Valert';
 
 export default class VlayerAdd extends React.Component {
+
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 		const {handle} = props;
@@ -16,10 +24,9 @@ export default class VlayerAdd extends React.Component {
 			id:null,
 			source:null,
 			type:null,
-			'source-layer':null
+			'source-layer':null,
+			error:null
 		};
-
-		console.log('props:',props);
 
 		this.handle = {
 			submit:(e)=>{
@@ -32,6 +39,8 @@ export default class VlayerAdd extends React.Component {
 				Mlayer.add(this.state).then((layer)=>{
 					console.log('added:',layer);
 					handle.route('layer/'+layer.id);
+				}).catch((e)=>{
+					this.setState({error:e});
 				});
 			},
 
@@ -58,7 +67,8 @@ export default class VlayerAdd extends React.Component {
 					this.setState({id:id});
 				}
 				this.setState({
-					[field.name]:field.value
+					[field.name]:field.value,
+					error:null
 				})
 			},
 
@@ -70,7 +80,10 @@ export default class VlayerAdd extends React.Component {
 				if (this.state.type) parts.push(this.state.type);
 				const id = parts.join('.');
 				console.log('id:',id);
-				this.setState({id:id});
+				this.setState({
+					id:id,
+					error:null
+				});
 			}
 		};
 		for (let i in this.handle){
@@ -139,6 +152,10 @@ export default class VlayerAdd extends React.Component {
 
 				<div className="form-group mt-3 text-right">
 					<button type="submit" className="btn btn-primary">Add</button>
+				</div>
+
+				<div className="mt-3">
+					<Valert message={this.state.error}/>
 				</div>
 			</div>
 		</form>

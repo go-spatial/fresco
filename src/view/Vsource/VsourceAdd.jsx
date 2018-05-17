@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Msource from '../../model/Msource';
+import Valert from '../Valert';
 
 export default class VsourceAdd extends React.Component {
 	constructor(props) {
@@ -8,7 +9,8 @@ export default class VsourceAdd extends React.Component {
 		const {handle} = props;
 
 		this.state = {
-			url:''
+			url:'',
+			error:null
 		};
 
 		console.log('props:',props);
@@ -16,6 +18,7 @@ export default class VsourceAdd extends React.Component {
 		this.handle = {
 			submit:(e)=>{
 				e.preventDefault();
+
 				//if (this.state.url.length < 1){
 					// error!
 					//return;
@@ -25,10 +28,15 @@ export default class VsourceAdd extends React.Component {
 					type:'vector'
 				}).then((source)=>{
 					handle.route('source/'+encodeURIComponent(source.url));
+				}).catch((e)=>{
+					this.setState({error:'source '+e});
 				});
 			},
 			urlChange:(e)=>{
-				this.setState({url: e.target.value});
+				this.setState({
+					url: e.target.value,
+					error:null
+				});
 			}
 		};
 		for (let i in this.handle){
@@ -49,6 +57,9 @@ export default class VsourceAdd extends React.Component {
 						value={this.state.url} onChange={this.handle.urlChange}/>
 				</div>
 				<button type="submit" className="btn btn-primary">Add</button>
+				<div className="mt-3">
+					<Valert message={this.state.error}/>
+				</div>
 			</div>
 			
 		</form>

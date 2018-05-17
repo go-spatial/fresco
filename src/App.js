@@ -14,11 +14,6 @@ import Store from './Store';
 export default class App extends Component {
 
    render (){
-
-      const routeRoot = process.env.PUBLIC_URL;
-
-      console.log('root:',routeRoot);
-
       return (
          <Provider store={Store}>
             <Router>

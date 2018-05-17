@@ -29,13 +29,6 @@ export default class VlayerGroupPaint extends React.Component {
 			spec:styleSpec.latest[group+'_'+layerType],
 			addShow:false
 		};
-
-		this.handle = {
-		};
-
-		for (let i in this.handle){
-			this.handle[i] = this.handle[i].bind(this);
-		}
 	}
 
 	render (){
@@ -57,7 +50,7 @@ export default class VlayerGroupPaint extends React.Component {
 			{layerGroup.keySeq().map((key)=>{
 				let name = group+'.'+key;
 			
-				return <Vproperty property={{
+				return <Vproperty key={name} property={{
 					name:name,
 					label:key,
 					spec:spec[key],

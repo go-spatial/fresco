@@ -164,12 +164,11 @@ export default class VpropertyFunctionRow extends React.Component {
 			let types = [spec.type];
 
 			return <div>
-				<div className=""
-				 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<div className="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					{spec.type}
 					<i className="material-icons md-14">arrow_drop_down</i>
 				</div>
-				<div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				<div className="dropdown-menu">
 					<a key="remove" onClick={this.handle.remove} className="dropdown-item" href="javascript:">remove</a>
 				</div>
 			</div>;

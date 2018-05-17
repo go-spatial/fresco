@@ -1,13 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-
 import {Link, Route, Switch} from 'react-router-dom';
-//import styles from '../model/styles';
 
 import DateFormat from '../../utility/DateFormat';
 
 import VstyleAdd from './VstyleAdd';
 
 export default class Vstyles extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object,
+		styles: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -16,11 +20,6 @@ export default class Vstyles extends React.Component {
 		if (styles.size < 1){
 			handle.routeReplace('add/new');
 		}
-
-		this.handle = {
-
-		};
-
 		this.state = {};
 	}
 

@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-
 import {connect} from 'react-redux';
 
 import Mstyle from '../model/Mstyle';
 
-import Vstyle from '../view/Vstyle';
+import Valert from '../view/Valert';
 import Vmap from '../view/Vmap';
+import Vstyle from '../view/Vstyle';
 
 const mapStoreToProps = (store)=>{
 	return {
@@ -16,11 +17,18 @@ const mapStoreToProps = (store)=>{
 const mapDispatchToProps = {};
 
 class Pstyle extends React.Component {
+
+	static propTypes = {
+		error: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
-		this.state = {
-			styleRec:undefined
-		};
 
 		//styles.do();
 		this.id = props.match.params.id;
@@ -51,18 +59,17 @@ class Pstyle extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps (nextProps){
-		const {style, error} = nextProps;
-
-		this.setState({styleRec:style.get('rec')});		
-	}
-
 	render (){
 		const {style, match, error} = this.props;
 
 		return <div>
-			<Vmap handle={this.handle} style={style.get('rec')} match={match} error={error}/>
-			<Vstyle handle={this.handle} style={style.get('rec')} match={match} error={error}/>
+			<Vmap handle={this.handle} style={style.get('rec')} match={match}/>
+			<Vstyle handle={this.handle} style={style.get('rec')} match={match}/>
+			<div className="fixed-bottom p-2">
+				{error.has('general') && 
+					<Valert message={error.get('general')}/>
+				}
+			</div>
 		</div>
 	}
 };

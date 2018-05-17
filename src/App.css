@@ -26,6 +26,7 @@ label .badge{position:relative;top:2px;}
 .border-gray{border:1px solid #273237;}
 
 .btn-xs{padding:0 .1rem;font-size:.8rem;}
+.btn-xs i{position:relative;top:-1px;left:0;}
 .btn.btn-primary{background-color:#00ACC1;border-color:#00A7B6;}
 .btn.btn-primary:hover{background-color:#00A7B6;border-color:#0094A0;}
 .btn.btn-primary:active{background-color:#0094A0;border-color:#0094A0;}
@@ -35,8 +36,10 @@ label .badge{position:relative;top:2px;}
 /* Code mirror */
 .CodeMirror{width:100%;height:auto;font-size:0.9em;margin-left:-4px;}
 .CodeMirror-linenumbers{}
-
 .CodeMirror-gutters{background:transparent;border-right:1px solid transparent;}
+
+.close-pos{top:0.25rem;right:0.25rem;}
+
 .cm-s-default .cm-string{color: #03838F;}
 .cm-s-default .cm-number { color: #9C27B0; }
 .cm-s-default .cm-property { color: #273237; }

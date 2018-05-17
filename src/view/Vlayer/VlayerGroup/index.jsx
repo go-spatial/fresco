@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import VlayerGroupActions from './VlayerGroupActions';
 import VlayerGroupLayout from './VlayerGroupLayout';
 import VlayerGroupPaint from './VlayerGroupPaint';
 import VlayerGroupSettings from './VlayerGroupSettings';
@@ -55,9 +54,6 @@ export default class VlayerGroup extends React.Component {
 
 		let content;
 		switch (type){
-			case 'actions':
-				content = <VlayerGroupActions layer={layer} handle={handle} focus={focus} error={error}/>;
-				break;
 			case 'settings':
 				content = <VlayerGroupSettings layer={layer} handle={handle} focus={focus} error={error}/>;
 				break;
