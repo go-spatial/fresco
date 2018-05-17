@@ -5,6 +5,7 @@ import {Map, List} from 'immutable';
 
 import Vfield from '../Vfield';
 
+import VpropertyArray from './VpropertyArray';
 import VpropertyExpression from './VpropertyExpression';
 import VpropertyFunction from './VpropertyFunction';
 import VpropertyInfo from './VpropertyInfo';
@@ -46,6 +47,10 @@ export default class Vproperty extends React.Component {
 				let val;
 				//console.log('change type:',type);
 				switch(type){
+					case 'array':
+						if (List.isList(value)) return;
+						val = [];
+						break;
 					case 'expression':
 						if (List.isList(value)) return;
 						val = [];
@@ -136,15 +141,16 @@ export default class Vproperty extends React.Component {
 				}} handle={handle}/>
 			</div>;
 		} else if (spec.type === 'array'){
+			mode === 'array';
 			elem = <div>
-				<Vfield field={{
+				<VpropertyArray property={{
+					pos:[0],
 					type:'array',
 					name:property.name,
 					value:property.value,
-					placeholder:property.label,
-					controlled:false,
-					autoFocus:autoFocus,
-					error:property.error
+					placeholder:doc,
+					error:property.error,
+					specType:'string'
 				}} handle={handle}/>
 			</div>;
 		} else if (List.isList(property.value)){

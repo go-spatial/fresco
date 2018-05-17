@@ -60,13 +60,18 @@ export default class VfieldArray extends React.Component {
 
 		return <div className="form-group mb-0">
 			{field.label && <label className="mb-0">{field.label}</label>}
-			<input type="text" className={'form-control '+field.inputClass} name={field.name}
-				placeholder={field.placeholder} value={value} 
-				autoComplete={field.inputNoAC ? 'off' : 'on'}
-				ref={input => input && field.autoFocus && input.focus()}
-				onChange={this.handle.change}
-				onFocus={this.handle.focus}
-				onBlur={this.handle.blur}/>
+			{value.map((val,ind)=>{
+				const name = field.name+'.'+ind;
+				console.log('name:',name);
+				return <input key={ind} type="text" className={'form-control '+field.inputClass} name={name}
+					placeholder={field.placeholder} value={val} 
+					autoComplete={field.inputNoAC ? 'off' : 'on'}
+					ref={input => input && field.autoFocus && input.focus()}
+					onChange={this.handle.change}
+					onFocus={this.handle.focus}
+					onBlur={this.handle.blur}/>
+			})}
+			
 			<small className="form-text text-muted">{field.helper}</small>
 		</div>
 	}
