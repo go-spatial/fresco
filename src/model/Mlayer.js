@@ -3,6 +3,10 @@ import Store from '../Store';
 import Mstyle from './Mstyle';
 //import Model from './Model';
 
+import MaterialColor from '../utility/MaterialColor';
+
+import config from '../config/layer.json';
+
 const types = [
 	{name:'fill',value:'fill'},
 	{name:'line',value:'line'},
@@ -22,6 +26,9 @@ export default {
 		return new Promise((resolve,reject)=>{
 			if (!layer.id) return reject('no layerId');
 
+			// add default properties based on layer type
+			layer = this.addDefaultProps(layer);
+			
 			Store.dispatch({
 				type:'LAYER_ADD',
 				payload:layer
@@ -31,6 +38,28 @@ export default {
 			return resolve(layer);
 		});
 
+	},
+
+	addDefaultProps:function(layer){
+		if (!config.types || !config.types[layer.type] || !config.types[layer.type].default) return layer;
+
+		for (let i in config.types[layer.type].default){
+			if (!layer[i]) layer[i] = config.types[layer.type].default[i];
+		}
+
+		return this.addDefaultColors(layer,layer);
+	},
+
+	addDefaultColors:function(layer,part){
+		for (let i in part){
+			if (part[i] && part[i].color && part[i].color === 'light'){
+				part[i] = MaterialColor.getLight(layer.id);
+			}
+			if (typeof part[i] === 'object' && part[i] !== null){
+				part[i] = this.addDefaultColors(layer,part[i]);
+			}
+		}
+		return part;
 	},
 
 	set:function(layerId,layer){

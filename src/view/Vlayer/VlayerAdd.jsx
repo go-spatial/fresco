@@ -36,7 +36,14 @@ export default class VlayerAdd extends React.Component {
 					//return;
 				//}
 
-				Mlayer.add(this.state).then((layer)=>{
+				const rec = {
+					id:this.state.id,
+					source:this.state.source,
+					type:this.state.type,
+					'source-layer':this.state['source-layer']
+				};
+
+				Mlayer.add(rec).then((layer)=>{
 					console.log('added:',layer);
 					handle.route('layer/'+layer.id);
 				}).catch((e)=>{

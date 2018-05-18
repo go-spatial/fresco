@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Map, List} from 'immutable';
 
 import styleSpec from '../../../vendor/style-spec/style-spec';
 
@@ -47,7 +48,7 @@ export default class VlayerGroupLayout extends React.Component {
 		//console.log('layout error:',error);
 
 		return <div className="p-1">
-			{layerGroup && layerGroup.keySeq().map((key)=>{
+			{layerGroup && Map.isMap(layerGroup) && layerGroup.keySeq().map((key)=>{
 				let name = group+'.'+key;
 			
 				return <Vproperty key={name} property={{

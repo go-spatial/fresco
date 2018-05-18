@@ -52,6 +52,37 @@ export default {
 		return colors[color][shade];
 	},
 
+    getLight:(key)=>{
+
+        let patternColor;
+
+        // look for patterns
+        for (const i in PATTERNS){
+            if (key.indexOf(i) !== -1){
+                patternColor = PATTERNS[i];
+                //console.log('pattern color:',patternColor);
+            }
+        }
+
+        const code = hashCode(key);
+        const ratio = (code+CODE_MAX)/CODE_RANGE;
+
+        let a=[];
+        while(a.length<3){
+            a.push(ratio%Math.pow(0.1,a.length)*Math.pow(10,a.length));
+        }
+
+        const colorInd = Math.floor(a[0]*COLOR.length);
+        const color = patternColor || COLOR[colorInd];
+
+        const shadeInd = Math.floor(a[2]*SHADE.length);
+        const shade = SHADE[shadeInd];
+
+        //console.log('code:',code,ratio,color,shade,shadeInd,over);
+
+        return colors[color][shade];
+    },
+
     getAll:()=>{
         return colors;
     }
