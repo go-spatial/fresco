@@ -57,7 +57,7 @@ export default class VlayerGroupPaint extends React.Component {
 					spec:spec[key],
 					value:layerGroup.get(key),
 					error:error && error.get && error.get(key)
-				}} key={name} focus={focus} handle={handle}/>
+				}} focus={focus} handle={handle}/>
 			})}
 
 			<div className="property">

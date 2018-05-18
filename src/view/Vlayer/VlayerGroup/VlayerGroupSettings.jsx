@@ -34,7 +34,7 @@ export default class VlayerGroupSettings extends React.Component {
 	}
 
 	render (){
-		const {style, layer, focus} = this.props;
+		const {layer, handle, focus, error} = this.props;
 
 		const typeOptions = Mlayer.getTypes();
 		const sourceOptions = Msource.getOptions();
@@ -44,29 +44,52 @@ export default class VlayerGroupSettings extends React.Component {
 
 		const layerId = layer.get('id');
 
-		let properties = ['type'];
-		if (layer.get('type') !== 'background') properties.push('source');
-		if (layer.has('source')) properties.push('source-layer');
-
 		const spec = styleSpec.latest.layer;
 
-		console.log('spec:',spec);
+		let addSpec = {
+			id:spec.id,
+			type:spec.type,
+			source:spec.source,
+			'source-layer':spec['source-layer'],
+			filter:spec.filter,
+			maxzoom:spec.maxzoom,
+			minzoom:spec.minzoom
+		};
 
+		if (layer.get('type') === 'background'){
+			delete addSpec.source;
+			delete addSpec.filter;
+			delete addSpec.minzoom;
+			delete addSpec.maxzoom;
+		}
+		if (!layer.has('source')) delete addSpec['source-layer'];
+
+		console.log('addSpec:',addSpec);
 
 		//console.log('source options:',sourceOptions);
 		// loop through editable layer props and display edit interface for each
 
 		return <div className="">
-			{properties.map((key)=>{
-				return <Vproperty property={{
+			{layer.keySeq().map((key)=>{
+				if (!addSpec[key]) return;
+			
+				return <Vproperty key={key} property={{
 					name:key,
 					label:key,
-					spec:spec[key],
+					spec:addSpec[key],
 					value:layer.get(key),
-					error:null,
-					required:true
-				}} key={key} focus={focus} handle={this.handle}/>
+					error:error && error.get && error.get(key),
+					required:addSpec[key].required
+				}} focus={focus} handle={handle}/>
 			})}
+
+			<div className="property">
+				<VpropertyAdd 
+					spec={addSpec} 
+					layerGroup={layer} 
+					focus={focus}
+					handle={handle}/>
+			</div>
 		</div>;
 	}
 };

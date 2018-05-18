@@ -22,8 +22,8 @@ export default class VlayerAdd extends React.Component {
 
 		this.state = {
 			id:null,
-			source:null,
 			type:null,
+			source:null,
 			'source-layer':null,
 			error:null
 		};

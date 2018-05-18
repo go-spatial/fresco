@@ -28,7 +28,7 @@ export default class VpropertyAdd extends React.Component {
 
 				const prop = field.value;
 				const value = spec && spec[prop] && spec[prop].default || null;
-				const name = groupName + '.' + prop;
+				const name = (groupName)? groupName + '.' + prop: prop;
 
 				this.setState({show:false});
 
@@ -59,6 +59,7 @@ export default class VpropertyAdd extends React.Component {
 
 		let propOptions = [];
 		for (let i in spec){
+			//console.log('check:',spec[i],group.get(i));
 			if (group.has(i)) continue;
 			propOptions.push({
 				name:i,
