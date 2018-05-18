@@ -115,11 +115,5 @@
 				}
 			}
 		}
-	},
-
-	"default":{
-		"layout":{
-			"visibility":"visible"
-		}
 	}
 }

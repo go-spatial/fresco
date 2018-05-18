@@ -116,9 +116,6 @@ export default class Vproperty extends React.Component {
 
 		let elem, mode = type;
 
-		
-		//console.log('spec:',property.spec);
-
 		if (spec.type === 'enum'){
 			let options = [];
 			for (let i in spec.values){
@@ -141,7 +138,8 @@ export default class Vproperty extends React.Component {
 				}} handle={handle}/>
 			</div>;
 		} else if (spec.type === 'array'){
-			mode === 'array';
+			mode = 'array';
+			const specType = (spec.value === 'number')? 'number': 'string';
 			elem = <div>
 				<VpropertyArray property={{
 					pos:[0],
@@ -150,8 +148,8 @@ export default class Vproperty extends React.Component {
 					value:property.value,
 					placeholder:doc,
 					error:property.error,
-					specType:'string'
-				}} handle={handle}/>
+					specType:specType
+				}} focus={focus} handle={handle}/>
 			</div>;
 		} else if (List.isList(property.value)){
 			//console.log('expression');

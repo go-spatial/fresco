@@ -6,7 +6,7 @@ import Vfield from '../../Vfield';
 
 import VpropertyInfo from '../VpropertyInfo';
 import VpropertyArrayRow from './VpropertyArrayRow';
-import VpropertyAdd from '../VpropertyAdd';
+import VpropertyArrayAdd from './VpropertyArrayAdd';
 
 import styleSpec from '../../../vendor/style-spec/style-spec';
 
@@ -37,13 +37,13 @@ export default class VpropertyArray extends React.Component {
 		};
 
 		this.handle = {
-			addOpen:()=>{
-				console.log('add open:',this.state.addOpen);
-				if (this.state.addOpen){
-					return this.setState({addOpen:false});
-				}
-				handle.focus(property.name);
-				this.setState({addOpen:true});
+			add:()=>{
+				const addName = property.name+'.'+this.props.property.value.size;
+				handle.focus(addName);
+				handle.change({
+					name:addName,
+					value:null
+				});
 			}
 		};
 
@@ -51,40 +51,36 @@ export default class VpropertyArray extends React.Component {
 			this.handle[i] = this.handle[i].bind(this);
 		}
 
-		this.handleAdd = {
-			change:(f)=>{
-				handle.change({
-					name:f.name,
-					value:f.value
-				});
-			},
+		this.rowHandle = {
+			...handle,
 			backout:(f)=>{
-				handle.change({
-					name:property.name,
-					value:''
-				});
+				// focus on prev element
+				let ary = f.name.split('.');
+				const lastNum = Number(ary[ary.length-1]) - 1;
+				if (lastNum >= 0){
+					ary[ary.length-1] = String(lastNum);
+					const prevName = ary.join('.');
+					handle.focus(prevName);
+				}
+				handle.remove(f);
 			},
-			focus:()=>{
-				console.log('focus Add:');
-				handle.focus(property.name);
+			enter:(f)=>{
+				let ary = f.name.split('.');
+				const nextNum = Number(ary[ary.length-1]) + 1;
+				ary[ary.length-1] = String(nextNum);
+				const nextName = ary.join('.');
+				if (nextNum === this.props.property.value.size){ // last element
+					handle.change({
+						name:nextName,
+						value:null
+					});
+				}
+				handle.focus(nextName);
 			}
 		};
 
-		for (let i in this.handleAdd){
-			this.handleAdd[i] = this.handleAdd[i].bind(this);
-		}
-
-		this.funcHandle = {
-			change:handle.change,
-			focus:(f)=>{
-				console.log('focus:',f);
-				handle.focus(f);
-			},
-			...handle
-		};
-
-		for (let i in this.funcHandle){
-			this.funcHandle[i] = this.funcHandle[i].bind(this);
+		for (let i in this.rowHandle){
+			this.rowHandle[i] = this.rowHandle[i].bind(this);
 		}
 
 	}
@@ -120,32 +116,26 @@ export default class VpropertyArray extends React.Component {
 				name:name,
 				value:val,
 				error:error
-			}} focus={focus} handle={this.funcHandle}/>);
+			}} focus={focus} handle={this.rowHandle}/>);
 		});
 
 		const autoFocus = (property.name === focus)? true: false;
 
 		//console.log('ac autofocus:',autoFocus, property.name, focus);
 
-		const doc = "function";
-
 		let addClass = 'func-add mt-1 p-1';
 		if (this.state.addOpen) addClass += ' open';
 
-		const spec = styleSpec.latest.function;
-		const layerGroup = value;
+		const spec = styleSpec.latest.array;
 
 		return <div className="form-group mb-0">
 			<div className="mt-2 p-2 func-border position-relative">
 				{funcs}
 
 				<div className="mt-2">
-					<VpropertyAdd 
-						groupName={property.name}
-						spec={spec} 
-						layerGroup={layerGroup} 
-						focus={focus}
-						handle={this.handleAdd}/>
+					<div onClick={this.handle.add} className="btn btn-xs btn-light">
+						<i className="material-icons md-14">add</i>
+					</div>
 				</div>
 			</div>
 		</div>

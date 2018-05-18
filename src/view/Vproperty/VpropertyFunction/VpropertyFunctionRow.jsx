@@ -40,8 +40,7 @@ export default class VpropertyFunctionRow extends React.Component {
 				this.setState({open:true});
 			},
 			remove:()=>{
-				const pos = func.name.split('.');
-				handle.layerRemoveIn(pos);
+				handle.remove({name:func.name});
 			}
 		};
 

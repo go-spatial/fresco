@@ -47,6 +47,14 @@ export default class VlayerEditor extends React.Component {
 				Mlayer.setIn(layer.get('id'),key,field.value);
 			},
 
+			remove:(field)=>{
+				let key = field.name.split('.');
+				key.forEach((k,i)=>{
+					if (/^\d+$/.test(k)) key[i] = Number(k);
+				});
+				Mlayer.removeIn(layer.get('id'),key);
+			},
+
 
 			enter:(field)=>{
 				console.log('enter:',field);
