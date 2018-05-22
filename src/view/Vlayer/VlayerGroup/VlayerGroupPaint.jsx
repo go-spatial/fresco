@@ -35,12 +35,6 @@ export default class VlayerGroupPaint extends React.Component {
 	render (){
 		const {layer, handle, focus, error} = this.props;
 
-		const typeOptions = Mlayer.getTypes();
-		const sourceOptions = Msource.getOptions();
-
-		const sourceLayerOptions = (layer.get('source'))? Msource.getLayerOptions(layer.get('source')):
-			null;
-
 		const spec = this.state.spec;
 
 		const layerGroup = layer.get(group);

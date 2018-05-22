@@ -7,6 +7,7 @@ import Vfield from '../Vfield';
 
 import VpropertyArray from './VpropertyArray';
 import VpropertyExpression from './VpropertyExpression';
+import VpropertyMetadata from './VpropertyMetadata';
 import VpropertyFunction from './VpropertyFunction';
 import VpropertyInfo from './VpropertyInfo';
 
@@ -149,6 +150,18 @@ export default class Vproperty extends React.Component {
 					placeholder:doc,
 					error:property.error,
 					specType:specType
+				}} focus={focus} handle={handle}/>
+			</div>;
+		} else if (spec.type === '*'){
+			mode = 'metadata';
+			elem = <div>
+				<VpropertyMetadata property={{
+					pos:[0],
+					type:'array',
+					name:property.name,
+					value:property.value,
+					placeholder:doc,
+					error:property.error
 				}} focus={focus} handle={handle}/>
 			</div>;
 		} else if (List.isList(property.value)){

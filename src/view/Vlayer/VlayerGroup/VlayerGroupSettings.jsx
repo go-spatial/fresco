@@ -36,12 +36,6 @@ export default class VlayerGroupSettings extends React.Component {
 	render (){
 		const {layer, handle, focus, error} = this.props;
 
-		const typeOptions = Mlayer.getTypes();
-		const sourceOptions = Msource.getOptions();
-
-		const sourceLayerOptions = (layer.get('source'))? Msource.getLayerOptions(layer.get('source')):
-			null;
-
 		const layerId = layer.get('id');
 
 		const spec = styleSpec.latest.layer;
@@ -63,11 +57,6 @@ export default class VlayerGroupSettings extends React.Component {
 			delete addSpec.maxzoom;
 		}
 		if (!layer.has('source')) delete addSpec['source-layer'];
-
-		console.log('addSpec:',addSpec);
-
-		//console.log('source options:',sourceOptions);
-		// loop through editable layer props and display edit interface for each
 
 		return <div className="">
 			{layer.keySeq().map((key)=>{

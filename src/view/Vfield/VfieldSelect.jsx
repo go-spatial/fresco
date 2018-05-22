@@ -8,7 +8,10 @@ export default class VfieldSelect extends React.Component {
 			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
-			value: PropTypes.string,
+			value: PropTypes.oneOfType([
+				PropTypes.string,
+				PropTypes.number
+			]),
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			options: PropTypes.array,

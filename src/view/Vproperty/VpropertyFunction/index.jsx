@@ -114,6 +114,8 @@ export default class VpropertyFunction extends React.Component {
 			let name = property.name+'.'+key;
 			let error = (property.error && property.error.get)? property.error.get(key): null;
 			//console.log('function error:',error);
+
+			//console.log('function key:',key);
 			if (key === 'stops'){
 				funcs.push(<VpropertyFunctionStops key={key} func={{
 					type:key,

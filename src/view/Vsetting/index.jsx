@@ -2,7 +2,10 @@ import React from 'react';
 
 import Mstyle from '../../model/Mstyle';
 
-import Vfield from '../Vfield';
+import styleSpec from '../../vendor/style-spec/style-spec';
+
+import Vproperty from '../Vproperty';
+import VpropertyAdd from '../Vproperty/VpropertyAdd';
 
 export default class Vsetting extends React.Component {
 	constructor(props) {
@@ -10,7 +13,8 @@ export default class Vsetting extends React.Component {
 		const {style, handle} = props;
 
 		this.state = {
-			deleteShow:false
+			deleteShow:false,
+			focus:null
 		};
 
 		console.log('style',style.get('name'));
@@ -30,6 +34,10 @@ export default class Vsetting extends React.Component {
 			},
 			deleteHide:()=>{
 				this.setState({deleteShow:false});
+			},
+			focus:(pos)=>{
+				//console.log('focus:',pos);
+				this.setState({focus:pos});
 			}
 		};
 		for (let i in this.handle){
@@ -38,7 +46,25 @@ export default class Vsetting extends React.Component {
 	}
 
 	render (){
-		const {style} = this.props;
+		const {style, error} = this.props;
+
+		const spec = styleSpec.latest.$root;
+
+		let addSpec = {
+			version:spec.version,
+			name:spec.name,
+			metadata:spec.metadata,
+			center:spec.center,
+			zoom:spec.zoom,
+			bearing:spec.bearing,
+			pitch:spec.pitch,
+			light:spec.light,
+			sprite:spec.sprite,
+			glyphs:spec.glyphs,
+			transition:spec.transition
+		};
+
+		console.log('spec:',spec);
 
 		return <div className="h-100">
 			<div className="p-1">
@@ -49,35 +75,26 @@ export default class Vsetting extends React.Component {
 					</div>
 				</h2>
 				<div className="p-2">
-					<div className="">
-						<Vfield key="name" field={{
-							type:'string',
-							label:'Name',
-							name:'name',
-							value:style.get('name'),
-							placeholder:'name of this style',
-							controlled:false
-						}} handle={this.handle}/>
-					</div>
-					<div className="mt-2">
-						<Vfield key="sprite" field={{
-							type:'string',
-							label:'Sprite URL',
-							name:'sprite',
-							value:style.get('sprite'),
-							placeholder:'points to the style sprites',
-							controlled:false
-						}} handle={this.handle}/>
-					</div>
-					<div className="mt-2">
-						<Vfield key="glyphs" field={{
-							type:'string',
-							label:'Glyph URL',
-							name:'glyphs',
-							value:style.get('glyphs'),
-							placeholder:'points to the style glyphs',
-							controlled:false
-						}} handle={this.handle}/>
+					{style.keySeq().map((key)=>{
+						//console.log('styleSpec key:',key);
+						if (!addSpec[key]) return;
+					
+						return <Vproperty key={key} property={{
+							name:key,
+							label:key,
+							spec:addSpec[key],
+							value:style.get(key),
+							error:error && error.get && error.get(key),
+							required:addSpec[key].required
+						}} focus={this.state.focus} handle={this.handle}/>
+					})}
+
+					<div className="property">
+						<VpropertyAdd 
+							spec={addSpec} 
+							layerGroup={style} 
+							focus={this.state.focus}
+							handle={this.handle}/>
 					</div>
 
 					{this.state.deleteShow ?
@@ -98,6 +115,7 @@ export default class Vsetting extends React.Component {
 					}
 				</div>
 			</div>
-		</div>
+		</div>;
+
 	}
 };

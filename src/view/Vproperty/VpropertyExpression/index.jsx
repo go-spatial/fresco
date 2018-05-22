@@ -45,7 +45,10 @@ export default class VpropertyExpression extends React.Component {
 			value: PropTypes.object,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
-			error: PropTypes.string,
+			error: PropTypes.oneOfType([
+				PropTypes.string,
+				PropTypes.object
+			]),
 			controlled: PropTypes.boolean,
 			inputClass: PropTypes.string,
 			inputNoAC: PropTypes.boolean,
