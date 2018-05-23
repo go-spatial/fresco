@@ -10,6 +10,7 @@ import VpropertyExpression from './VpropertyExpression';
 import VpropertyMetadata from './VpropertyMetadata';
 import VpropertyFunction from './VpropertyFunction';
 import VpropertyInfo from './VpropertyInfo';
+import VpropertyPoint from './VpropertyPoint';
 
 export default class Vproperty extends React.Component {
 
@@ -117,7 +118,17 @@ export default class Vproperty extends React.Component {
 
 		let elem, mode = type;
 
-		if (spec.type === 'enum'){
+		if (property.label === 'center'){
+			elem = <div>
+				<VpropertyPoint property={{
+					type:'array',
+					name:property.name,
+					value:property.value,
+					placeholder:doc,
+					error:property.error
+				}} focus={focus} handle={handle}/>
+			</div>;
+		} else if (spec.type === 'enum'){
 			let options = [];
 			for (let i in spec.values){
 				options.push({
@@ -235,7 +246,7 @@ export default class Vproperty extends React.Component {
 					{mode}
 					<i className="material-icons md-14">arrow_drop_down</i>
 				</div>
-				<div className="dropdown-menu">
+				<div className="dropdown-menu" data-boundary="window">
 					{types.map((type)=>{
 						let className = 'dropdown-item';
 						if (type === mode) className += ' active';

@@ -21,7 +21,11 @@ export default class Vsetting extends React.Component {
 
 		this.handle = {
 			change:(field)=>{
-				Mstyle.setIn([field.name],field.value);
+				let key = field.name.split('.');
+				key.forEach((k,i)=>{
+					if (/^\d+$/.test(k)) key[i] = Number(k);
+				});
+				Mstyle.setIn(key,field.value);
 			},
 			deleteConfirm:()=>{
 				handle.routeHome();
@@ -51,7 +55,6 @@ export default class Vsetting extends React.Component {
 		const spec = styleSpec.latest.$root;
 
 		let addSpec = {
-			version:spec.version,
 			name:spec.name,
 			metadata:spec.metadata,
 			center:spec.center,

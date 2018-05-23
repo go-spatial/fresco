@@ -4,10 +4,6 @@ import {List,fromJS} from 'immutable';
 
 import Vfield from '../../Vfield';
 
-import VpropertyAdd from '../VpropertyAdd';
-
-import styleSpec from '../../../vendor/style-spec/style-spec';
-
 export default class VpropertyMetadata extends React.Component {
 
 	static propTypes = {
