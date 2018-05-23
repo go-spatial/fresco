@@ -78,6 +78,19 @@ export default {
 
 	},
 
+	reorder:function(sourceIndex,destIndex){
+		return new Promise((resolve,reject)=>{
+			Store.dispatch({
+				type:'LAYER_REORDER',
+				sourceIndex:sourceIndex,
+				destIndex:destIndex
+			});
+
+			Mstyle.save();
+			return resolve();
+		});
+	},
+
 	removeIn:function(layerId,key){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');

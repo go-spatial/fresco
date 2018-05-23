@@ -38,6 +38,20 @@ export default function(state = iState, action){
 			const style = state.setIn(['rec','layers'],layers);
 			return setUpdated(style);
 		}
+		case 'LAYER_REORDER':{
+
+			// action.sourceIndex
+
+			// action.destindex
+
+			const layer = state.getIn(['rec','layers',action.sourceIndex]);
+			// remove source index
+
+			const layers = state.getIn(['rec','layers']).splice(action.sourceIndex,1).splice(action.destIndex,0,layer);
+			//console.log('layers:',layers);
+			const style = state.setIn(['rec','layers'],layers);
+			return setUpdated(style);
+		}
 		case 'LAYER_SET':{
 			const ind = state.getIn(['rec','layers']).findIndex((layer)=>{
 				return layer.get('id') === action.layerId;

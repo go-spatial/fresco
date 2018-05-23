@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {NavLink, Link, Route, Switch} from 'react-router-dom';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 import LayerIcon from '../../utility/LayerIcon';
 
@@ -47,6 +48,11 @@ export default class Vlayers extends React.Component {
 			},
 			searchChange:(field)=>{
 				this.setState({search:field.value});
+			},
+			onDragEnd:(result)=>{
+				console.log('draggable res:',result.source.index,result.destination.index);
+
+				Mlayer.reorder(result.source.index,result.destination.index);
 			}
 		};
 		for (let i in this.handle){
@@ -115,30 +121,46 @@ export default class Vlayers extends React.Component {
 					}
 					
 					<div className="bg-light">
-						{layers !== undefined && layers.map((layer,i)=>{
-							//console.log('layer:',layer);
+						<DragDropContext onDragEnd={this.handle.onDragEnd}>
+							<Droppable droppableId="droppable">
+								{(provided, snapshot) => (
+									<div ref={provided.innerRef}>
+										{layers !== undefined && layers.map((layer,i)=>{
+											//console.log('layer:',layer);
 
-							if (this.state.search && layer.get('id').toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return;
+											if (this.state.search && layer.get('id').toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return;
 
-							let className = 'px-2 py-1 d-block link-list list-border-right position-relative p-list';
-							if (error.hasIn(['layers',i])) className += ' error';
+											let className = 'px-2 py-1 d-block link-list list-border-right position-relative p-list';
+											if (error.hasIn(['layers',i])) className += ' error';
 
-							return <NavLink to={`${match.url}/${layer.get('id')}`} 
-								className={className} key={layer.get('id')}>
+											return <Draggable key={layer.get('id')} draggableId={layer.get('id')} index={i}>
+												{(provided, snapshot) => (
+													<div ref={provided.innerRef}
+														{...provided.draggableProps}
+														{...provided.dragHandleProps}>
+														<NavLink to={`${match.url}/${layer.get('id')}`} 
+															className={className} key={layer.get('id')}>
 
-								<div className="list-left mr-2 inline-block">
-									<i className="material-icons md-18 md-shadow" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
-								</div>
-								{layer.get('id')}
-								<div onClick={()=>{this.handle.visibility(layer.get('id'))}} className="list-right ml-2">
-									{layer.getIn(['layout','visibility']) === 'none' ?
-										<i className="material-icons md-18 md-muted">visibility_off</i>
-										:
-										<i className="material-icons md-18">visibility</i>
-									}
-								</div>
-							</NavLink>
-						})}
+															<div className="list-left mr-2 inline-block">
+																<i className="material-icons md-18 md-shadow" style={{color:LayerIcon.getColor(layer)}}>{LayerIcon.getIcon(layer)}</i>
+															</div>
+															{layer.get('id')}
+															<div onClick={()=>{this.handle.visibility(layer.get('id'))}} className="list-right ml-2">
+																{layer.getIn(['layout','visibility']) === 'none' ?
+																	<i className="material-icons md-18 md-muted">visibility_off</i>
+																	:
+																	<i className="material-icons md-18">visibility</i>
+																}
+															</div>
+														</NavLink>
+													</div>
+												)}
+											</Draggable>
+										})}
+									</div>
+								)}
+							</Droppable>
+						</DragDropContext>
 					</div>
 				</div>
 			</div>
