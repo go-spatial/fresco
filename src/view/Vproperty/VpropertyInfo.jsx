@@ -15,7 +15,7 @@ export default class Vproperty extends React.Component {
 
 	errorMessage(error){
 		if (typeof error === 'string') return error;
-		console.log('errorMessage:',error);
+		//console.log('errorMessage:',error);
 		if (Map.isMap(error) || List.isList(error)){
 			let message = '';
 			error.keySeq().toArray().forEach((key)=>{
@@ -24,13 +24,39 @@ export default class Vproperty extends React.Component {
 			return message;
 		}
 	}
+	
+	tooltip(){
+		const {error} = this.props;
+
+		if (error !== null && error !== undefined){
+			window.$(this.errorIcon).tooltip();
+			return;
+		}
+		window.$(this.icon).tooltip();
+	}
+
+	componentDidMount(){
+		//console.log('mounted');
+		this.tooltip();
+	}
+	componentDidUpdate(){
+		//console.log('updated');
+		this.tooltip();
+	}
+
+	componentWillUpdate(nextProps){
+		const {error} = nextProps;
+		if (error && this.icon) window.$(this.icon).tooltip('dispose');
+		else if ((error === null || error === undefined) && this.errorIcon) window.$(this.errorIcon).tooltip('dispose');
+	}
 
 	render(){
 		const {doc, error} = this.props;
 
 		//console.log('error:',error);
+		
 
-		if (error !== null && error !== undefined) return <i title={this.errorMessage(error)} className="text-danger material-icons md-14">error</i>;
-		return <i title={doc} className="material-icons md-14 text-muted">info_outline</i>;
+		if (error !== null && error !== undefined) return <i title={this.errorMessage(error)} ref={ref => {this.errorIcon = ref;}} className="text-danger material-icons md-14">error</i>;
+		return <i title={doc} ref={ref => {this.icon = ref;}} className="material-icons md-14 text-muted">info_outline</i>;
 	}
 };

@@ -89,7 +89,7 @@ export default class VpropertyArray extends React.Component {
 		const {property, focus} = this.props;
 		const value = property.value;
 		
-		console.log('value:',value);
+		//console.log('value:',value);
 
 		// check if funcName exists in List, if not assume vector (not expression)
 

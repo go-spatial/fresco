@@ -41,7 +41,7 @@ export default class VlayerGroupSettings extends React.Component {
 		const spec = styleSpec.latest.layer;
 
 		let addSpec = {
-			id:spec.id,
+			//id:spec.id,
 			type:spec.type,
 			source:spec.source,
 			'source-layer':spec['source-layer'],
