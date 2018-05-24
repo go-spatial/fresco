@@ -64,7 +64,7 @@ export default class VstyleAdd extends React.Component {
 
 				var reader = new FileReader();
 				reader.onloadend = (e)=>{
-					console.log('text:',e.target.result);
+					//console.log('text:',e.target.result);
 					const text = e.target.result;
 					let json;
 					try {
@@ -74,7 +74,7 @@ export default class VstyleAdd extends React.Component {
 					}
 					Mstyle.add(json).then((style)=>{
 						handle.route('style/'+style.id);
-						MstyleSource.setStyleSourceJSON(style);
+						//MstyleSource.setStyleSourceJSON(style);
 					}).catch((e)=>{
 						this.setState({error:e});
 						console.error(e);

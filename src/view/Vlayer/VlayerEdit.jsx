@@ -90,9 +90,11 @@ export default class VlayerEdit extends React.Component {
 			{this.state.editId?
 				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={layerError} layer={layer}/>
 			:
-				<h2 className="px-2 py-1 m-0 text-nav bg-light">
-					{layer.get('id')}
-					<div className="float-right">
+				<h2 className="px-2 py-1 m-0 text-nav bg-light row">
+					<div className="text-overflow-ellipsis flex-2">
+						{layer.get('id')}
+					</div>
+					<div className="text-right">
 						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
 							<i className="material-icons md-18 icon-btn gray">mode_edit</i>
 						</div>

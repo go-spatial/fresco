@@ -82,7 +82,7 @@ export default class Vlayers extends React.Component {
 		const layers = style.get('layers');
 		
 		return <div className="row mr-0 h-100">
-			<div className="col-sm-5 pr-0">
+			<div className="col-5 pr-0">
 				<div className="pl-1 py-1">
 					{this.state.searchShow ? 
 						<div className="px-2 py-1 m-0 text-nav bg-light list-border-right clearfix position-relative">
@@ -107,9 +107,11 @@ export default class Vlayers extends React.Component {
 							</div>
 						</div>
 						:
-						<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right">
-							Layers ({layers.size})
-							<div className="float-right">
+						<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right row">
+							<div className="flex-2 text-overflow-ellipsis">
+								Layers ({layers.size})
+							</div>
+							<div className="">
 								<span className="icon-btn gray" onClick={this.handle.searchShow}>
 									<i className="material-icons md-18">search</i>
 								</span>
@@ -164,7 +166,7 @@ export default class Vlayers extends React.Component {
 					</div>
 				</div>
 			</div>
-			<div className="col-sm-7 px-0">
+			<div className="col-7 px-0">
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 

@@ -32,6 +32,10 @@ const Mstyle = {
 					}
 				}
 			];
+			const now = new Date().getTime();
+			style._store = {
+				updated:now
+			};
 			LocalStorage.set(style.id,style);
 
 			Store.dispatch({

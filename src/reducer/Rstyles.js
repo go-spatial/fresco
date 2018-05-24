@@ -20,7 +20,6 @@ export default function(state = iState, action){
 		}
 		case 'STYLE_ADD':{
 			const add = fromJS(action.payload);
-			console.log('style add:',add);
 			return state.setIn(['recs',action.payload.id],add);
 		}
 		case 'STYLE_REMOVE':{
