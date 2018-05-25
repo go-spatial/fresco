@@ -6,15 +6,23 @@ export default class Vsource extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {handle} = this.props;
+		const {handle,layer} = this.props;
 
-		this.state = {};
+		this.state = {
+			value:layer.get('id')
+		};
 
 		this.handle = {
-			change:(val)=>{
+			change:(f)=>{
 				//this.setState({value:e.target.value});
 				//handle.change(e.target.value);
-				if (handle.change) handle.change(val);
+				this.setState({value:f.value})
+			},
+			enter:(f)=>{
+				if (handle.change) handle.change(this.state.value);
+			},
+			blur:()=>{
+				if (handle.blur) handle.blur();
 			}
 		};
 
@@ -29,10 +37,12 @@ export default class Vsource extends React.Component {
 		//console.log('active layer:',layer);
 
 		const idField = {
-			label:'ID',
+			type:'string',
 			name:'id',
-			value:layer.get('id'),
-			placeholder:'Unique ID for layer'
+			value:this.state.value,
+			placeholder:'Unique ID for layer',
+			controlled:false,
+			autoFocus:true
 		};
 		return <div>
 			<Vfield type="string" handle={this.handle} field={idField} />

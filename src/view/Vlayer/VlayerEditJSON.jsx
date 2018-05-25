@@ -7,6 +7,7 @@ import MapboxError from '../../utility/MapboxError';
 import Vfield from '../Vfield';
 import Valert from '../Valert';
 
+import Mlayer from '../../model/Mlayer';
 
 export default class VlayerEditJSON extends React.Component {
 	static propTypes = {
@@ -17,10 +18,21 @@ export default class VlayerEditJSON extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {handle} = this.props;
+		const {layer, handle} = this.props;
+
+		this.layerId = layer.get('id');
 
 		this.handle = {
 			change(code){
+				//check if id was changed, if so navigate to page that matches id
+				console.log('change code:',code,this.layerId);
+				if (this.layerId !== code.id){
+					Mlayer.set(this.layerId,code).then(()=>{
+						this.layerId = code.id;
+						handle.routeReplace('layer/'+code.id);
+					});
+					return;
+				}
 				handle.change(code);
 			}
 		};
@@ -32,6 +44,8 @@ export default class VlayerEditJSON extends React.Component {
 
 	render (){
 		const {layer, error} = this.props;
+
+		this.layerId = layer.get('id');
 
 		// convert error to JSON position
 		//console.log('json error:',error);

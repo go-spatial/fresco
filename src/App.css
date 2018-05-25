@@ -62,6 +62,9 @@ label .badge{position:relative;top:2px;}
 .exp-line-end{position:absolute;bottom:0;top:16px;left:-12px;
 	background-color:#FFFFFF;width:4px;z-index:1;}
 
+.edit-name{cursor:text;opacity:0.9;}
+.edit-name:hover{opacity:1;}
+
 .field-border-bottom{border-bottom:1px solid #BDBDBD;}
 .focus .field-border-bottom{border-bottom:1px solid #0687D1;}
 

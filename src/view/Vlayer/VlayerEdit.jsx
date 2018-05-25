@@ -31,11 +31,16 @@ export default class VlayerEdit extends React.Component {
 		};
 
 		this.handle = {
+			...handle,
 			changeId:(newId)=>{
 				// route to new id
 				Mlayer.setIn(this.id,['id'],newId).then(()=>{
+					this.setState({editId:false});
 					handle.routeReplace('layer/'+newId);
 				});
+			},
+			blurId:()=>{
+				this.setState({editId:false});
 			},
 			jsonChange:(json)=>{
 				Mlayer.set(this.id,json);
@@ -48,6 +53,9 @@ export default class VlayerEdit extends React.Component {
 			},
 			clickOperation:()=>{
 				this.setState({mode:'operation'});
+			},
+			editIdShow:()=>{
+				this.setState({editId:true});
 			}
 		};
 
@@ -63,6 +71,8 @@ export default class VlayerEdit extends React.Component {
 
 		const layer = Mlayer.get(this.id);
 
+		if (!layer) return <div/>
+
 		const layerError = error.getIn(['layers',Mlayer.getInd(this.id)]);
 
 		//console.log('layer err:',error);
@@ -76,7 +86,7 @@ export default class VlayerEdit extends React.Component {
 		let section;
 		switch (this.state.mode){
 			case 'json':
-				section = <VlayerEditJSON handle={{change:this.handle.jsonChange}} error={layerError} layer={layer}/>;
+				section = <VlayerEditJSON handle={{...handle,change:this.handle.jsonChange}} error={layerError} layer={layer}/>;
 				break;
 			case 'edit':
 				section = <VlayerEditor key={this.id} handle={handle} error={layerError} layer={layer}/>;
@@ -87,24 +97,24 @@ export default class VlayerEdit extends React.Component {
 		}
 
 		return <div className="">
-			{this.state.editId?
-				<VlayerEditId handle={{change:this.handle.changeId}} style={style} error={layerError} layer={layer}/>
-			:
-				<h2 className="px-2 py-1 m-0 text-nav bg-light row">
-					<div className="text-overflow-ellipsis flex-2">
-						{layer.get('id')}
+			<h2 className="px-2 py-1 m-0 text-nav bg-light row">
+				<div className="text-overflow-ellipsis flex-2 edit-name mr-2" onClick={this.handle.editIdShow}>
+					{this.state.editId ? 
+						<VlayerEditId handle={{change:this.handle.changeId,blur:this.handle.blurId}} style={style} error={layerError} layer={layer}/>
+						:
+						layer.get('id')
+					}
+				</div>
+				<div className="text-right">
+					<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
+						<i className="material-icons md-18 icon-btn gray">mode_edit</i>
 					</div>
-					<div className="text-right">
-						<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
-							<i className="material-icons md-18 icon-btn gray">mode_edit</i>
-						</div>
-						<div onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
-							<i className="material-icons md-18 icon-btn gray">code</i>
-						</div>
-						
+					<div onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
+						<i className="material-icons md-18 icon-btn gray">code</i>
 					</div>
-				</h2>
-			}
+					
+				</div>
+			</h2>
 			<div>
 			{section}
 			</div>

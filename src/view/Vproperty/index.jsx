@@ -282,35 +282,5 @@ export default class Vproperty extends React.Component {
 			
 		</div>;
 
-
-
-		
-
-		
-
-		
-
-
-		/*
-		if (List.isList(property.value)){
-			// render an expression field
-			return <Vfield field={{
-				type:'expression',
-				name:'type',	
-				label:'Type',
-				value:property.value,
-				placeholder:spec.doc,
-				controlled:false
-			}} key="type" handle={handle}/>
-		}
-
-		// if value is an ary, use the expression field
-
-		// else use the spec type
-
-
-		return <div className="">
-		</div>;
-		*/
 	}
 };
