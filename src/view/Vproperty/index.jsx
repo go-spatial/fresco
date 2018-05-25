@@ -6,6 +6,7 @@ import {Map, List} from 'immutable';
 import Vfield from '../Vfield';
 
 import VpropertyArray from './VpropertyArray';
+import VpropertyBoolean from './VpropertyBoolean';
 import VpropertyExpression from './VpropertyExpression';
 import VpropertyMetadata from './VpropertyMetadata';
 import VpropertyFunction from './VpropertyFunction';
@@ -122,6 +123,16 @@ export default class Vproperty extends React.Component {
 			elem = <div>
 				<VpropertyPoint property={{
 					type:'array',
+					name:property.name,
+					value:property.value,
+					placeholder:doc,
+					error:property.error
+				}} focus={focus} handle={handle}/>
+			</div>;
+		} else if (spec.type === 'boolean'){
+			elem = <div>
+				<VpropertyBoolean property={{
+					type:'boolean',
 					name:property.name,
 					value:property.value,
 					placeholder:doc,
