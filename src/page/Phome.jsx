@@ -18,7 +18,7 @@ const mapStoreToProps = (store)=>{
 };
 const mapDispatchToProps = {};
 
-class Pstyles extends React.Component {
+class Phome extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -47,22 +47,41 @@ class Pstyles extends React.Component {
 
 	render (){
 		const {styles, match} = this.props;
-		// buil;d ary from obj
-		console.log('render page styles:',styles);
+		// build ary from obj
+
+
+		
 		if (styles.get('loaded') !== true) {
 			return <div>loading</div>
 		}
 
+		//order styles by last updated
+		const recs = styles.get('recs').sort((a,b)=>{
+			if (a.getIn(['_store','updated']) > b.getIn(['_store','updated'])) return -1;
+			return 1;
+		});
+
+		console.log('sorted recs:',recs);
+
 		
 		return <div>
 			<Vnav/>
-			<div className="container mt-4">
-				<h2 className="px-2 py-2 m-0 text-light">Styles ({styles.size}) <Link to="/add/new"><i className="material-icons md-18">add_circle_outline</i></Link></h2>
-				<Switch>
-					<Route path="/add" 
-						render={(props) => <VstyleAdd handle={this.handle} {...props}/>}/>
-				</Switch>
-				<Vstyles styles={styles.get('recs')} handle={this.handle} match={match}/>
+			<div className="jumbotron jumbotron-fluid bg-blue mb-0">
+				<div className="container text-light">
+					<h1 className="display-4">fresco</h1>
+					<p className="lead">An open source map style editor - born from Maputnik.</p>
+				</div>
+			</div>
+			<div className="container">
+
+				<div className="py-4">
+					<h2 className="px-2 py-2 m-0 text-light">Styles ({recs.size}) <Link to="/add/new"><i className="material-icons md-18">add_circle_outline</i></Link></h2>
+					<Switch>
+						<Route path="/add" 
+							render={(props) => <VstyleAdd handle={this.handle} {...props}/>}/>
+					</Switch>
+					<Vstyles styles={recs} handle={this.handle} match={match}/>
+				</div>
 			</div>
 		</div>
 	}
@@ -71,4 +90,4 @@ class Pstyles extends React.Component {
 export default connect(
 	mapStoreToProps,
 	mapDispatchToProps
-)(Pstyles);
+)(Phome);

@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import Pstyles from './page/Pstyles';
-import Pstyle from './page/Pstyle';
+import {Provider} from 'react-redux';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
-import './App.css';
-
-import {Provider} from 'react-redux';
+import Phome from './page/Phome';
+import Pconfig from './page/Pconfig';
+import Pstyles from './page/Pstyles';
+import Pstyle from './page/Pstyle';
 
 import Store from './Store';
 
-// npm install --save-dev josdejong/jsonlint
+import './App.css';
 
 export default class App extends Component {
 
@@ -18,9 +18,10 @@ export default class App extends Component {
          <Provider store={Store}>
             <Router>
                <Switch>
-                  <Route exact path="/" component={Pstyles}/>
+                  <Route exact path="/" component={Phome}/>
+                  <Route path="/config" component={Pconfig}/>
                   <Route path="/style/:id" render={(props) => <Pstyle {...props} />}/>
-                  <Route path="/add" component={Pstyles}/>
+                  <Route path="/add" component={Phome}/>
                </Switch>
             </Router>
          </Provider>

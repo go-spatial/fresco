@@ -2,11 +2,8 @@ import React from 'react';
 
 import {connect} from 'react-redux';
 
-import Mstyle from '../model/Mstyle';
-
 import Vnav from '../view/Vnav';
-import VstyleAdd from '../view/Vstyles/VstyleAdd';
-import Vstyles from '../view/Vstyles';
+import Vfield from '../view/Vfield';
 
 import {NavLink, Link, Route, Switch} from 'react-router-dom';
 
@@ -18,15 +15,13 @@ const mapStoreToProps = (store)=>{
 };
 const mapDispatchToProps = {};
 
-class Pstyles extends React.Component {
+class Pconfig extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 
 		//styles.do();
 		this.id = props.match.params.id;
-
-		Mstyle.loadAll();
 		
 		this.handle = {
 			route:(path)=>{
@@ -48,21 +43,27 @@ class Pstyles extends React.Component {
 	render (){
 		const {styles, match} = this.props;
 		// buil;d ary from obj
-		console.log('render page styles:',styles);
-		if (styles.get('loaded') !== true) {
-			return <div>loading</div>
-		}
 
 		
 		return <div>
 			<Vnav/>
 			<div className="container mt-4">
-				<h2 className="px-2 py-2 m-0 text-light">Styles ({styles.size}) <Link to="/add/new"><i className="material-icons md-18">add_circle_outline</i></Link></h2>
-				<Switch>
-					<Route path="/add" 
-						render={(props) => <VstyleAdd handle={this.handle} {...props}/>}/>
-				</Switch>
-				<Vstyles styles={styles.get('recs')} handle={this.handle} match={match}/>
+				<h2 className="px-2 py-2 m-0 text-light">Config</h2>
+
+				<ul className="nav nav-tabs">
+					<li className="nav-item">
+						<NavLink className="nav-link" to="/config/mapbox">Mapbox</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink className="nav-link" to="/add/upload">Upload</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink className="nav-link" to="/add/fromSource">From Source</NavLink>
+					</li>
+				</ul>
+				<div className="p-3 bg-white position-relative">
+
+				</div>
 			</div>
 		</div>
 	}
@@ -71,4 +72,4 @@ class Pstyles extends React.Component {
 export default connect(
 	mapStoreToProps,
 	mapDispatchToProps
-)(Pstyles);
+)(Pconfig);

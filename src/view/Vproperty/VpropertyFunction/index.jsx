@@ -117,12 +117,14 @@ export default class VpropertyFunction extends React.Component {
 
 			//console.log('function key:',key);
 			if (key === 'stops'){
+				const propType = (property.value.get('type') === 'categorical')? 'string': 'number';
 				funcs.push(<VpropertyFunctionStops key={key} func={{
 					type:key,
 					name:name,
 					value:value.get(key),
 					error:error,
-					specType: property.specType
+					specType: property.specType,
+					propType:propType
 				}} focus={focus} handle={this.funcHandle}/>);
 			} else {
 				funcs.push(<VpropertyFunctionRow key={key} func={{

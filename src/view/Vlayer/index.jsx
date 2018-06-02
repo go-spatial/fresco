@@ -80,9 +80,10 @@ export default class Vlayers extends React.Component {
 		}
 
 		const layers = style.get('layers');
+		const maxContentH = window.innerHeight - 44;
 		
 		return <div className="row mr-0 h-100">
-			<div className="col-5 pr-0">
+			<div className="col-5 pr-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 				<div className="pl-1 py-1">
 					{this.state.searchShow ? 
 						<div className="px-2 py-1 m-0 text-nav bg-light list-border-right clearfix position-relative">
@@ -166,7 +167,7 @@ export default class Vlayers extends React.Component {
 					</div>
 				</div>
 			</div>
-			<div className="col-7 px-0">
+			<div className="col-7 px-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 

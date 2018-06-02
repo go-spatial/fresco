@@ -1,9 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Msource from '../../model/Msource';
 import Valert from '../Valert';
 
 export default class VsourceAdd extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 		const {handle} = props;

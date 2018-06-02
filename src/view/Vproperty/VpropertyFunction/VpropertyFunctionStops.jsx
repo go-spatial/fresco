@@ -16,6 +16,7 @@ export default class VpropertyFunctionStops extends React.Component {
 			name: PropTypes.string.isRequired, // string of position . separated
 			value: PropTypes.object,
 			specType: PropTypes.string,
+			propType: PropTypes.string, // the type of the property field
 			error: PropTypes.oneOfType([
 				PropTypes.string,
 				PropTypes.object
@@ -147,7 +148,7 @@ export default class VpropertyFunctionStops extends React.Component {
 						<div className="row">
 							<div className="col-sm-6 pr-1">
 								<Vfield key={ind+'.0'} field={{
-									type:'number',
+									type:func.propType || 'number',
 									name:name+'.0',
 									value:key,
 									controlled:false,

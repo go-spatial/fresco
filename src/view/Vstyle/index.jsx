@@ -36,8 +36,6 @@ export default class Vstyle extends React.Component {
 	render (){
 		const {match, style} = this.props;
 
-		const maxContentH = window.innerHeight - 44;
-
 		const error = Mstyle.errorsGet();
 
 		if (!style){
@@ -74,7 +72,7 @@ export default class Vstyle extends React.Component {
 						</NavLink>
 					</nav>
 
-					<div className="w-100 bg-white o-y-scroll" ref={ref => this.scrollElem = ref} style={{maxHeight:maxContentH+'px'}}>
+					<div className="w-100 bg-white" ref={ref => this.scrollElem = ref}>
 						<Switch>
 							<Route path={`${match.url}/code`} 
 								render={(props) => <Vcode error={error} handle={this.handle} style={style} {...props}/>}/>

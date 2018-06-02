@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Link, NavLink, Switch, Route} from 'react-router-dom';
 
@@ -7,6 +8,12 @@ import VsourceEdit from './VsourceEdit';
 import NameFromURL from '../../utility/NameFromURL';
 
 export default class Vsources extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -42,9 +49,10 @@ export default class Vsources extends React.Component {
 		}
 
 		const sources = style.get('sources');
+		const maxContentH = window.innerHeight - 44;
 
 		return <div className="row h-100 mr-0">
-			<div className="col-sm-5 pr-0">
+			<div className="col-sm-5 pr-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 				<div className="pl-1 py-1">
 					<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right">
 						Sources ({sources.size})
@@ -72,7 +80,7 @@ export default class Vsources extends React.Component {
 					</ul>
 				</div>
 			</div>
-			<div className="col-sm-7 px-0">
+			<div className="col-sm-7 px-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 

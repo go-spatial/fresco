@@ -118,13 +118,8 @@ export default class VstyleAdd extends React.Component {
 	}
 
 	render (){
-		return <div className="p-3 bg-white h-100 position-relative">
-			<button onClick={this.handle.close} className="btn btn-light btn-xs position-absolute close-pos">
-				<i className="material-icons md-14">
-					close
-				</i>
-			</button>
-			<h2>Add Style</h2>
+		return <div className="h-100 position-relative">
+			
 			<ul className="nav nav-tabs">
 				<li className="nav-item">
 					<NavLink className="nav-link" to="/add/new">New</NavLink>
@@ -136,7 +131,12 @@ export default class VstyleAdd extends React.Component {
 					<NavLink className="nav-link" to="/add/fromSource">From Source</NavLink>
 				</li>
 			</ul>
-			<div className="p-2">
+			<div className="p-3 bg-white position-relative">
+				<button onClick={this.handle.close} className="btn btn-light btn-xs position-absolute close-pos">
+					<i className="material-icons md-14">
+						close
+					</i>
+				</button>
 				<Switch>
 					<Route path="/add/new">
 						<form onSubmit={this.handle.submitNew} className="mt-2">

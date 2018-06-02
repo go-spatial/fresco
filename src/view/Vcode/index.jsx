@@ -23,6 +23,8 @@ export default class Vsources extends React.Component {
 
 		const errors = Mstyle.errorsGet();
 
+		const maxContentH = window.innerHeight - 44;
+
 		console.log('code render errs:',errors);
 
 		const field = {
@@ -31,7 +33,7 @@ export default class Vsources extends React.Component {
 			type:'JSON'
 		};
 
-		return <div className="row h-100 m-0">
+		return <div className="row h-100 m-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
 			<div className="col-sm-12 p-0">
 				<Vfield field={field} handle={this.handle}/>
 			</div>

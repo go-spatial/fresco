@@ -22,6 +22,7 @@ label .badge{position:relative;top:2px;}
 .badge-secondary{background-color:#273237;}
 
 .bg-dk{background-color:#273237;}
+.bg-blue{background-color:#00ACC1;}
 
 .border-gray{border:1px solid #273237;}
 
@@ -144,6 +145,7 @@ label .badge{position:relative;top:2px;}
 .md-muted{opacity:0.2;}
 
 .nav-link{border-bottom:3px solid transparent;cursor:pointer;position:relative;}
+.nav-item .active{}
 /*.nav-link.active{border-bottom:3px solid #FFF;}*/
 
 .nav-link.nav-bb.active{border-bottom:3px solid #FFF;}

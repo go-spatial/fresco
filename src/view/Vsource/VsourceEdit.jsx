@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import NameFromURL from '../../utility/NameFromURL';
@@ -9,6 +10,12 @@ import VsourceAdd from './VsourceAdd';
 import Msource from '../../model/Msource';
 
 export default class Vsource extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -28,6 +35,8 @@ export default class Vsource extends React.Component {
 
 		console.log('path:',path,'source:',source,style);
 
+		const styleLayers = style.get('layers');
+
 		// change map mode to show_hidden source layers
 
 		if (source === null){
@@ -38,7 +47,7 @@ export default class Vsource extends React.Component {
 				{NameFromURL.get(path)}
 			</h2>
 			<div className="p-0">
-				<VsourceLayers source={source} sourceLayers={Msource.getLayers(path)}/>
+				<VsourceLayers source={source} styleLayers={styleLayers} sourceLayers={Msource.getLayers(path)}/>
 			</div>
 		</div>;
 	}
