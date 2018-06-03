@@ -47,7 +47,7 @@ export default class Vsource extends React.Component {
 				{NameFromURL.get(path)}
 			</h2>
 			<div className="p-0">
-				<VsourceLayers source={source} styleLayers={styleLayers} sourceLayers={Msource.getLayers(path)}/>
+				<VsourceLayers source={source} sourceKey={path} styleLayers={styleLayers} sourceLayers={Msource.getLayers(path)}/>
 			</div>
 		</div>;
 	}

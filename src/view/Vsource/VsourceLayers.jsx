@@ -7,6 +7,7 @@ export default class VsourceLayers extends React.Component {
 	static propTypes = {
 		handle: PropTypes.object,
 		source: PropTypes.object,
+		sourceKey: PropTypes.string,
 		sourceLayers: PropTypes.object,
 		styleLayers: PropTypes.object
 	}
@@ -23,7 +24,7 @@ export default class VsourceLayers extends React.Component {
 	}
 
 	render (){
-		const {source, sourceLayers, styleLayers} = this.props;
+		const {source, sourceKey, sourceLayers, styleLayers} = this.props;
 
 		if (source === undefined){
 			return <Valert message="no source defined"/>
@@ -32,21 +33,30 @@ export default class VsourceLayers extends React.Component {
 			return <Valert message="no source layers defined"/>
 		}
 
+		//console.log('sourceKey:',sourceKey,styleLayers);
+
 		return <div className="">
-			<div className="py-1 px-2 m-0">Source Layers ({sourceLayers.size})</div>
+			<div className="px-2 m-0 property">
+				<label className="mb-0">Source Layers ({sourceLayers.size})</label>
+				<div className="float-right">
+					<label className="mb-0">Styles</label>
+				</div>
+			</div>
 			<ul className="">
 				{sourceLayers.valueSeq().map((layer)=>{
 					let foundStyleLayers = [];
 					styleLayers.map((styleLayer)=>{
-						//console.log('styleLayer:',styleLayer.get('source'),source);
-						if (styleLayer.get('source') === source.get('url') && styleLayer.get('source-layer') === layer.get('name'))
+						//console.log('styleLayer:',styleLayer.get('source'),sourceKey);
+						if (styleLayer.get('source') === sourceKey && styleLayer.get('source-layer') === layer.get('name'))
 							foundStyleLayers.push(styleLayer);
 					});
-					console.log('styleLayers:',foundStyleLayers);
+					//console.log('styleLayers:',foundStyleLayers);
 					return <div className="px-2 py-1 d-block link-list position-relative" key={layer.get('name')}>
 						{layer.get('name')}
-						<div className="badge badge-secondary float-right">
-							{foundStyleLayers.length}
+						<div className="float-right text-right">
+							<div className="badge badge-secondary">
+								{foundStyleLayers.length}
+							</div>
 						</div>
 					</div>
 				})}

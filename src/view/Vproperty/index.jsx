@@ -21,6 +21,7 @@ export default class Vproperty extends React.Component {
 		property: PropTypes.shape({
 			name: PropTypes.string.isRequired, // fill_color
 			label: PropTypes.string,
+			hideOptions: PropTypes.bool,
 			// value
 			spec: PropTypes.object,
 			error: PropTypes.oneOfType([
@@ -236,6 +237,7 @@ export default class Vproperty extends React.Component {
 		className += (autoFocus)? ' focus': '';
 
 		const buildOptions = ()=>{
+			if (property.hideOptions) return <div/>;
 			let types = [];
 			if (spec.type) types.push(spec.type);
 			if (property.spec && property.spec['property-function']){

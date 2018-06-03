@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MapboxGl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import Mconfig from '../../model/Mconfig';
 import Mstyle from '../../model/Mstyle';
 import Mlayer from '../../model/Mlayer';
 
@@ -104,6 +105,13 @@ export default class Vmap extends React.Component {
 		this.setState({styleJS:styleJS});
 
 		//console.log('map style:',styleJS,MapboxGl);
+
+		const config = Mconfig.get();
+		const token = config.get('mapboxToken');
+
+		//console.log('token:',token,config);
+
+		MapboxGl.accessToken = token;
 
 		const map = new MapboxGl.Map({
 			container: this.container,

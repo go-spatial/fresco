@@ -127,6 +127,10 @@ const Mstyle = {
 			let all = LocalStorage.getAll();
 			all = all || {};
 
+			if (all._config) delete all._config;
+
+			console.log('all styles:',all);
+
 			Store.dispatch({
 				type:'STYLES_DEFINE',
 				payload:all

@@ -14,9 +14,7 @@ export default class Vnav extends React.Component {
 		}
 
 		/*
-							<NavLink to={paths.config} className="nav-link" activeClassName="active">
-							config
-						</NavLink>
+							
 		*/
 
 		return <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,7 +27,9 @@ export default class Vnav extends React.Component {
 			<div className="collapse navbar-collapse">
 				<ul className="navbar-nav">
 					<li className="nav-item">
-
+						<NavLink to={paths.config} className="nav-link" activeClassName="active">
+							config
+						</NavLink>
 					</li>
 				</ul>
 			</div>

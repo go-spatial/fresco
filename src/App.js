@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
+import Mconfig from './model/Mconfig';
+
 import Phome from './page/Phome';
 import Pconfig from './page/Pconfig';
 import Pstyles from './page/Pstyles';
@@ -14,6 +16,7 @@ import './App.css';
 export default class App extends Component {
 
    render (){
+      Mconfig.load();
       return (
          <Provider store={Store}>
             <Router>
