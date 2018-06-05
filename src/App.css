@@ -144,6 +144,10 @@ label .badge{position:relative;top:2px;}
 .md-shadow{text-shadow:1px 1px 2px rgba(0,0,0,0.2);}
 .md-muted{opacity:0.2;}
 
+.modal-container{position:absolute;top:0;bottom:0;left:0;right:0;}
+.modal-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;background-color:rgba(39,50,55,0.6);}
+.modal-content{position:relative;margin:0.75em;background:#fff;z-index:1041;width:inherit;}
+
 .nav-link{border-bottom:3px solid transparent;cursor:pointer;position:relative;}
 .nav-item .active{}
 /*.nav-link.active{border-bottom:3px solid #FFF;}*/

@@ -62,6 +62,36 @@ export default {
 		return part;
 	},
 
+	clone:function(layerId){
+
+		return new Promise((resolve,reject)=>{
+			if (!layerId) return reject('no layerId');
+
+			const layer = this.get(layerId);
+
+			const idRoot = layer.get('id').replace(/_[0-9]+$/,'');
+
+			let num = 1,
+				newId = layer.get('id'),
+				existing;
+			while (existing = this.get(newId)){
+				num++;
+				newId = idRoot+'_'+num;
+			}
+			const layerCopy = layer.setIn(['id'],newId);
+
+			Store.dispatch({
+				type:'LAYER_ADD_AFTER',
+				afterId:layerId,
+				payload:layerCopy
+			});
+
+			Mstyle.save();
+			return resolve(layerCopy);
+		});
+
+	},
+
 	set:function(layerId,layer){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');

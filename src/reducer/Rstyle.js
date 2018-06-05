@@ -38,6 +38,21 @@ export default function(state = iState, action){
 			const style = state.setIn(['rec','layers'],layers);
 			return setUpdated(style);
 		}
+		case 'LAYER_ADD_AFTER':{
+			// action afterId
+			const afterInd = state.getIn(['rec','layers']).findIndex((layer)=>{
+				return layer.get('id') === action.afterId;
+			});
+
+			const layer = fromJS(action.payload);
+			if (!state.hasIn(['rec','layers'])){
+				const style = state.setIn(['rec','layers'],List([layer]));
+				return setUpdated(style);
+			}
+			const layers = state.getIn(['rec','layers']).splice(afterInd+1,0,layer)
+			const style = state.setIn(['rec','layers'],layers);
+			return setUpdated(style);
+		}
 		case 'LAYER_REORDER':{
 			const layer = state.getIn(['rec','layers',action.sourceIndex]);
 			const layers = state.getIn(['rec','layers']).splice(action.sourceIndex,1).splice(action.destIndex,0,layer);

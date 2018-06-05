@@ -5,7 +5,7 @@ import Valert from '../Valert';
 import VlayerEditId from './VlayerEditId';
 import VlayerEditJSON from './VlayerEditJSON';
 import VlayerEditor from './VlayerEditor';
-import VlayerOperation from './VlayerOperation';
+import VlayerDelete from './VlayerDelete';
 
 import Mlayer from '../../model/Mlayer';
 import Mstyle from '../../model/Mstyle';
@@ -51,11 +51,19 @@ export default class VlayerEdit extends React.Component {
 			clickJson:()=>{
 				this.setState({mode:'json'});
 			},
-			clickOperation:()=>{
-				this.setState({mode:'operation'});
+			clickDelete:()=>{
+				this.setState({modal:'delete'});
 			},
 			editIdShow:()=>{
 				this.setState({editId:true});
+			},
+			clone:()=>{
+				Mlayer.clone(this.id).then((newLayer)=>{
+					handle.routeReplace('layer/'+newLayer.get('id'));
+				});
+			},
+			modalClose:()=>{
+				this.setState({modal:null});
 			}
 		};
 
@@ -83,7 +91,7 @@ export default class VlayerEdit extends React.Component {
 			return <Valert message="no layer found"/>;
 		}
 
-		let section;
+		let section, modal;
 		switch (this.state.mode){
 			case 'json':
 				section = <VlayerEditJSON handle={{...handle,change:this.handle.jsonChange}} error={layerError} layer={layer}/>;
@@ -91,12 +99,16 @@ export default class VlayerEdit extends React.Component {
 			case 'edit':
 				section = <VlayerEditor key={this.id} handle={handle} error={layerError} layer={layer}/>;
 				break;
-			case 'operation':
-				section = <VlayerOperation key={this.id} handle={handle} error={layerError} layer={layer}/>;
+			
+		}
+
+		switch (this.state.modal){
+			case 'delete':
+				modal = <VlayerDelete key={this.id} handle={handle} error={layerError} layer={layer}/>;
 				break;
 		}
 
-		return <div className="">
+		return <div>
 			<h2 className="px-2 py-1 m-0 text-nav bg-light row">
 				<div className="text-overflow-ellipsis flex-2 edit-name mr-2" onClick={this.handle.editIdShow}>
 					{this.state.editId ? 
@@ -112,12 +124,31 @@ export default class VlayerEdit extends React.Component {
 					<div onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
 						<i className="material-icons md-18 icon-btn gray">code</i>
 					</div>
+					<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="d-inline-block layer-nav-link px-1">
+						<i className="material-icons md-18 icon-btn gray">arrow_drop_down</i>
+					</div>
+					<div className="dropdown-menu" style={{lineHeight:1.5}} data-boundary="window">
+						<a key="clone" onClick={this.handle.clone} className="dropdown-item" href="javascript:">clone layer</a>
+						<a key="delete" onClick={this.handle.clickDelete} className="dropdown-item" href="javascript:">delete layer</a>
+					</div>
 					
 				</div>
 			</h2>
-			<div>
-			{section}
+			<div className="position-relative">
+				{section}
+				{modal && 
+					<div className="modal-container">
+						<div className="modal-backdrop"></div>
+						<div className="modal-content pt-3">
+							<button onClick={this.handle.modalClose} className="btn btn-light btn-xs position-absolute close-pos">
+								<i className="material-icons md-14">close</i>
+							</button>
+							{modal}
+						</div>
+					</div>
+				}
 			</div>
+			
 		</div>;
 	}
 };

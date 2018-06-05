@@ -73,19 +73,6 @@ export default class VlayerEditor extends React.Component {
 				Mlayer.removeIn(layer.get('id'),pos);
 			},
 
-			deleteConfirm:()=>{
-				handle.route('layer');
-				Mlayer.remove(layer.get('id')).then(()=>{
-
-				});
-			},
-			deleteShow:()=>{
-				this.setState({deleteShow:true});
-			},
-			deleteHide:()=>{
-				this.setState({deleteShow:false});
-			},
-
 			getScrollElem:()=>{
 				return handle.getScrollElem();
 			}
@@ -198,24 +185,6 @@ export default class VlayerEditor extends React.Component {
 			<VlayerGroup type="settings" open={false} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
 			<VlayerGroup type="paint" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
 			<VlayerGroup type="layout" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
-			<div>
-				{this.state.deleteShow ?
-					<div className="form-group my-2 text-right">
-						<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
-							Delete Layer
-						</button>
-						<button onClick={this.handle.deleteHide} type="submit" className="btn btn-light btn-sm">
-							<i className="material-icons md-18">close</i>
-						</button>
-					</div>
-					:
-					<div className="form-group my-2 text-right">
-						<button onClick={this.handle.deleteShow} type="submit" className="btn btn-light btn-sm">
-							<i className="material-icons md-18">delete</i>
-						</button>
-					</div>
-				}
-			</div>
 		</div>;
 
 		//
