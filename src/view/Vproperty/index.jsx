@@ -83,7 +83,7 @@ export default class Vproperty extends React.Component {
 			},
 			remove:()=>{
 				const pos = property.name.split('.');
-				handle.layerRemoveIn(pos);
+				handle.removeIn(pos);
 			},
 			dropdownToggle:()=>{
 				if (this.state.dropdownShown) return this.setState({dropdownShown:false});

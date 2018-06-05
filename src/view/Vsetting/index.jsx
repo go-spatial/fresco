@@ -39,6 +39,10 @@ export default class Vsetting extends React.Component {
 			deleteHide:()=>{
 				this.setState({deleteShow:false});
 			},
+			removeIn:(pos)=>{
+				//console.log('Mstyle:',Mstyle);
+				Mstyle.removeIn(pos);
+			},
 			focus:(pos)=>{
 				//console.log('focus:',pos);
 				this.setState({focus:pos});

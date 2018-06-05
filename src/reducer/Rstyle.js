@@ -19,6 +19,11 @@ export default function(state = iState, action){
 			});
 			return setUpdated(style);
 		}
+		case 'STYLE_REMOVEIN':{
+			//console.log('style setIn:',action.key,action.payload);
+			const style = state.removeIn(['rec',...action.prop]);
+			return setUpdated(style);
+		}
 		case 'STYLE_SETIN':{
 			//console.log('style setIn:',action.key,action.payload);
 			const style = state.setIn(action.key,action.payload);

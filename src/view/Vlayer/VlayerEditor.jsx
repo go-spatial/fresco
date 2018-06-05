@@ -69,7 +69,7 @@ export default class VlayerEditor extends React.Component {
 			layerSetIn:(pos,val)=>{
 				Mlayer.setIn(layer.get('id'),pos,val);
 			},
-			layerRemoveIn:(pos)=>{
+			removeIn:(pos)=>{
 				Mlayer.removeIn(layer.get('id'),pos);
 			},
 

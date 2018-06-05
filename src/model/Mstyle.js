@@ -210,6 +210,23 @@ const Mstyle = {
 		});
 	},
 
+	removeIn:function(prop){
+		return new Promise((resolve,reject)=>{
+			if (!prop) return reject('no prop');
+
+			// clear out prop, if is a list (expression), clear out expression
+
+			Store.dispatch({
+				type:'STYLE_REMOVEIN',
+				prop:prop,
+				payload:null
+			});
+
+			Mstyle.save();
+			return resolve();
+		});
+	},
+
 	validate:function(){
 		return new Promise((resolve,reject)=>{
 			const errors = validateStyle(this.getJSforMapbox());

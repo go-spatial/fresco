@@ -121,16 +121,16 @@ export default {
 		});
 	},
 
-	removeIn:function(layerId,key){
+	removeIn:function(layerId,prop){
 		return new Promise((resolve,reject)=>{
 			if (!layerId) return reject('no layerId');
 
-			// clear out key, if is a list (expression), clear out expression
+			// clear out prop, if is a list (expression), clear out expression
 
 			Store.dispatch({
 				type:'LAYER_REMOVEIN',
 				layerId:layerId,
-				prop:key,
+				prop:prop,
 				payload:null
 			});
 
