@@ -114,6 +114,8 @@ export default class Vmap extends React.Component {
 		MapboxGl.accessToken = token;
 
 		const map = new MapboxGl.Map({
+			attributionControl:false,
+			logoPosition:'bottom-right',
 			container: this.container,
 			style: styleJS.toJS(),
 			hash: true
@@ -130,6 +132,10 @@ export default class Vmap extends React.Component {
 			showInspectMapPopupOnHover: false,
 			renderPopup: this.renderPopup.bind(this)
 		}));
+
+		map.addControl(new MapboxGl.AttributionControl({
+	        compact: true
+	   }));
 
 
 		//console.log('map:',MapboxGl);
