@@ -1,5 +1,5 @@
 # fresco
-Refactor of Maputnik - an open source map style editor
+An open source map style editor.
 
 This editor is undergoing major development and is subject to drastic changes.
 

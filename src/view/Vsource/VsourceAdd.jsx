@@ -105,7 +105,7 @@ export default class VsourceAdd extends React.Component {
 					name:'makeLayers',
 					type:'checkbox',
 					value:this.state.makeLayers,
-					label:'make layers from source?',
+					label:'make style layers from source?',
 					error:error && error.get && error.get('type')
 				}} focus={this.state.focus} handle={this.handle}/>
 
