@@ -180,8 +180,7 @@ export default class VlayerEditor extends React.Component {
 
 		// settings has a null group
 
-		return <div className="">	
-			
+		return <div className="">
 			<VlayerGroup type="settings" open={false} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
 			<VlayerGroup type="paint" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>
 			<VlayerGroup type="layout" open={true} handle={this.handle} focus={this.state.focus} layer={layer} error={error}/>

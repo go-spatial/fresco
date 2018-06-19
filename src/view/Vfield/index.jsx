@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Valert from '../Valert';
 import VfieldAC from './VfieldAC';
+import VfieldCheckbox from './VfieldCheckbox';
 import VfieldColor from './VfieldColor';
 import VfieldFile from './VfieldFile';
 import VfieldJSON from './VfieldJSON';
@@ -34,6 +35,8 @@ export default class Vfield extends React.Component {
 		switch (field.type){
 			case 'AC':
 				return <VfieldAC type={field.type} field={field} handle={handle}/>;
+			case 'checkbox':
+				return <VfieldCheckbox type={field.type} field={field} handle={handle}/>;
 			case 'color':
 				return <VfieldColor type={field.type} field={field} handle={handle}/>;
 			case 'file':

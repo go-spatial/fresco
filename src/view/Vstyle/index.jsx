@@ -43,32 +43,32 @@ export default class Vstyle extends React.Component {
 				<h2>Loading</h2>
 			</div>
 		}
-		return <div className="container-fluid h-100">
+		return <div className="container-fluid h-100 panel-z-index position-relative">
 			<div className="row">
 				<div className="col-xs-6 col-sm-8 col-lg-6 col-xl-5 w-max-500 bg-dk p-0">
 
 					<nav className="nav w-100">
 						<div className="nav-link nav-bb px-2" onClick={this.handle.goUp}>
-							<i className="material-icons icon-btn white md-24">arrow_back</i>
+							<i className="material-icons icon-btn white md-18">arrow_back</i>
 						</div>
-						<Link className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis" to={match.url}>
+						<Link className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis font-lg" to={match.url}>
 							{style.get('name')}
 						</Link>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/setting`}>
-							<i className="material-icons icon-btn white md-24">settings</i>
+							<i className="material-icons icon-btn white md-18">settings</i>
 						</NavLink>
-						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/source`}>
-							<i className="material-icons icon-btn white md-24">wallpaper</i>
+						<NavLink className={'nav-link nav-bb px-2 '+(error.has('sources')? 'error': '')} activeClassName="active" to={`${match.url}/source`}>
+							<i className="material-icons icon-btn white md-18">wallpaper</i>
 						</NavLink>
 						<NavLink className={'nav-link nav-bb px-2 '+(error.has('layers')? 'error': '')} 
 							activeClassName="active" to={`${match.url}/layer`}>
-							<i className="material-icons icon-btn white md-24">layers</i>
+							<i className="material-icons icon-btn white md-18">layers</i>
 						</NavLink>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/code`}>
-							<i className="material-icons icon-btn white md-24">code</i>
+							<i className="material-icons icon-btn white md-18">code</i>
 						</NavLink>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/save`}>
-							<i className="material-icons icon-btn white md-24">save</i>
+							<i className="material-icons icon-btn white md-18">save</i>
 						</NavLink>
 					</nav>
 

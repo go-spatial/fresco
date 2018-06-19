@@ -1,5 +1,13 @@
 export default {
 	getKey:(error)=>{
+
+		/*
+		error
+		{
+			message:'layers[0].paint.background-color: color expected, "#37474" found'
+		}
+		*/
+
 		if (!error || !error.message || error.message.indexOf(':') === -1) return ['general'];
 		// error.message is defined
 		const prefix = error.message.split(':')[0];
@@ -9,7 +17,7 @@ export default {
 			let res = part.match(/\[\d+\]/g);
 			if (res){
 				key.push(part.replace(/\[\d+\]/g,''));
-				console.log('search res:',res);
+				//console.log('search res:',res);
 				for (let i=0;i<res.length;i++){
 					key.push(Number(res[i].replace(/[\[\]]/g, '')));
 				}

@@ -66,16 +66,16 @@ class Phome extends React.Component {
 		
 		return <div>
 			<Vnav/>
-			<div className="jumbotron jumbotron-fluid bg-blue mb-0">
+			<div className="bg-blue mb-0 py-4">
 				<div className="container text-light">
-					<h1 className="display-4">fresco</h1>
-					<p className="lead">An open source map style editor - born from Maputnik.</p>
+					<h1 className="">fresco</h1>
+					<p className="lead">An open source map style editor.</p>
 				</div>
 			</div>
 			<div className="container">
 
 				<div className="py-4">
-					<h2 className="px-2 py-2 m-0 text-light">Styles ({recs.size}) <Link to="/add/new"><i className="material-icons md-18">add_circle_outline</i></Link></h2>
+					<h2 className="px-2 py-2 m-0 text-light font-lg">Styles ({recs.size}) <Link to="/add/new"><i className="material-icons md-14">add_circle_outline</i></Link></h2>
 					<Switch>
 						<Route path="/add" 
 							render={(props) => <VstyleAdd handle={this.handle} {...props}/>}/>

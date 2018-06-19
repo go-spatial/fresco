@@ -1,54 +1,89 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Map} from 'immutable';
 
-import NameFromURL from '../../utility/NameFromURL';
+import styleSpec from '../../vendor/style-spec/style-spec';
 
 import Valert from '../Valert';
-import VsourceLayers from './VsourceLayers';
-import VsourceAdd from './VsourceAdd';
+import Vproperty from '../Vproperty';
+import VpropertyAdd from '../Vproperty/VpropertyAdd';
 
 import Msource from '../../model/Msource';
+import Mstyle from '../../model/Mstyle';
 
-export default class Vsource extends React.Component {
+export default class VsourceEdit extends React.Component {
 	static propTypes = {
+		error: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
 		handle: PropTypes.object,
-		match: PropTypes.object,
-		style: PropTypes.object
+		sourceKey: PropTypes.string,
+		style: PropTypes.object,
+		source: PropTypes.object
 	}
 
 	constructor(props) {
 		super(props);
 
-		const {style, handle, match} = this.props;
+		const {handle, sourceKey} = this.props;
 
-		const path = decodeURIComponent(match.params.path);
-		const source = Msource.get(path);
+		this.state = {
+			focus:null
+		};
 
-		Msource.setJSON(path,source);
+		this.handle = {
+			...handle,
+			focus:(pos)=>{
+				//console.log('focus:',pos);
+				this.setState({focus:pos});
+			},
+			
+			change:(field)=>{
+				//console.log('change:',field);
+				Mstyle.setIn(['sources',sourceKey,field.name],field.value);
+			},
+
+			removeIn:(pos)=>{
+				Mstyle.removeIn(['sources',sourceKey,...pos]);
+			}
+		};
+
+		for (let i in this.handle){
+			this.handle[i] = this.handle[i].bind(this);
+		}
 	}
 
 	render (){
-		const {style, handle, match} = this.props;
+		const {error, handle, sourceKey, style, source} = this.props;
 
-		const path = decodeURIComponent(match.params.path);
-		const source = Msource.get(path);
+		const spec = styleSpec.latest['source_'+source.get('type')] || {};
 
-		console.log('path:',path,'source:',source,style);
+		//console.log('add spec:',spec);
 
-		const styleLayers = style.get('layers');
+		return <div className="p-2">
+			{source && Map.isMap(source) && source.keySeq().map((k)=>{
+				let name = k;
 
-		// change map mode to show_hidden source layers
+				//if (name === 'type') return;
+			
+				return <Vproperty key={name} property={{
+					name:name,
+					label:k,
+					spec:spec[k],
+					value:source.get(k),
+					error:error && error.get && error.get(k)
+				}} focus={this.state.focus} handle={this.handle}/>
+			})}
 
-		if (source === null){
-			return <div/>;
-		}
-		return <div>
-			<h2 className="px-2 py-1 m-0 text-nav bg-light">
-				{NameFromURL.get(path)}
-			</h2>
-			<div className="p-0">
-				<VsourceLayers source={source} sourceKey={path} styleLayers={styleLayers} sourceLayers={Msource.getLayers(path)}/>
+			<div className="property">
+				<VpropertyAdd 
+					spec={spec} 
+					layerGroup={source} 
+					focus={this.state.focus}
+					handle={this.handle}/>
 			</div>
 		</div>;
+
 	}
 };

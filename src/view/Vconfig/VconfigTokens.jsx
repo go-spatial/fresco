@@ -35,7 +35,7 @@ export default class VconfigTokens extends React.Component {
 		const {config, error, handle} = this.props;
 
 		return <div className="p-1">
-			<h2 className="px-2 py-1 m-0 text-nav bg-light">
+			<h2 className="px-2 py-1 m-0 text-nav bg-light font-med">
 				API Access Tokens
 				<div className="float-right">
 					

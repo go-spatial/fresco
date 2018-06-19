@@ -63,7 +63,7 @@ export default class VfieldSelect extends React.Component {
 
 		return <div className="form-group mb-0">
 			{field.label && <label className="mb-0">{field.label}</label>}
-			<select type="text" className="form-control" 
+			<select type="text" className="form-control font-med" 
 				name={field.name}
 				placeholder={field.placeholder} 
 				value={value}

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { SketchPicker } from 'react-color';
+
 import MaterialColor from '../../utility/MaterialColor';
 
 export default class VfieldColor extends React.Component {
@@ -84,9 +86,19 @@ export default class VfieldColor extends React.Component {
 			},
 			colorSet:(color)=>{
 				console.log('color:',color);
+
+				let value;
+				switch(color.source){
+					case 'rgb':
+						value = 'rgba('+color.rgb.r+', '+color.rgb.g+', '+color.rgb.b+', '+color.rgb.a+')';
+						break;
+					default:
+						value = color.hex;
+				}
+
 				handle && handle.change && handle.change({
 					name:field.name,
-					value:color
+					value:value
 				});
 				//this.setState({panelOpen:false});
 			},
@@ -140,9 +152,15 @@ export default class VfieldColor extends React.Component {
 			{field.icon && <i className="material-icons md-18">{field.icon}</i>}
 			<div className="position-relative">
 				<div style={{backgroundColor:value}} className="swatch position-absolute swatch-pos swatch-border"
-					onClick={this.handle.panelToggle}/>
+					data-toggle="dropdown"/>
+				<div className="dropdown-menu" data-boundary="window">
+					<SketchPicker
+			        color={field.value}
+			        onChangeComplete={this.handle.colorSet}
+			      />
+				</div>
 				<input type="text" 
-					className="form-control swatch-input-pl" 
+					className="form-control swatch-input-pl font-med" 
 					placeholder={field.placeholder}
 					name={field.name}
 					onChange={this.handle.change}

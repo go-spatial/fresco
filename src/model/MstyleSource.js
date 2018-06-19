@@ -19,7 +19,7 @@ export default {
 					Msource.add({
 						url:sourceUrl,
 						type:'vector'
-					}).then((source)=>{
+					},NameFromURL(sourceUrl),true).then((source)=>{
 						//console.log('added source:',source);
 						const json = Msource.getJson(source.url);
 						console.log('added source json:',json);

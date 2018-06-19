@@ -2,9 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Valert from '../Valert';
+import Msource from '../../model/Msource';
 
 export default class VsourceLayers extends React.Component {
 	static propTypes = {
+		error: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
 		handle: PropTypes.object,
 		source: PropTypes.object,
 		sourceKey: PropTypes.string,
@@ -24,7 +29,12 @@ export default class VsourceLayers extends React.Component {
 	}
 
 	render (){
-		const {source, sourceKey, sourceLayers, styleLayers} = this.props;
+		const {error, handle, sourceKey, style, source} = this.props;
+
+		const styleLayers = style.get('layers');
+		const sourceLayers = Msource.getLayers(sourceKey);
+
+		console.log('sourceLayers:',sourceLayers);
 
 		if (source === undefined){
 			return <Valert message="no source defined"/>
@@ -32,8 +42,6 @@ export default class VsourceLayers extends React.Component {
 		if (sourceLayers === undefined){
 			return <Valert message="no source layers defined"/>
 		}
-
-		//console.log('sourceKey:',sourceKey,styleLayers);
 
 		return <div className="">
 			<div className="px-2 m-0 property">
@@ -51,7 +59,7 @@ export default class VsourceLayers extends React.Component {
 							foundStyleLayers.push(styleLayer);
 					});
 					//console.log('styleLayers:',foundStyleLayers);
-					return <div className="px-2 py-1 d-block link-list position-relative" key={layer.get('name')}>
+					return <div className="px-2 py-1 d-block link-list font-sm position-relative" key={layer.get('name')}>
 						{layer.get('name')}
 						<div className="float-right text-right">
 							<div className="badge badge-secondary">

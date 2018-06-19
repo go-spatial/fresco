@@ -145,7 +145,12 @@ export default class Vmap extends React.Component {
 		map.on('error',(e)=>{
 			//console.log('map error:',e.error.message);
 			console.log('map error:',e);
-			if (e.source) return Mstyle.errorAdd({message:'error loading source: '+e.source.url});
+			if (e.sourceId){
+				const error = {
+					message:'sources.'+e.sourceId+'.url: error loading source'
+				};
+				return Mstyle.errorAdd(error);
+			}
 			Mstyle.errorAdd(e.error);
 		});
 

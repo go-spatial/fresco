@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Link, NavLink, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import VsourceAdd from './VsourceAdd';
-import VsourceEdit from './VsourceEdit';
+import VsourceDetail from './VsourceDetail';
+import VsourceList from './VsourceList';
 
-import NameFromURL from '../../utility/NameFromURL';
-
-export default class Vsources extends React.Component {
+export default class Vsource extends React.Component {
 	static propTypes = {
 		handle: PropTypes.object,
 		match: PropTypes.object,
@@ -16,82 +15,41 @@ export default class Vsources extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		const {style, handle, match} = props;
-
-		this.state = {};
-
-		this.handle = {
-		};
-
-		if (style.has('sources') && style.get('sources').size > 0 && match.isExact){
-			handle.routeReplace('source/'+encodeURIComponent(style.get('sources').keySeq().first()));
-		}
-
-		for (let i in this.handle){
-			this.handle[i] = this.handle[i].bind(this);
-		}
+		const {handle, match, style} = props;
+		this.redirectEmpty(handle, match, style);
 	}
 
 	componentWillReceiveProps (nextProps){
 		const {handle, match, style} = nextProps;
-		if (style.has('layers') && style.get('layers').size > 0 && match.isExact){
-			handle.routeReplace('layer/'+encodeURIComponent(style.getIn(['layers',0,
-				'id'])));
+		this.redirectEmpty(handle, match, style);
+	}
+
+	redirectEmpty (handle, match, style){
+		if (style.has('sources') && style.get('sources').size > 0 && match.isExact){
+			handle.routeReplace('source/'+encodeURIComponent(style.get('sources').keySeq().first()));
 		}
 	}
 
 	render (){
-		const {style, match, handle} = this.props;
+		const {error, handle, match, style} = this.props,
+			maxContentH = window.innerHeight - 44, 
+			sources = style.get('sources');
 
 		if (!style.has('sources') || style.get('sources').size < 1){
-			return <VsourceAdd style={style} handle={handle}/>;
+			return <VsourceAdd handle={handle} style={style} sources={sources}/>;
 		}
 
-		const sources = style.get('sources');
-		const maxContentH = window.innerHeight - 44;
-
-		return <div className="row h-100 mr-0">
-			<div className="col-sm-5 pr-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
-				<div className="pl-1 py-1">
-					<h2 className="px-2 py-1 m-0 text-nav bg-light list-border-right">
-						Sources ({sources.size})
-						<div className="float-right">
-							<Link className="icon-btn gray" to={`${match.url}/search`}>
-								<i className="material-icons md-18">search</i>
-							</Link>
-							<Link className="ml-1 icon-btn gray" to={`${match.url}/add`}>
-								<i className="material-icons md-18">add_circle_outline</i>
-							</Link>
-						</div>
-					</h2>
-					<ul>
-					{sources.keySeq().map((key)=>{
-						const source = sources.get(key);
-						const path = '/style/'+style.get('id')+'/source/'+encodeURIComponent(key);
-						return <NavLink to={path} 
-									className="px-2 py-1 d-block link-list list-border-right position-relative pr-list" 
-									key={source.get('url')}>
-										{NameFromURL.get(source.get('url'))}
-									<div className="list-right ml-2">
-									</div>
-								</NavLink>
-					})}
-					</ul>
-				</div>
+		return <div className="row mr-0 h-100">
+			<div className="col-5 pr-0 o-y-scroll panel-min-height" style={{maxHeight:maxContentH+'px'}}>
+				<VsourceList error={error} handle={handle} match={match} sources={style.get('sources')}/>
 			</div>
-			<div className="col-sm-7 px-0 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
+			<div className="col-7 px-0 o-y-scroll panel-min-height" style={{maxHeight:maxContentH+'px'}}>
 				<div className="p-1">
 					<Switch>
 						<Route path={`${match.url}/add`} 
-							render={(props) => <VsourceAdd style={style} handle={handle} {...props}/>}/>
-						<Route path={`${match.url}/:path`} 
-							render={(props) => <VsourceEdit style={style} handle={handle} {...props}/>}/>
-						<Route path={match.url}>
-							<div className="bg-light h-100">
-								Select a source
-							</div>
-						</Route>
+							render={(props) => <VsourceAdd handle={handle} style={style} sources={sources} {...props}/>}/>
+						<Route path={`${match.url}/:key`} 
+							render={(props) => <VsourceDetail error={error} handle={handle} style={style} sources={sources} {...props}/>}/>
 					</Switch>
 				</div>
 			</div>

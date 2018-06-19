@@ -46,7 +46,7 @@ export default class VlayerGroup extends React.Component {
 
 		if (!this.state.open){
 			return <div className="layer-group-heading mt-1">
-				<button onClick={this.handle.open} type="submit" className="btn btn-dark btn-sm mr-2 btn-block text-left">
+				<button onClick={this.handle.open} type="submit" className="btn btn-dark btn-sm mr-2 btn-block text-left font-med">
 					{type}
 				</button>
 			</div>
@@ -67,7 +67,7 @@ export default class VlayerGroup extends React.Component {
 
 		return <div>
 			<div className="layer-group-heading open mt-1">
-				<button onClick={this.handle.close} type="submit" className="btn btn-dark btn-sm mr-2 btn-block text-left">
+				<button onClick={this.handle.close} type="submit" className="btn btn-dark btn-sm mr-2 btn-block text-left font-med">
 					{type}
 				</button>
 			</div>

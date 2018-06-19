@@ -44,7 +44,7 @@ export default class Vsource extends React.Component {
 			controlled:false,
 			autoFocus:true
 		};
-		return <div>
+		return <div className="property">
 			<Vfield type="string" handle={this.handle} field={idField} />
 		</div>;
 	}

@@ -45,7 +45,16 @@ export default class VfieldJSON extends React.Component {
 
 		//console.log('errors show:',field.error);
 
-		if (!field.error) return;
+		this.tooltipI = this.tooltipI || [];
+		if (this.tooltipI.length > 0){
+			this.tooltipI.map((tooltipI)=>{
+				tooltipI.tooltip('dispose');
+			});
+		}
+
+		if (!field.error){
+			return;
+		} 
 		if (typeof field.error === 'string'){
 			return;
 		}
@@ -83,8 +92,12 @@ export default class VfieldJSON extends React.Component {
 				//console.log('set marker:',line);
 				let marker = document.createElement('div');
 				marker.setAttribute('title',field.error.getIn(match));
-				marker.innerHTML = '<i class="text-danger material-icons md-14">error</i>';
+				marker.innerHTML = '<i class="text-danger material-icons md-14 code-error-left position-relative" data-toggle="tooltip">error</i>';
 				this.cm.setGutterMarker(line,'err-markers',marker);
+				const tooltipI = window.$(marker);
+				
+				this.tooltipI.push(tooltipI);
+				tooltipI.tooltip();
 			}
 			//console.log('match',JSON.stringify(match),' targetInd:',targetInd,'inside:',JSON.stringify(inside));
 		});
@@ -184,7 +197,7 @@ export default class VfieldJSON extends React.Component {
 	render (){
 		const {field} = this.props;
 
-		return <div>
+		return <div className="font-lg">
 			<textarea
 				value={this.jsonToStr(field.value)}
 				onChange={this.handle.textareaChange}

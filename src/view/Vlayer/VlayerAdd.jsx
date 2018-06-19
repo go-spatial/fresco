@@ -108,9 +108,9 @@ export default class VlayerAdd extends React.Component {
 			null;
 
 		return <form onSubmit={this.handle.submit}>
-			<h2 className="px-2 py-1 m-0 text-nav bg-light">Add Layer</h2>
+			<h2 className="px-2 m-0 right-col-title bg-light font-med">Add Layer</h2>
 			<div className="p-2">
-				<div className="">
+				<div className="property">
 					<Vfield field={{
 						type:'select',
 						name:'type',	
@@ -121,7 +121,7 @@ export default class VlayerAdd extends React.Component {
 						options:typeOptions
 					}} key="type" handle={this.handle}/>
 				</div>
-				<div className="mt-2">
+				<div className="mt-2 property">
 					<Vfield field={{
 						type:'select',
 						name:'source',	
@@ -134,7 +134,7 @@ export default class VlayerAdd extends React.Component {
 				</div>
 
 				{sourceLayerOptions && 
-					<div className="mt-2">
+					<div className="mt-2 property">
 						<Vfield field={{
 							type:'AC',
 							name:'source-layer',	
@@ -146,7 +146,7 @@ export default class VlayerAdd extends React.Component {
 						}} key="source-layer" handle={this.handle}/>
 					</div>
 				}
-				<div className="mt-2">
+				<div className="mt-2 property">
 					<Vfield field={{
 						type:'string',
 						name:'id',

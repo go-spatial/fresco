@@ -22,6 +22,7 @@ export default class Vproperty extends React.Component {
 			name: PropTypes.string.isRequired, // fill_color
 			label: PropTypes.string,
 			hideOptions: PropTypes.bool,
+			options:PropTypes.object,
 			// value
 			spec: PropTypes.object,
 			error: PropTypes.oneOfType([
@@ -83,7 +84,7 @@ export default class Vproperty extends React.Component {
 			},
 			remove:()=>{
 				const pos = property.name.split('.');
-				handle.removeIn(pos);
+				handle.removeIn && handle.removeIn(pos);
 			},
 			dropdownToggle:()=>{
 				if (this.state.dropdownShown) return this.setState({dropdownShown:false});
@@ -141,13 +142,23 @@ export default class Vproperty extends React.Component {
 				}} focus={focus} handle={handle}/>
 			</div>;
 		} else if (spec.type === 'enum'){
+
 			let options = [];
-			for (let i in spec.values){
-				options.push({
-					name:i,
-					value:i
-				});
-			};
+			if (property.options){
+				for (let i in property.options){
+					options.push({
+						name:i,
+						value:i
+					});
+				}
+			} else if (spec.values){
+				for (let i in spec.values){
+					options.push({
+						name:i,
+						value:i
+					});
+				}
+			}
 
 			elem = <div>
 				<Vfield field={{

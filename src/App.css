@@ -39,6 +39,8 @@ label .badge{position:relative;top:2px;}
 .CodeMirror-linenumbers{}
 .CodeMirror-gutters{background:transparent;border-right:1px solid transparent;}
 
+.code-error-left{left:-7px;}
+
 .close-pos{top:0.25rem;right:0.25rem;}
 
 .cm-s-default .cm-string{color: #03838F;}
@@ -71,12 +73,16 @@ label .badge{position:relative;top:2px;}
 
 .flex-2{flex:2;}
 
+.font-sm{font-size:0.7rem;}
+.font-med{font-size:0.8rem;}
+.font-lg{font-size:0.9rem;}
+
 .form-group label{font-size:0.8em;}
 .form-control{font-size:0.85em;}
 .form-control-sm{font-size:0.875rem;}
 .form-control .btn{line-height:1.2;}
 
-.func-border{border:2px solid #E6E6E6;border-radius:3px;}
+.func-border{border:1px solid #546D79;}
 .func-add{border:1px dashed #EEEEEE;padding:0.2rem;font-size:0.7em;
 	cursor:pointer;}
 .func-add label{display:none;}
@@ -102,7 +108,10 @@ label .badge{position:relative;top:2px;}
 
 .layer-search-pos{right:34px;left:6px;top:6px;}
 
-.link-list{font-size:0.88em;color:#37474F;text-decoration:none;
+.left-col-title{line-height:34px;}
+.left-col-title input{font-size:0.7rem;}
+
+.link-list{color:#37474F;text-decoration:none;
 	overflow-wrap:break-word;word-wrap:break-word;word-break: break-word;
 	font-weight:400;text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
 .link-list:hover{color:#273237;text-decoration:none;background-color:#FFF;}
@@ -117,10 +126,12 @@ label .badge{position:relative;top:2px;}
 .list-border-right{border-right:3px solid #E6E6E6;}
 .list-border-right.active{border-right:3px solid #273237;}
 
-.list-right{position:absolute;right:10px;top:3px;}
-.list-left{position:absolute;left:10px;top:3px;}
+.list-right{position:absolute;right:8px;top:3px;}
+.list-left{position:absolute;left:4px;top:3px;}
 
-.link-list.p-list{padding-left:34px!important;padding-right:30px!important;}
+.list-layer-color{position:absolute;left:8px;top:0;}
+
+.link-list.p-list{padding-left:28px!important;padding-right:24px!important;}
 .link-list.pr-list{padding-right:30px!important;}
 .link-list.pl-list{padding-left:30px!important;}
 
@@ -162,6 +173,9 @@ label .badge{position:relative;top:2px;}
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 
+.panel-min-height{min-height:300px;}
+.panel-z-index{z-index:3;}
+
 .property{position:relative;}
 .property label{font-size:0.65em;color:#616161;}
 .property input{border:none;border-radius:0px;border-bottom:1px solid #BDBDBD;}
@@ -172,6 +186,8 @@ label .badge{position:relative;top:2px;}
 .property .border-left{border-left:1px solid #EEEEEE;}
 .property .error-icon{top:0;left:-15px;}
 
+.right-col-title{line-height:30px;}
+
 
 .swatch{width:22px;height:22px;cursor:pointer;}
 .swatch:hover{border:1px solid #AEAEAE;}
@@ -181,8 +197,10 @@ label .badge{position:relative;top:2px;}
 .swatch-pos{left:6px;top:4px;}
 .swatch-input-pl{padding-left:38px;}
 
-.text-nav{line-height:34px;font-size:1em;}
+.text-nav{line-height:34px;}
 .text-overflow-ellipsis{text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
+
+.tooltip{font-size:0.7rem;}
 
 .w-max-500{max-width:500px;}
 

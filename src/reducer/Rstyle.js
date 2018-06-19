@@ -104,7 +104,7 @@ export default function(state = iState, action){
 		}
 		case 'SOURCE_ADD':{
 			const source = fromJS(action.payload);
-			const style = state.setIn(['rec','sources',source.get('url')],source);
+			const style = state.setIn(['rec','sources',action.key],source);
 			return setUpdated(style);
 		}
 		default:

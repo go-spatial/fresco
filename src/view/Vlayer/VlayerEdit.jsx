@@ -109,8 +109,8 @@ export default class VlayerEdit extends React.Component {
 		}
 
 		return <div>
-			<h2 className="px-2 py-1 m-0 text-nav bg-light row">
-				<div className="text-overflow-ellipsis flex-2 edit-name mr-2" onClick={this.handle.editIdShow}>
+			<h2 className="px-2 m-0 right-col-title bg-light row">
+				<div className="text-overflow-ellipsis flex-2 edit-name mr-2 font-med" onClick={this.handle.editIdShow}>
 					{this.state.editId ? 
 						<VlayerEditId handle={{change:this.handle.changeId,blur:this.handle.blurId}} style={style} error={layerError} layer={layer}/>
 						:
@@ -119,13 +119,13 @@ export default class VlayerEdit extends React.Component {
 				</div>
 				<div className="text-right">
 					<div onClick={this.handle.clickEdit} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'edit' ? 'active': '')}>
-						<i className="material-icons md-18 icon-btn gray">mode_edit</i>
+						<i className="material-icons md-14 icon-btn gray">mode_edit</i>
 					</div>
 					<div onClick={this.handle.clickJson} className={'d-inline-block layer-nav-link px-1 '+(this.state.mode === 'json' ? 'active': '')}>
-						<i className="material-icons md-18 icon-btn gray">code</i>
+						<i className="material-icons md-14 icon-btn gray">code</i>
 					</div>
 					<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="d-inline-block layer-nav-link px-1">
-						<i className="material-icons md-18 icon-btn gray">arrow_drop_down</i>
+						<i className="material-icons md-14 icon-btn gray">arrow_drop_down</i>
 					</div>
 					<div className="dropdown-menu" style={{lineHeight:1.5}} data-boundary="window">
 						<a key="clone" onClick={this.handle.clone} className="dropdown-item" href="javascript:">clone layer</a>

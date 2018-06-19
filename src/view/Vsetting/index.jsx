@@ -76,8 +76,8 @@ export default class Vsetting extends React.Component {
 		const maxContentH = window.innerHeight - 44;
 
 		return <div className="h-100 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
-			<div className="p-1">
-				<h2 className="px-2 py-1 m-0 text-nav bg-light">
+			<div className="">
+				<h2 className="px-2 m-0 text-nav bg-light font-med">
 					Settings
 					<div className="float-right">
 						

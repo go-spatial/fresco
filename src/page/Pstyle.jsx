@@ -44,6 +44,7 @@ class Pstyle extends React.Component {
 				this.props.history.push('/');
 			},
 			routeReplace:(path)=>{
+				if (path.indexOf('/') === 0) return this.props.history.replace(path); //is a root path
 				this.props.history.replace('/style/'+this.id+'/'+path);
 			},
 			goUp:()=>{

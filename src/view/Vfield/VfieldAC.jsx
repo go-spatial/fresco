@@ -227,26 +227,25 @@ export default class VfieldAC extends React.Component {
 					onFocus={this.handle.focus} 
 					onKeyUp={this.handle.keyUp}
 					ref={input => input && this.state.focused && field.autoFocus && input.focus()}
-					value={this.state.inputValue} />
-				{this.handle.focusIs() && 
-					<div className="ac-dropdown"
-						onMouseEnter={this.handle.dropdownMouseEnter} 
-						onMouseLeave={this.handle.dropdownMouseLeave}>
-						{field.options.map((exp,i)=>{
-							
-							if (exp.value.indexOf(this.state.inputValue) === -1) return null;
-							count++;
-							if (count > 10) return null;
+					value={this.state.inputValue} 
+					data-toggle="dropdown" />
 
-							let className = 'link-list px-2 py-1'
-							if (this.state.value === exp.value) className += ' active';
+				<div className="dropdown-menu" data-boundary="window">
+					{field.options.map((exp,i)=>{
+						
+						if (exp.value.indexOf(this.state.inputValue) === -1) return null;
+						count++;
+						if (count > 10) return null;
 
-							return <li className={className}
-								onClick={(e)=>{this.handle.liClick(exp.value)}} 
-								key={exp.value}>{exp.value}</li>
-						})}
-					</div>
-				}
+						let className = 'dropdown-item'
+						if (this.state.value === exp.value) className += ' active';
+
+						return <a className={className} 
+							href="javascript:"
+							onClick={(e)=>{this.handle.liClick(exp.value)}} 
+							key={exp.value}>{exp.value}</a>
+					})}
+				</div>
 			</div>
 		</div>
 

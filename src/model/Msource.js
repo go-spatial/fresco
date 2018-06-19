@@ -2,20 +2,26 @@ import Store from '../Store';
 import SourceReader from '../utility/SourceReader';
 import MaterialColor from '../utility/MaterialColor';
 
+import styleSpec from '../vendor/style-spec/style-spec';
+
 import Mstyle from './Mstyle';
 
 export default {
 
-	add:function(source){
+	add:function(source,key,makeLayers){
 		return new Promise((resolve,reject)=>{
 			if (!source.url) throw new Error('no source.url');
 			if (!source.type) throw new Error('no source.type');
+
+			//set key on source
+			key = key || source.url;
 
 			SourceReader.load(source.url).then((sourceJson)=>{
 				
 				Store.dispatch({
 					type:'SOURCE_ADD',
-					payload:source
+					payload:source,
+					key:key
 				});
 				Store.dispatch({
 					type:'STYLE_STORE_SETIN',
@@ -23,8 +29,10 @@ export default {
 					payload:sourceJson
 				});
 
-				const sourceLayers = sourceJson.vector_layers;
-				this.setupInitialLayers(source, sourceLayers);
+				if (makeLayers){
+					const sourceLayers = sourceJson.vector_layers;
+					this.setupInitialLayers(key, sourceLayers);
+				}
 
 				Mstyle.save();
 				return resolve(source);
@@ -33,6 +41,41 @@ export default {
 			});	
 		});
 
+	},
+
+	getAllTypeOptions:function(){
+		const spec = styleSpec.latest;
+		let values = {};
+		for (let i in spec){
+			if (i.indexOf('source_') === 0){
+				const type = i.replace('source_','').replace('_','-');
+				if (spec[i].type && spec[i].type.values && spec[i].type.values[type])
+					values[type] = {doc:spec[i].type.values[type].doc};
+			}
+		}
+		return values;
+	},
+
+	remove:function(key){
+		return new Promise((resolve,reject)=>{
+			// remove all style layers associated with this source
+			const layers = Mstyle.get().getIn(['rec','layers']);
+			console.log('layers:',layers);
+			layers.map((layer)=>{
+				if (layer.get('source') === key){
+					Store.dispatch({
+						type:'LAYER_REMOVE',
+						layerId:layer.get('id')
+					});
+				}
+			});
+
+			Mstyle.removeIn(['sources',key]).then(()=>{
+				resolve();
+			}).catch((e)=>{
+				reject(e);
+			});
+		});
 	},
 
 	setJSON:function(key,source){
@@ -46,19 +89,21 @@ export default {
 				});
 
 				Mstyle.save();
+
+				return resolve();
 			}).catch((e)=>{
 				return reject(e);
 			});
 		});
 	},
 
-	setupInitialLayers:function(source, sourceLayers){
+	setupInitialLayers:function(key, sourceLayers){
 		return new Promise((resolve,reject)=>{
 			sourceLayers.map((sourceLayer)=>{
 				const color = MaterialColor.getBright(sourceLayer.id);
 				let layer = {
 					id:sourceLayer.id,
-					source:source.url,
+					source:key,
 					'source-layer':sourceLayer.name,
 					layout: {
 						visibility: 'visible'
