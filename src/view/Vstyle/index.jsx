@@ -43,7 +43,7 @@ export default class Vstyle extends React.Component {
 				<h2>Loading</h2>
 			</div>
 		}
-		return <div className="container-fluid h-100 panel-z-index position-relative">
+		return <div className="container-fluid h-100 ">
 			<div className="row">
 				<div className="col-xs-6 col-sm-8 col-lg-6 col-xl-5 w-max-500 bg-dk p-0">
 
