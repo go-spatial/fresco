@@ -22,13 +22,7 @@ export default class VlayerGroupLayout extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {handle,layer} = this.props;
-
-		const layerType = layer.get('type');
-
 		this.state = {
-			spec:styleSpec.latest[group+'_'+layerType],
-			addShow:false
 		};
 	}
 
@@ -38,10 +32,11 @@ export default class VlayerGroupLayout extends React.Component {
 		const typeOptions = Mlayer.getTypes();
 		const sourceOptions = Msource.getOptions();
 
+		const layerType = Mlayer.getType(layer.get('id'));
+		const spec = styleSpec.latest[group+'_'+layerType];
+
 		const sourceLayerOptions = (layer.get('source'))? Msource.getLayerOptions(layer.get('source')):
 			null;
-
-		const spec = this.state.spec;
 
 		const layerGroup = layer.get(group);
 

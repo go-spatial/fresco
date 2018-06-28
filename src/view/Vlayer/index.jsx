@@ -138,7 +138,7 @@ export default class Vlayers extends React.Component {
 										if (error.hasIn(['layers',i])) className += ' error';
 
 										const color = LayerIcon.getColor(layer) || '#FFFFFF';
-										console.log('color:',color);
+										//console.log('color:',color);
 
 										return <Draggable key={layer.get('id')} draggableId={layer.get('id')} index={i}>
 											{(provided, snapshot) => (

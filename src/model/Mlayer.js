@@ -198,6 +198,17 @@ export default {
 		return Store.getState().style.getIn(['rec','layers',ind])
 	},
 
+	getType:function(layerId){
+		const layer = this.get(layerId);
+		if (!layer || !layer.has) return;
+		if (layer.has('type')) return layer.get('type');
+		if (layer.has('ref')){
+			const refLayer = this.get(layer.get('ref'));
+			if (refLayer.has('type')) return refLayer.get('type');
+		}
+		// no type found
+	},
+
 	getInd:function(layerId){
 		return Store.getState().style.getIn(['rec','layers']).findIndex((layer)=>{
 			//console.log('layer:',layer)

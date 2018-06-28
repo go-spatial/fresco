@@ -23,6 +23,7 @@ export default class Vproperty extends React.Component {
 			label: PropTypes.string,
 			hideOptions: PropTypes.bool,
 			options:PropTypes.object,
+			required:PropTypes.bool,
 			// value
 			spec: PropTypes.object,
 			error: PropTypes.oneOfType([
@@ -260,7 +261,9 @@ export default class Vproperty extends React.Component {
 			let actions = [];
 			if (!property.required) actions.push('remove');
 
-			if (actions.length < 1 && types.length == 1){ // no options
+			//console.log('types:',types);
+
+			if (actions.length < 1 && types.length <= 1){ // no options
 				return mode;
 			}
 

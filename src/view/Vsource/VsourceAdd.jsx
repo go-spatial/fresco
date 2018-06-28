@@ -81,6 +81,7 @@ export default class VsourceAdd extends React.Component {
 				<Vproperty key="url" property={{
 					name:'url',
 					label:'url',
+					required:true,
 					spec:spec['url'],
 					value:this.state.url,
 					error:error && error.get && error.get('url')
@@ -88,6 +89,7 @@ export default class VsourceAdd extends React.Component {
 				<Vproperty key="name" property={{
 					name:'name',
 					label:'name',
+					required:true,
 					spec:spec['name'],
 					value:this.state.name,
 					error:error && error.get && error.get('name')
@@ -95,6 +97,7 @@ export default class VsourceAdd extends React.Component {
 				<Vproperty key="type" property={{
 					name:'type',
 					label:'type',
+					required:true,
 					spec:spec['type'],
 					value:this.state.type,
 					error:error && error.get && error.get('type'),

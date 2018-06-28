@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import MapboxGl from 'mapbox-gl';
@@ -10,10 +11,29 @@ import Mlayer from '../../model/Mlayer';
 
 import LayerIcon from '../../utility/LayerIcon';
 
+import VmapboxInspector from './VmapboxInspector';
+import VmapboxControls from './VmapboxControls';
+
 import 'mapbox-gl-inspect/dist/mapbox-gl-inspect.css';
 var MapboxInspect = require('mapbox-gl-inspect');
 
-export default class Vmap extends React.Component {
+class CustomControls {
+
+    onAdd(map) {
+        this._container = document.createElement('div');
+
+        ReactDOM.render(<VmapboxControls map={map}/>,this._container);
+
+        return this._container;
+    }
+
+    onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+    }
+}
+
+export default class Vmapbox extends React.Component {
 
 	static propTypes = {
 		styleJS: PropTypes.object.isRequired,
@@ -24,17 +44,19 @@ export default class Vmap extends React.Component {
 	constructor (props){
 		super(props);
 		this.state = {
-			map:undefined,
 			styleJS:undefined
 		};
 	}
 
 	render (){
-		return <div id="map" className="" ref={el => this.container = el}></div>
+
+		const className = 'btn btn-light btn-sm'+(this.state.debugLines? ' active': '');
+
+		return <div>
+			<div id="map" className="" ref={el => this.container = el}></div>
+		</div>
 	}
 	componentWillReceiveProps (nextProps){
-
-
 		if(!this.state.map) return;
 
 		const {styleJS, handle, match} = nextProps;
@@ -67,16 +89,23 @@ export default class Vmap extends React.Component {
 
 	renderPopup (features){
 
-		//console.log('render popup:',this);
+		console.log('render popup:',this);
 
 		const {handle} = this.props;
 
-		// ReactDOM.render(element, document.getElementById('root'));
+		setTimeout(()=>{
+			return ReactDOM.render(<VmapboxInspector features={features} handle={handle}/>,document.getElementById('map-inspect'));
+		},1);
+		
+		return '<div class="map-inspect" id="map-inspect"></div>';
 
+		// ReactDOM.render(element, document.getElementById('root'));
+/*
 		window.layerClick = (path)=>{
 			handle.route(path);
 		};
 
+		
 		//console.log('features:',features);
 		let html = '<div class="map-inspect">'+
 			'<ul class="mb-0 mt-1 map-inspect-list">';
@@ -97,7 +126,10 @@ export default class Vmap extends React.Component {
 		}
 		html += '</ul></div>'
 		return html;
+		*/
 	}
+
+	
 
 	componentDidMount (){
 		const {styleJS} = this.props;
@@ -120,6 +152,10 @@ export default class Vmap extends React.Component {
 			style: styleJS.toJS(),
 			hash: true
 		});
+
+		map.addControl(new CustomControls({}));
+
+		//map.showTileBoundaries = true;
 
 		map.addControl(new MapboxInspect({
 			popup: new MapboxGl.Popup({
@@ -160,7 +196,9 @@ export default class Vmap extends React.Component {
 			Mstyle.errorAdd(e.error);
 		});
 
-		this.setState({map:map});
+		this.map = map;
+
+		//this.setState({map:map});
 
 
 

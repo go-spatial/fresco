@@ -8,6 +8,9 @@ import Valert from '../view/Valert';
 import Vmap from '../view/Vmap';
 import Vstyle from '../view/Vstyle';
 
+import Vpanel from '../view/Vpanel';
+import Mpanel from '../model/Mpanel';
+
 const mapStoreToProps = (store)=>{
 	return {
 		style:store.style,
@@ -35,7 +38,7 @@ class Pstyle extends React.Component {
 
 		Mstyle.load(this.id);
 		Mstyle.errorsSet();
-		
+
 		this.handle = {
 			route:(path)=>{
 				this.props.history.push('/style/'+this.id+'/'+path);

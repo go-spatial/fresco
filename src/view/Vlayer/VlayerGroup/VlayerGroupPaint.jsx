@@ -22,20 +22,17 @@ export default class VlayerGroupPaint extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const {handle,layer} = this.props;
-
-		const layerType = layer.get('type');
-
 		this.state = {
-			spec:styleSpec.latest[group+'_'+layerType],
-			addShow:false
 		};
 	}
 
 	render (){
 		const {layer, handle, focus, error} = this.props;
 
-		const spec = this.state.spec;
+		// if layer has a ref property, we need to find the referenced layer's type
+
+		const layerType = Mlayer.getType(layer.get('id'));
+		const spec = styleSpec.latest[group+'_'+layerType];
 
 		const layerGroup = layer.get(group);
 
@@ -48,7 +45,7 @@ export default class VlayerGroupPaint extends React.Component {
 				return <Vproperty key={name} property={{
 					name:name,
 					label:key,
-					spec:spec[key],
+					spec:spec && spec[key],
 					value:layerGroup.get(key),
 					error:error && error.get && error.get(key)
 				}} focus={focus} handle={handle}/>

@@ -51,9 +51,9 @@ export default class Vstyle extends React.Component {
 						<div className="nav-link nav-bb px-2" onClick={this.handle.goUp}>
 							<i className="material-icons icon-btn white md-18">arrow_back</i>
 						</div>
-						<Link className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis font-lg" to={match.url}>
+						<div className="navbar-brand flex-2 text-light text-nav text-overflow-ellipsis font-lg" to={match.url}>
 							{style.get('name')}
-						</Link>
+						</div>
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/setting`}>
 							<i className="material-icons icon-btn white md-18">settings</i>
 						</NavLink>
@@ -70,6 +70,9 @@ export default class Vstyle extends React.Component {
 						<NavLink className="nav-link nav-bb px-2" activeClassName="active" to={`${match.url}/save`}>
 							<i className="material-icons icon-btn white md-18">save</i>
 						</NavLink>
+						<Link to={match.url} className="nav-link nav-bb px-2">
+							<i className="material-icons icon-btn white md-18">close</i>
+						</Link>
 					</nav>
 
 					<div className="w-100 bg-white" ref={ref => this.scrollElem = ref}>
