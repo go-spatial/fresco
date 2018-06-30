@@ -153,6 +153,7 @@ export default class VlayerAdd extends React.Component {
 						label:'Layer ID',
 						value:this.state.id,
 						placeholder:'Unique identifier for layer',
+						inputNoAC:true,
 						controlled:false
 					}} key="id" handle={this.handle}/>
 				</div>

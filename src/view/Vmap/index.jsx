@@ -21,6 +21,8 @@ export default class Vmap extends React.Component {
 	render (){
 		const {handle, match} = this.props;
 
+		console.log('render map!!!');
+
 		//get style
 		switch (this.state.renderer){
 			case 'mapbox':

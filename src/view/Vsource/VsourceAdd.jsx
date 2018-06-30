@@ -33,12 +33,17 @@ export default class VsourceAdd extends React.Component {
 			submit:(e)=>{
 				e.preventDefault();
 
+
+
 				Msource.add({
 					url:this.state.url,
 					type:this.state.type
 				},this.state.name,this.state.makeLayers).then((source)=>{
 					handle.route('source/'+encodeURIComponent(this.state.name));
 				}).catch((e)=>{
+					if (e === 'not localhost'){
+						return this.setState({error:'the source you are adding is running locally and Fresco is not. You must run Fresco locally to be able to connect to this source.'});
+					}
 					console.log('catch error:',e);
 					this.setState({error:''+e});
 				});

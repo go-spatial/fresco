@@ -13,6 +13,13 @@ export default {
 			if (!source.url) throw new Error('no source.url');
 			if (!source.type) throw new Error('no source.type');
 
+			if (source.url.indexOf('/localhost') !== -1){
+				// check if user is also using localhost
+				if (window.location.indexOf('/localhost') !== -1){
+					return reject('not localhost');
+				}
+			}
+
 			//set key on source
 			key = key || source.url;
 

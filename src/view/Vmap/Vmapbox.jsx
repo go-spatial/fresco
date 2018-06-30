@@ -57,18 +57,18 @@ export default class Vmapbox extends React.Component {
 		</div>
 	}
 	componentWillReceiveProps (nextProps){
-		if(!this.state.map) return;
+		if(!this.map) return;
 
 		const {styleJS, handle, match} = nextProps;
 
 		//console.log('map match:',match);
 
-		//console.log('compare:',this.state.styleJS,styleJS);
+		console.log('compare:',this.state.styleJS);
 
-		if (this.state.styleJS.equals(styleJS)) return;
+		if (this.state.styleJS && this.state.styleJS.equals(styleJS)) return;
 		this.setState({styleJS:styleJS});
 
-		//console.log('styleJs:',JSON.stringify(styleJS.toJS()));
+		
 
 		/*
 		const metadata = nextProps.mapStyle.metadata || {}
@@ -79,7 +79,7 @@ export default class Vmapbox extends React.Component {
 		Mstyle.errorsSet();
 
 		try {
-			this.state.map.setStyle(styleJS.toJS(),{diff: true});
+			this.map.setStyle(styleJS.toJS(),{diff: true});
 		} catch(e){
 			//console.error('map style error:',e);
 			Mstyle.errorAdd(e);
@@ -89,7 +89,7 @@ export default class Vmapbox extends React.Component {
 
 	renderPopup (features){
 
-		console.log('render popup:',this);
+		//console.log('render popup:',this);
 
 		const {handle} = this.props;
 
@@ -197,15 +197,6 @@ export default class Vmapbox extends React.Component {
 		});
 
 		this.map = map;
-
-		//this.setState({map:map});
-
-
-
-		//this.setState({map:map});
-
-
-
 		/*
 		const map = new MapboxGl.Map({
 		container: this.container,
@@ -248,7 +239,7 @@ export default class Vmapbox extends React.Component {
 		map.on("data", e => {
 		if(e.dataType !== 'tile') return
 		this.props.onDataChange({
-		  map: this.state.map
+		  map: this.map
 		})
 		})
 		*/
