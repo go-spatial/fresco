@@ -15,7 +15,8 @@ export default {
 
 			if (source.url.indexOf('/localhost') !== -1){
 				// check if user is also using localhost
-				if (window.location.indexOf('/localhost') !== -1){
+				console.log('location:',window.location.href)
+				if (window.location.href.indexOf('/localhost') === -1){
 					return reject('not localhost');
 				}
 			}
@@ -38,7 +39,9 @@ export default {
 
 				if (makeLayers){
 					const sourceLayers = sourceJson.vector_layers;
-					this.setupInitialLayers(key, sourceLayers);
+					console.log('sourceJson:',sourceJson);
+
+					if (sourceLayers) this.setupInitialLayers(key, sourceLayers);
 				}
 
 				Mstyle.save();
@@ -175,8 +178,6 @@ export default {
 		const sourceLayers = this.getLayers(key);
 
 		if (!sourceLayers) return null;
-
-		//console.log('sources:',sources);
 		sourceLayers.map((layer)=>{
 			//console.log('source layer:',layer);
 			//const source = sources.get(key);
