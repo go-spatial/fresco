@@ -70,6 +70,7 @@ export default class VstyleAdd extends React.Component {
 					try {
 						json = JSON.parse(text);
 					} catch (e){
+						this.setState({error:'Error parsing JSON in file: '+e.toString()});
 						return console.error(e);
 					}
 					Mstyle.add(json).then((style)=>{

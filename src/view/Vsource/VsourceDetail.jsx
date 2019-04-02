@@ -10,6 +10,7 @@ import Vproperty from '../Vproperty';
 import VsourceDelete from './VsourceDelete';
 import VsourceEdit from './VsourceEdit';
 import VsourceLayers from './VsourceLayers';
+import VsourceSettings from './VsourceSettings';
 
 import Msource from '../../model/Msource';
 
@@ -77,8 +78,6 @@ export default class VsourceDetail extends React.Component {
 		const sourceKey = decodeURIComponent(match.params.key);
 		const source = sources.get(sourceKey);
 
-		console.log('error:',error);
-
 		const sourceError = error && error.getIn(['sources',sourceKey]);
 
 		//console.log('spec:',styleSpec.latest);
@@ -98,6 +97,7 @@ export default class VsourceDetail extends React.Component {
 				break;
 		}
 
+		const settingsPath = match.url+'/settings';
 		const editPath = match.url+'/edit';
 		const layersPath = match.url+'/layers';
 
@@ -113,6 +113,9 @@ export default class VsourceDetail extends React.Component {
 					<NavLink className="d-inline-block layer-nav-link px-1" to={layersPath}>
 						<i className="material-icons md-14 icon-btn gray">layers</i>
 					</NavLink>
+					<NavLink className="d-inline-block layer-nav-link px-1" to={settingsPath}>
+						<i className="material-icons md-14 icon-btn gray">settings</i>
+					</NavLink>
 					<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="d-inline-block layer-nav-link px-1">
 						<i className="material-icons md-14 icon-btn gray">arrow_drop_down</i>
 					</div>
@@ -127,6 +130,8 @@ export default class VsourceDetail extends React.Component {
 						render={(props) => <VsourceEdit error={sourceError} handle={handle} sourceKey={sourceKey} style={style} source={source} {...props}/>}/>
 					<Route path={`${match.url}/layers`} 
 						render={(props) => <VsourceLayers error={sourceError} handle={handle} sourceKey={sourceKey} style={style} source={source} {...props}/>}/>
+					<Route path={`${match.url}/settings`} 
+						render={(props) => <VsourceSettings error={sourceError} handle={handle} sourceKey={sourceKey} style={style} source={source} {...props}/>}/>
 				</Switch>
 				{modal && 
 					<div className="modal-container">

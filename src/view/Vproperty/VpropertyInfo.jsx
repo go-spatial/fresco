@@ -57,6 +57,7 @@ export default class Vproperty extends React.Component {
 		
 
 		if (error !== null && error !== undefined) return <i title={this.errorMessage(error)} ref={ref => {this.errorIcon = ref;}} className="text-danger material-icons md-14">error</i>;
+		if (!doc) return <span/>
 		return <i title={doc} ref={ref => {this.icon = ref;}} className="material-icons md-14 text-muted">info_outline</i>;
 	}
 };

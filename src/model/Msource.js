@@ -14,8 +14,6 @@ export default {
 			if (!source.type) throw new Error('no source.type');
 
 			if (source.url.indexOf('/localhost') !== -1){
-				// check if user is also using localhost
-				console.log('location:',window.location.href)
 				if (window.location.href.indexOf('/localhost') === -1){
 					return reject('not localhost');
 				}
@@ -39,8 +37,6 @@ export default {
 
 				if (makeLayers){
 					const sourceLayers = sourceJson.vector_layers;
-					console.log('sourceJson:',sourceJson);
-
 					if (sourceLayers) this.setupInitialLayers(key, sourceLayers);
 				}
 
@@ -70,7 +66,6 @@ export default {
 		return new Promise((resolve,reject)=>{
 			// remove all style layers associated with this source
 			const layers = Mstyle.get().getIn(['rec','layers']);
-			console.log('layers:',layers);
 			layers.map((layer)=>{
 				if (layer.get('source') === key){
 					Store.dispatch({
@@ -107,6 +102,21 @@ export default {
 		});
 	},
 
+	setSettings:function(key,settings){
+		//console.log('setJSON source:',source);
+		return new Promise((resolve,reject)=>{
+			Store.dispatch({
+				type:'STYLE_STORE_SETIN',
+				key:['sourceSettings',key],
+				payload:settings
+			});
+
+			Mstyle.save();
+
+			return resolve();
+		});
+	},
+
 	setupInitialLayers:function(key, sourceLayers){
 		return new Promise((resolve,reject)=>{
 			sourceLayers.map((sourceLayer)=>{
@@ -114,7 +124,7 @@ export default {
 				let layer = {
 					id:sourceLayer.id,
 					source:key,
-					'source-layer':sourceLayer.name,
+					'source-layer':sourceLayer.name || sourceLayer.id,
 					layout: {
 						visibility: 'visible'
 					},
@@ -132,7 +142,7 @@ export default {
 					layer.paint = {
 						'line-color': color
 					}
-				} else if (sourceLayer.geometry_type === 'polygon'){
+				} else {
 					layer.type = 'fill';
 					layer.paint = {
 						'fill-color': color,
@@ -156,6 +166,10 @@ export default {
 	get:function(key){
 		if (key === undefined) return Store.getState().style.getIn(['rec','sources']);
 		return Store.getState().style.getIn(['rec','sources',key]);
+	},
+	getSettings:function(key){
+		// get _store setting for a source key
+		return Store.getState().style.getIn(['rec','_store','sourceSettings',key]);
 	},
 	getOptions:function(){
 		let options = [];
@@ -182,8 +196,8 @@ export default {
 			//console.log('source layer:',layer);
 			//const source = sources.get(key);
 			options.push({
-				name:layer.get('name'),
-				value:layer.get('name')
+				name:layer.get('id'),
+				value:layer.get('id')
 			});
 			return;
 		});

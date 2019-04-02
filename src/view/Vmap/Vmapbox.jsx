@@ -6,6 +6,7 @@ import MapboxGl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Mconfig from '../../model/Mconfig';
+import Msource from '../../model/Msource';
 import Mstyle from '../../model/Mstyle';
 import Mlayer from '../../model/Mlayer';
 
@@ -62,8 +63,6 @@ export default class Vmapbox extends React.Component {
 		const {styleJS, handle, match} = nextProps;
 
 		//console.log('map match:',match);
-
-		console.log('compare:',this.state.styleJS);
 
 		if (this.state.styleJS && this.state.styleJS.equals(styleJS)) return;
 		this.setState({styleJS:styleJS});
@@ -150,6 +149,29 @@ export default class Vmapbox extends React.Component {
 			logoPosition:'bottom-right',
 			container: this.container,
 			style: styleJS.toJS(),
+			transformRequest: (url, resourceType)=> {
+	    	if (resourceType === 'Source' || resourceType === 'Tile') {
+	    		const sources = Msource.get(); // get all sources
+
+	    		const matchKey = sources.findKey(source => {
+	    			//get source domain
+	    			var matches = source.get('url').match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+						var domain = matches && matches[1];
+	    			return url.includes(domain)
+	    		});
+	    		
+	    		if (!matchKey) return {url: url};
+	    		const settings = Msource.getSettings(matchKey);
+
+	    		if (!settings.has('authToken')){
+	    			return {url: url};
+	    		}
+	    		return {
+	    			url: url,
+	    			headers: { 'Authorization': 'Bearer '+settings.get('authToken') }
+	    		}
+	    	}
+	  	},
 			hash: true
 		});
 
@@ -185,8 +207,7 @@ export default class Vmapbox extends React.Component {
 		map.addControl(nav, 'top-right');
 
 		map.on('error',(e)=>{
-			//console.log('map error:',e.error.message);
-			console.log('map error:',e);
+			console.error('map error:',e);
 			if (e.sourceId){
 				const error = {
 					message:'sources.'+e.sourceId+'.url: error loading source'
@@ -197,51 +218,5 @@ export default class Vmapbox extends React.Component {
 		});
 
 		this.map = map;
-		/*
-		const map = new MapboxGl.Map({
-		container: this.container,
-		style: this.props.mapStyle,
-		hash: true,
-		})
-
-		*/
-
-		/*
-
-		const inspect = new MapboxInspect({
-		popup: new MapboxGl.Popup({
-		  closeOnClick: false
-		}),
-		showMapPopup: true,
-		showMapPopupOnHover: false,
-		showInspectMapPopupOnHover: true,
-		showInspectButton: false,
-		assignLayerColor: (layerId, alpha) => {
-		  return Color(colors.brightColor(layerId, alpha)).desaturate(0.5).string()
-		},
-		buildInspectStyle: (originalMapStyle, coloredLayers) => buildInspectStyle(originalMapStyle, coloredLayers, this.props.highlightedLayer),
-		renderPopup: features => {
-		  if(this.props.inspectModeEnabled) {
-		    return renderPropertyPopup(features)
-		  } else {
-		    var mountNode = document.createElement('div');
-		    ReactDOM.render(<FeatureLayerPopup features={features} onLayerSelect={this.props.onLayerSelect} />, mountNode)
-		    return mountNode
-		  }
-		}
-		})
-		map.addControl(inspect)
-
-		map.on("style.load", () => {
-		this.setState({ map, inspect });
-		})
-
-		map.on("data", e => {
-		if(e.dataType !== 'tile') return
-		this.props.onDataChange({
-		  map: this.map
-		})
-		})
-		*/
   }
 };
