@@ -163,7 +163,7 @@ export default class Vmapbox extends React.Component {
 	    		if (!matchKey) return {url: url};
 	    		const settings = Msource.getSettings(matchKey);
 
-	    		if (!settings.has('headers')){
+	    		if (!settings || !settings.has('headers')){
 	    			return {url: url};
 	    		}
 	    		return {
