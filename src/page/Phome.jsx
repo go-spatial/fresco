@@ -48,8 +48,6 @@ class Phome extends React.Component {
 	render (){
 		const {styles, match} = this.props;
 		// build ary from obj
-
-
 		
 		if (styles.get('loaded') !== true) {
 			return <div>loading</div>
@@ -60,9 +58,6 @@ class Phome extends React.Component {
 			if (a.getIn(['_store','updated']) > b.getIn(['_store','updated'])) return -1;
 			return 1;
 		});
-
-		console.log('sorted recs:',recs);
-
 		
 		return <div>
 			<Vnav/>

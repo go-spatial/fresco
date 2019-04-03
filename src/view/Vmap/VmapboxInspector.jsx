@@ -51,8 +51,6 @@ export default class VmapboxInspector extends React.Component {
 			layers[feature.layer.id].count++;
 		});
 
-		console.log('inspector render!');
-
 		if (!this.state.layerSelected){
 			return <ul className="mb-0 mt-1 map-inspect-list inspector-overflow">
 					{Object.keys(layers).map((i)=>{

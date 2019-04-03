@@ -30,7 +30,7 @@ export default class VpropertyMetadata extends React.Component {
 
 		// convert value into array of arrays [[k,v],[k,v]]
 		let valAry = [];
-		property.value.keySeq().toArray().forEach((key)=>{
+		property.value && property.value.keySeq().toArray().forEach((key)=>{
 			let val = property.value.get(key);
 			if (val === true) val = 'true';
 			else if (val === false) val = 'false';

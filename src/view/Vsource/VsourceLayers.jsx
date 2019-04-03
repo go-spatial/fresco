@@ -34,8 +34,6 @@ export default class VsourceLayers extends React.Component {
 		const styleLayers = style.get('layers');
 		const sourceLayers = Msource.getLayers(sourceKey);
 
-		console.log('sourceLayers:',sourceLayers);
-
 		if (source === undefined){
 			return <Valert message="no source defined"/>
 		}
@@ -52,15 +50,16 @@ export default class VsourceLayers extends React.Component {
 			</div>
 			<ul className="">
 				{sourceLayers.valueSeq().map((layer)=>{
+					const layerId = layer.get('name') || layer.get('id')
 					let foundStyleLayers = [];
 					styleLayers.map((styleLayer)=>{
 						//console.log('styleLayer:',styleLayer.get('source'),sourceKey);
-						if (styleLayer.get('source') === sourceKey && styleLayer.get('source-layer') === layer.get('name'))
+						if (styleLayer.get('source') === sourceKey && styleLayer.get('source-layer') === layerId)
 							foundStyleLayers.push(styleLayer);
 					});
 					//console.log('styleLayers:',foundStyleLayers);
-					return <div className="px-2 py-1 d-block link-list font-sm position-relative" key={layer.get('name')}>
-						{layer.get('name')}
+					return <div className="px-2 py-1 d-block link-list font-sm position-relative" key={layerId}>
+						{layerId}
 						<div className="float-right text-right">
 							<div className="badge badge-secondary">
 								{foundStyleLayers.length}

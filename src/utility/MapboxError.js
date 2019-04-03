@@ -2,14 +2,13 @@ export default {
 	getKey:(error)=>{
 
 		/*
-		error
+		error example
 		{
 			message:'layers[0].paint.background-color: color expected, "#37474" found'
 		}
 		*/
 
 		if (!error || !error.message || error.message.indexOf(':') === -1) return ['general'];
-		// error.message is defined
 		const prefix = error.message.split(':')[0];
 		const parts = prefix.split('.');
 		let key = [];	
@@ -25,11 +24,12 @@ export default {
 			}
 			key.push(part);
 		});
-		console.log('key:',key);
 		return key;
 	},
 	getMessage:(error)=>{
-		if (!error || !error.message) return 'unidentified error';
+		if (!error) return;
+		if (!error.message && error.stack) return error.stack;
+		if (!error.message && !error.stack) return 'unidentified mapbox error';
 		if (error.message.indexOf(':') === -1) return error.message;
 		return error.message.split(':')[1];
 	}

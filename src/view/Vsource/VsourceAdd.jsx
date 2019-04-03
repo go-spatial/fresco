@@ -49,7 +49,6 @@ export default class VsourceAdd extends React.Component {
 				});
 			},
 			change:(field)=>{
-				console.log('change:',field);
 
 				if (field.name === 'url'){
 					this.setState({
@@ -73,8 +72,6 @@ export default class VsourceAdd extends React.Component {
 		const {} = this.props;
 
 		const error = this.state.error;
-
-		console.log('spec:', styleSpec.latest);
 
 		const spec = styleSpec.latest['source_vector'] || {};
 

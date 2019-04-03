@@ -1,7 +1,5 @@
 # fresco
-An open source map style editor.
-
-This editor is undergoing major development and is subject to drastic changes.
+An open source vector map style editor utilizing Mapbox GL.
 
 [Try it](https://fresco.netlify.com/)
 
@@ -11,11 +9,7 @@ This editor is undergoing major development and is subject to drastic changes.
 - Styles stored in localStorage (in the browser)
 - JSON editor
 - Layer property editor
-
-Coming soon:
-
-- Open Layers support
-- Remote style saving
+- MapboxGL expression support
 
 ## Installation
 
@@ -24,4 +18,6 @@ Coming soon:
 3. Navigate to this repo on your computer
 4. Run `npm install`
 5. To startup, run `npm start` - Fresco should open in a browser window
+
+![map editing screenshot](/docs/img/osm-screenshot.png)
 

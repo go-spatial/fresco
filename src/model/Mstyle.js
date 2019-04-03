@@ -79,8 +79,7 @@ const Mstyle = {
 	save:function(){
 		return new Promise((resolve,reject)=>{
 			const style = this.getJS();
-		
-			console.log('style save:',style.rec);
+
 			LocalStorage.set(style.rec.id,style.rec);
 		});
 	},
@@ -128,8 +127,6 @@ const Mstyle = {
 			all = all || {};
 
 			if (all._config) delete all._config;
-
-			console.log('all styles:',all);
 
 			Store.dispatch({
 				type:'STYLES_DEFINE',
@@ -201,8 +198,6 @@ const Mstyle = {
 	remove:function(){
 		return new Promise((resolve,reject)=>{
 			const style = this.get();
-
-			console.log('remove style:',style.getIn(['rec','id']));
 			// remove ocalStorage
 			LocalStorage.remove(style.getIn(['rec','id']));
 
@@ -213,8 +208,6 @@ const Mstyle = {
 	removeIn:function(prop){
 		return new Promise((resolve,reject)=>{
 			if (!prop) return reject('no prop');
-
-			// clear out prop, if is a list (expression), clear out expression
 
 			Store.dispatch({
 				type:'STYLE_REMOVEIN',
