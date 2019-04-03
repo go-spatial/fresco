@@ -163,12 +163,12 @@ export default class Vmapbox extends React.Component {
 	    		if (!matchKey) return {url: url};
 	    		const settings = Msource.getSettings(matchKey);
 
-	    		if (!settings.has('authToken')){
+	    		if (!settings.has('headers')){
 	    			return {url: url};
 	    		}
 	    		return {
 	    			url: url,
-	    			headers: { 'Authorization': 'Bearer '+settings.get('authToken') }
+	    			headers: settings.get('headers').toJS()
 	    		}
 	    	}
 	  	},

@@ -32,7 +32,7 @@ export default class VsourceSettings extends React.Component {
 
 		this.state = {
 			authToken:settings && settings.get('authToken'),
-			focus:null
+			headers:settings && settings.get('headers'),
 		};
 
 		this.handle = {
@@ -62,13 +62,13 @@ export default class VsourceSettings extends React.Component {
 		const {error, handle, sourceKey, style, source} = this.props;
 
 		return <form onSubmit={this.handle.submit} className="p-2">
-			<Vproperty key="authToken" property={{
+			<Vproperty key="headers" property={{
 				hideOptions:true,
-				name:'authToken',
-				label:'authorization token',
-				spec:{doc:'Token to be attached to source requests'},
-				value:this.state.authToken,
-				error:error && error.get && error.get('authToken')
+				name:'headers',
+				label:'request headers',
+				spec:{doc:'Headers attached to source requests', type:'*'},
+				value:this.state.headers,
+				error:error && error.get && error.get('headers')
 			}} focus={this.state.focus} handle={this.handle}/>
 			<div className="pt-2">
 				<button type="submit" className="btn btn-primary">Save</button>
