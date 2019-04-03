@@ -19,3 +19,5 @@ An open source vector map style editor utilizing Mapbox GL.
 4. Run `npm install`
 5. To startup, run `npm start` - Fresco should open in a browser window
 
+![map editing screenshot](/docs/img/osm-screenshot.png)
+
