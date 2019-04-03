@@ -31,19 +31,16 @@ export default class VsourceSettings extends React.Component {
 		const settings = Msource.getSettings(sourceKey)
 
 		this.state = {
-			authToken:settings && settings.get('authToken'),
 			headers:settings && settings.get('headers'),
 		};
 
 		this.handle = {
 			...handle,
 			focus:(pos)=>{
-				//console.log('focus:',pos);
 				this.setState({focus:pos});
 			},
 			
 			change:(field)=>{
-				//console.log('change:',field);
 				this.setState({[field.name]:field.value})
 			},
 
