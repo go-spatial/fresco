@@ -11,7 +11,6 @@ export default class VfieldFile extends React.Component {
 			name: PropTypes.string.isRequired,
 			value: PropTypes.object,
 			placeholder: PropTypes.string,
-			helper: PropTypes.string,
 			error: PropTypes.string
 		}),
 		handle: PropTypes.object
@@ -30,7 +29,6 @@ export default class VfieldFile extends React.Component {
 		this.handle = {
 			change:(e)=>{
 				const file = e.target.files[0];
-				const name = e.target.name;
 				if (controlled){
 					this.setState({value:file});
 				}

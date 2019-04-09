@@ -26,20 +26,6 @@ class Vpanel extends React.Component {
 		])
 	}
 
-	/*
-
-	panel: PropTypes.shape({
-			float: PropTypes.string, // left, right, top, bottom
-			dim: PropTypes.shape({
-				x: PropTypes.number,
-				y: PropTypes.number,
-				w: PropTypes.number,
-				h: PropTypes.number
-			}),
-		}), 
-
-	*/
-
 	constructor(props) {
 		super(props);
 		this.state = {

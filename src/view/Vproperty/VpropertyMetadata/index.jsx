@@ -111,16 +111,13 @@ export default class VpropertyMetadata extends React.Component {
 	}
 
 	render (){
-		const {property, focus} = this.props;
+		const {focus} = this.props;
 
-		let rows = [], ind = 0;
+		let rows = [];
 		this.state.valAry.keySeq().toArray().forEach((key)=>{
 
 			const keyName = key+'.0';
 			const valueName = key+'.1';
-
-			const error = (property.error && property.error.get)? property.error.get(key): null;
-			//console.log('function error:',error);
 
 			const keyFocus = (keyName === focus)? true: false;
 			const valueFocus = (valueName === focus)? true: false;
@@ -151,8 +148,6 @@ export default class VpropertyMetadata extends React.Component {
 					</div>
 				</div>
 			);
-
-			ind++;
 		});
 
 		return <div className="form-group mb-0">

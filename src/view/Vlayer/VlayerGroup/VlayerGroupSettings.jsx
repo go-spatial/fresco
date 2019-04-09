@@ -7,7 +7,6 @@ import Vproperty from '../../Vproperty';
 import VpropertyAdd from '../../Vproperty/VpropertyAdd';
 
 import Mlayer from '../../../model/Mlayer';
-import Msource from '../../../model/Msource';
 
 export default class VlayerGroupSettings extends React.Component {
 	static propTypes = {
@@ -22,7 +21,6 @@ export default class VlayerGroupSettings extends React.Component {
 
 		this.handle = {
 			change:(field)=>{
-				console.log('change:',field);
 				Mlayer.setIn(layer.get('id'),[field.name],field.value);
 			},
 			focus:handle.focus
@@ -35,8 +33,6 @@ export default class VlayerGroupSettings extends React.Component {
 
 	render (){
 		const {layer, handle, focus, error} = this.props;
-
-		const layerId = layer.get('id');
 
 		const spec = styleSpec.latest.layer;
 
@@ -60,7 +56,7 @@ export default class VlayerGroupSettings extends React.Component {
 
 		return <div className="">
 			{layer.keySeq().map((key)=>{
-				if (!addSpec[key]) return;
+				if (!addSpec[key]) return <div/>;
 			
 				return <Vproperty key={key} property={{
 					name:key,

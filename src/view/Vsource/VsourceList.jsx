@@ -98,11 +98,9 @@ export default class VsourceList extends React.Component {
 						{(provided, snapshot) => (
 							<div ref={provided.innerRef}>
 								{sources !== undefined && sources.keySeq().map((key)=>{
-
-									const source = sources.get(key);
 									const path = baseUrl+'/'+encodeURIComponent(key);
 
-									if (this.state.search && key.toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return;
+									if (this.state.search && key.toLowerCase().indexOf(this.state.search.toLowerCase()) === -1) return <div/>;
 
 									let className = 'px-2 py-1 d-block link-list list-border-right position-relative';
 									if (error.hasIn(['sources',key])) className += ' error';

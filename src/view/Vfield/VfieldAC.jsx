@@ -12,7 +12,6 @@ export default class VfieldAC extends React.Component {
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,
 			placeholder: PropTypes.string,
-			helper: PropTypes.string,
 			error: PropTypes.string,
 			options: PropTypes.array,
 			autoFocus: PropTypes.boolean,
@@ -37,8 +36,6 @@ export default class VfieldAC extends React.Component {
 		if (field.controlled){
 			this.state.value = field.value;
 		}
-
-		//console.log('AC handle:',handle);
 
 		this.handle = {
 			inputChange:(e)=>{
@@ -102,7 +99,6 @@ export default class VfieldAC extends React.Component {
 				this.handle.change(value);
 			},
 			liClick:(value)=>{
-				console.log('li click:',value);
 				this.handle.select(value);
 			},
 			cancel:()=>{
@@ -124,7 +120,6 @@ export default class VfieldAC extends React.Component {
 				if (handle.selectedClick) handle.selectedClick();
 			},
 			selectedKeyUp:(e)=>{
-				console.log('selected keyUp',e);
 				/*
 				if (e.key === 'ArrowDown'){
 					this.props.handle.focusNext();
@@ -175,13 +170,13 @@ export default class VfieldAC extends React.Component {
 	}
 
 	render (){
-		const {field, handle} = this.props;
+		const {field} = this.props;
 		const value = field.controlled ? this.state.value : field.value;
 
-		//console.log('handle change:',value);
 		if (value !== null && value.length > 0 && (!this.state.mode || this.state.mode === 'view')){
 
 			//check if value is valid option, if not show error
+			/*
 			let found = false;
 			for (let i=0,len=field.options.length;i<len;i++){
 				let option = field.options[i];
@@ -189,8 +184,9 @@ export default class VfieldAC extends React.Component {
 					found = true;
 				}
 			}
-
+			*/
 			let error = null; //(!found)? 'expression not found': null; 
+
 
 			return <div className="form-group mb-0 position-relative">
 				{field.label && <label className="mb-0">{field.label}</label>}

@@ -164,13 +164,13 @@ const Mstyle = {
 
 	errorAdd:function(error){
 		return new Promise((resolve,reject)=>{
-
 			const key = MapboxError.getKey(error);
 			const message = MapboxError.getMessage(error);
 
 			const err = {
 				key:key,
-				message:message
+				message:message,
+				error:error,
 			};
 	
 			Store.dispatch({

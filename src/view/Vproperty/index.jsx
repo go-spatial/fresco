@@ -115,8 +115,8 @@ export default class Vproperty extends React.Component {
 
 		const spec = property.spec || {};
 
-		const doc = property.spec && property.spec.doc || null;
-		const type = property.spec && property.spec.type || 'string';
+		const doc = (property.spec && property.spec.doc)? property.spec.doc: null;
+		const type = (property.spec && property.spec.type)? property.spec.type: 'string';
 
 		const autoFocus = (property.name === focus)? true: false;
 

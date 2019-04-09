@@ -2,7 +2,8 @@ import {Map, List, fromJS} from 'immutable';
 
 const iState = Map({
 	loaded:false,
-	rec:undefined
+	rec:undefined,
+	rebuildMap:null,
 });
 
 export default function(state = iState, action){
@@ -98,7 +99,6 @@ export default function(state = iState, action){
 				return layer.get('id') === action.layerId;
 			});
 			if (ind === -1) throw new Error('layer matching layerId not found');
-			const val = fromJS(action.payload);
 			const style = state.removeIn(['rec','layers',ind, ...action.prop]);
 			return setUpdated(style);
 		}
@@ -106,6 +106,10 @@ export default function(state = iState, action){
 			const source = fromJS(action.payload);
 			const style = state.setIn(['rec','sources',action.key],source);
 			return setUpdated(style);
+		}
+		case 'SOURCE_RELOAD':{
+			const style = state.setIn(['rebuildMap'], new Date().getTime())
+			return style
 		}
 		default:
 			return state;

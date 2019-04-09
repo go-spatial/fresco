@@ -14,16 +14,16 @@ export default class Vfeature extends React.Component {
 	}
 
 	render (){
-		const {features, handle} = this.props;
-
-		// get property values
+		const {features} = this.props;
 
 		let cols = ['id'];
 		features.map((feature)=>{
-			if (!feature.properties) return;
+			if (!feature.properties) return null;
 			Object.keys(feature.properties).map((i)=>{
 				if (cols.indexOf(i) === -1) cols.push(i);
+				return null;
 			});
+			return null;
 		});
 		
 		let ids = [];
@@ -35,7 +35,6 @@ export default class Vfeature extends React.Component {
 			}
 			return false;
 		});
-
 
 		return <table className="table font-sm table-sm">
 			<thead>
@@ -58,20 +57,5 @@ export default class Vfeature extends React.Component {
 			</tbody>
 
 		</table>
-
-		/*
-			
-			{features.map((feature)=>{
-
-				console.log('feature:',feature);
-
-				return <li key={feature.id} onClick={()=>{this.handle.featureClick(feature);}}><a href="javascript://">
-					{Object.keys(feature.properties).map((i)=>{
-						return i+': '+feature.properties[i];
-					})}
-				</a></li>
-			})}
-
-		*/
 	}
 };
