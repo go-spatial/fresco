@@ -8,7 +8,7 @@ import Vnav from '../view/Vnav';
 import VstyleAdd from '../view/Vstyles/VstyleAdd';
 import Vstyles from '../view/Vstyles';
 
-import {NavLink, Link, Route, Switch} from 'react-router-dom';
+import {Link, Route, Switch} from 'react-router-dom';
 
 
 const mapStoreToProps = (store)=>{

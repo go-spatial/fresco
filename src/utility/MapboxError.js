@@ -8,8 +8,8 @@ export default {
 		}
 		*/
 
-		if (!error || !error.message || error.message.indexOf(':') === -1) return ['general'];
-		const prefix = error.message.split(':')[0];
+		if (!error || !error.message || error.message.indexOf(': ') === -1) return ['general'];
+		const prefix = error.message.split(': ')[0];
 		const parts = prefix.split('.');
 		let key = [];	
 		parts.forEach((part)=>{
@@ -30,7 +30,7 @@ export default {
 		if (!error) return;
 		if (!error.message && error.stack) return error.stack;
 		if (!error.message && !error.stack) return 'unidentified mapbox error';
-		if (error.message.indexOf(':') === -1) return error.message;
-		return error.message.split(':')[1];
+		if (error.message.indexOf(': ') === -1) return error.message;
+		return error.message.split(': ')[1];
 	}
 };

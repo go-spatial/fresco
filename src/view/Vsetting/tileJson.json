@@ -1,0 +1,224 @@
+{
+  "tiles": [
+    "https://tileserverv2.saildrone.com/v1/basemaps/osm-2018-11-26-v3.8-planet.mbtiles?zyx={z}/{x}/{y}"
+  ],
+  "name": "OpenMapTiles",
+  "format": "pbf",
+  "basename": "tiles.mbtiles",
+  "id": "openmaptiles",
+  "attribution": "<a href=\"https://www.openmaptiles.org/\" target=\"_blank\">&copy; OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>",
+  "bounds": [
+    -180,
+    -85.0511,
+    180,
+    85.0511
+  ],
+  "center": [
+    -122.3445,
+    37.8711,
+    4
+  ],
+  "description": "A tileset showcasing all layers in OpenMapTiles. https://openmaptiles.org",
+  "maxzoom": 12,
+  "minzoom": 0,
+  "pixel_scale": "256",
+  "type": "baselayer",
+  "version": "3.8",
+  "vector_layers": [{
+      "id": "water",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String"
+      }
+    },
+    {
+      "id": "land",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String"
+      }
+    },
+    {
+      "id": "waterway",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "name": "String",
+        "name_en": "String",
+        "class": "String",
+        "brunnel": "String"
+      }
+    },
+    {
+      "id": "landcover",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String",
+        "subclass": "String"
+      }
+    },
+    {
+      "id": "landuse",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String"
+      }
+    },
+    {
+      "id": "mountain_peak",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "osm_id": "Number",
+        "name": "String",
+        "name_en": "String",
+        "ele": "Number",
+        "ele_ft": "Number",
+        "rank": "Number"
+      }
+    },
+    {
+      "id": "park",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String"
+      }
+    },
+    {
+      "id": "boundary",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "admin_level": "Number",
+        "disputed": "Number",
+        "maritime": "Number"
+      }
+    },
+    {
+      "id": "aeroway",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "ref": "String",
+        "class": "String"
+      }
+    },
+    {
+      "id": "transportation",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "class": "String",
+        "subclass": "String",
+        "oneway": "Number",
+        "ramp": "Number",
+        "brunnel": "String",
+        "service": "String",
+        "layer": "Number",
+        "level": "Number"
+      }
+    },
+    {
+      "id": "water_name",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "name": "String",
+        "name_en": "String",
+        "class": "String"
+      }
+    },
+    {
+      "id": "transportation_name",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "name": "String",
+        "name_en": "String",
+        "ref": "String",
+        "ref_length": "Number",
+        "network": "String",
+        "class": "String",
+        "subclass": "String",
+        "layer": "Number",
+        "level": "Number"
+      }
+    },
+    {
+      "id": "neighborhood_label",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "ogc_fid": "Number",
+        "name": "String",
+        "state": "String",
+        "county": "String",
+        "city": "String",
+        "regionid": "String"
+      }
+    },
+    {
+      "id": "place",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "name": "String",
+        "name_en": "String",
+        "class": "String",
+        "rank": "Number",
+        "capital": "Number",
+        "iso_a2": "String"
+      }
+    },
+    {
+      "id": "poi",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "name": "String",
+        "name_en": "String",
+        "class": "String",
+        "subclass": "String",
+        "agg_stop": "Number",
+        "rank": "Number"
+      }
+    },
+    {
+      "id": "aerodrome_label",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "osm_id": "Number",
+        "name": "String",
+        "name_en": "String",
+        "class": "String",
+        "iata": "String",
+        "icao": "String",
+        "ele": "Number",
+        "ele_ft": "Number"
+      }
+    }
+  ],
+  "tilejson": "2.0.0"
+}

@@ -8,14 +8,11 @@ import Valert from '../view/Valert';
 import Vmap from '../view/Vmap';
 import Vstyle from '../view/Vstyle';
 
-import Vpanel from '../view/Vpanel';
-import Mpanel from '../model/Mpanel';
-
 const mapStoreToProps = (store)=>{
 	return {
 		style:store.style,
 		error:store.styleError
-	} // props
+	}
 };
 const mapDispatchToProps = {};
 

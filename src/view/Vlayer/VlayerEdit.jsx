@@ -8,7 +8,6 @@ import VlayerEditor from './VlayerEditor';
 import VlayerDelete from './VlayerDelete';
 
 import Mlayer from '../../model/Mlayer';
-import Mstyle from '../../model/Mstyle';
 
 export default class VlayerEdit extends React.Component {
 
@@ -83,10 +82,6 @@ export default class VlayerEdit extends React.Component {
 
 		const layerError = error.getIn(['layers',Mlayer.getInd(this.id)]);
 
-		//console.log('layer err:',error);
-
-		// change map mode to show_hidden source layers
-
 		if (layer === undefined){
 			return <Valert message="no layer found"/>;
 		}
@@ -99,7 +94,9 @@ export default class VlayerEdit extends React.Component {
 			case 'edit':
 				section = <VlayerEditor key={this.id} handle={handle} error={layerError} layer={layer}/>;
 				break;
-			
+			default:
+				section = <VlayerEditor key={this.id} handle={handle} error={layerError} layer={layer}/>;
+				break;
 		}
 
 		switch (this.state.modal){

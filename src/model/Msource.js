@@ -113,6 +113,16 @@ export default {
 
 			Mstyle.save();
 
+			const now = new Date().getTime() // set the reload stamp to now
+
+			Store.dispatch({
+				type:'SOURCE_RELOAD',
+				payload:{
+					sourceKey:key,
+					when:now
+				}
+			});
+
 			return resolve();
 		});
 	},

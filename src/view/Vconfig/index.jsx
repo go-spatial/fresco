@@ -11,13 +11,6 @@ export default class Vconfig extends React.Component {
 		config: PropTypes.object
 	}
 
-	constructor(props) {
-		super(props);
-		const {} = props;
-
-		
-	}
-
 	render (){
 		const {config, error, handle} = this.props;
 

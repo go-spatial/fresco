@@ -16,7 +16,6 @@ export default class VfieldColor extends React.Component {
 			name: PropTypes.string.isRequired,
 			value: PropTypes.string,
 			placeholder: PropTypes.string,
-			helper: PropTypes.string,
 			error: PropTypes.string,
 			options: PropTypes.array,
 			autoFocus: PropTypes.boolean
@@ -85,8 +84,6 @@ export default class VfieldColor extends React.Component {
 				}
 			},
 			colorSet:(color)=>{
-				console.log('color:',color);
-
 				let value;
 				switch(color.source){
 					case 'rgb':
@@ -123,7 +120,7 @@ export default class VfieldColor extends React.Component {
 	}
 
 	render (){
-		const {field, handle, error} = this.props;
+		const {field, error} = this.props;
 		const value = field.controlled ? this.state.value : field.value || '';
 
 		const colors = MaterialColor.getAll();

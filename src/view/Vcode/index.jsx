@@ -3,7 +3,7 @@ import React from 'react';
 import Mstyle from '../../model/Mstyle';
 import Vfield from '../Vfield';
 
-export default class Vsources extends React.Component {
+export default class Vcode extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -24,8 +24,6 @@ export default class Vsources extends React.Component {
 		const errors = Mstyle.errorsGet();
 
 		const maxContentH = window.innerHeight - 44;
-
-		console.log('code render errs:',errors);
 
 		const field = {
 			value:Mstyle.getMapStyle(),
