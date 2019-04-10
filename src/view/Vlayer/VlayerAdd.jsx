@@ -36,15 +36,15 @@ export default class VlayerAdd extends React.Component {
 					//return;
 				//}
 
-				const rec = {
+				let rec = {
 					id:this.state.id,
 					source:this.state.source,
 					type:this.state.type,
-					'source-layer':this.state['source-layer']
 				};
 
+				if (this.state['source-layer']) rec['source-layer'] = this.state['source-layer']
+
 				Mlayer.add(rec).then((layer)=>{
-					console.log('added:',layer);
 					handle.route('layer/'+layer.id);
 				}).catch((e)=>{
 					this.setState({error:e});
@@ -69,8 +69,6 @@ export default class VlayerAdd extends React.Component {
 						}
 						id = newId;
 					}
-
-					console.log('id:',id);
 					this.setState({id:id});
 				}
 				this.setState({
@@ -86,7 +84,6 @@ export default class VlayerAdd extends React.Component {
 				if (this.state['source-layer']) parts.push(this.state['source-layer']);
 				if (this.state.type) parts.push(this.state.type);
 				const id = parts.join('.');
-				console.log('id:',id);
 				this.setState({
 					id:id,
 					error:null
@@ -101,8 +98,6 @@ export default class VlayerAdd extends React.Component {
 	render (){
 		const typeOptions = Mlayer.getTypes();
 		const sourceOptions = Msource.getOptions();
-
-		console.log('source:',this.state.source);
 
 		const sourceLayerOptions = (this.state.source)? Msource.getLayerOptions(this.state.source):
 			null;
