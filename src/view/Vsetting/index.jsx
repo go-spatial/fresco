@@ -1,130 +1,64 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import {NavLink, Switch, Route} from 'react-router-dom';
 
-import Mstyle from '../../model/Mstyle';
-
-import styleSpec from '../../vendor/style-spec/style-spec';
-
-import Vproperty from '../Vproperty';
-import VpropertyAdd from '../Vproperty/VpropertyAdd';
+import VsettingBase from './VsettingBase';
+import VsettingDomains from './VsettingDomains';
 
 export default class Vsetting extends React.Component {
+	static propTypes = {
+		handle: PropTypes.object,
+		match: PropTypes.object,
+		style: PropTypes.object
+	}
+
 	constructor(props) {
 		super(props);
-		const {style, handle} = props;
+		const {handle, match, style} = props;
+		this.redirectEmpty(handle, match, style);
+	}
 
-		this.state = {
-			deleteShow:false,
-			focus:null
-		};
+	componentWillReceiveProps (nextProps){
+		const {handle, match, style} = nextProps;
+		this.redirectEmpty(handle, match, style);
+	}
 
-		console.log('style',style.get('name'));
-
-		this.handle = {
-			change:(field)=>{
-				let key = field.name.split('.');
-				key.forEach((k,i)=>{
-					if (/^\d+$/.test(k)) key[i] = Number(k);
-				});
-				Mstyle.setIn(key,field.value);
-			},
-			deleteConfirm:()=>{
-				handle.routeHome();
-				Mstyle.remove().then(()=>{
-
-				});
-			},
-			deleteShow:()=>{
-				this.setState({deleteShow:true});
-			},
-			deleteHide:()=>{
-				this.setState({deleteShow:false});
-			},
-			removeIn:(pos)=>{
-				//console.log('Mstyle:',Mstyle);
-				Mstyle.removeIn(pos);
-			},
-			focus:(pos)=>{
-				//console.log('focus:',pos);
-				this.setState({focus:pos});
-			}
-		};
-		for (let i in this.handle){
-			this.handle[i] = this.handle[i].bind(this);
+	redirectEmpty (handle, match, style){
+		if (match.isExact){
+			handle.routeReplace('setting/base');
 		}
 	}
 
 	render (){
-		const {style, error} = this.props;
+		const {error, handle, match, style} = this.props,
+			maxContentH = window.innerHeight - 44;
 
-		const spec = styleSpec.latest.$root;
-
-		let addSpec = {
-			name:spec.name,
-			metadata:spec.metadata,
-			center:spec.center,
-			zoom:spec.zoom,
-			bearing:spec.bearing,
-			pitch:spec.pitch,
-			light:spec.light,
-			sprite:spec.sprite,
-			glyphs:spec.glyphs,
-			transition:spec.transition
-		};
-
-		console.log('spec:',spec);
-
-		const maxContentH = window.innerHeight - 44;
-
-		return <div className="h-100 o-y-scroll" style={{maxHeight:maxContentH+'px'}}>
-			<div className="">
-				<h2 className="px-2 m-0 text-nav bg-light font-med">
-					Settings
-					<div className="float-right">
-						
+		return <div className="row mr-0 h-100">
+			<div className="col-5 pr-0 o-y-scroll panel-min-height" style={{maxHeight:maxContentH+'px'}}>
+				<h2 className="px-2 m-0 text-nav bg-light row">
+					<div className="flex-2 text-overflow-ellipsis font-med">
+						Settings
 					</div>
 				</h2>
-				<div className="p-2">
-					{style.keySeq().map((key)=>{
-						//console.log('styleSpec key:',key);
-						if (!addSpec[key]) return;
-					
-						return <Vproperty key={key} property={{
-							name:key,
-							label:key,
-							spec:addSpec[key],
-							value:style.get(key),
-							error:error && error.get && error.get(key),
-							required:addSpec[key].required
-						}} focus={this.state.focus} handle={this.handle}/>
-					})}
-
-					<div className="property">
-						<VpropertyAdd 
-							spec={addSpec} 
-							layerGroup={style} 
-							focus={this.state.focus}
-							handle={this.handle}/>
-					</div>
-
-					{this.state.deleteShow ?
-						<div className="form-group mt-4 text-right">
-							<button onClick={this.handle.deleteConfirm} type="submit" className="btn btn-danger btn-sm mr-2">
-								Delete Style
-							</button>
-							<button onClick={this.handle.deleteHide} type="submit" className="btn btn-light btn-sm">
-								<i className="material-icons md-18">close</i>
-							</button>
-						</div>
-						:
-						<div className="form-group mt-4 text-right">
-							<button onClick={this.handle.deleteShow} type="submit" className="btn btn-light btn-sm">
-								<i className="material-icons md-18">delete</i>
-							</button>
-						</div>
-					}
+				<div className="bg-light font-sm">
+					<NavLink className="px-2 py-1 d-block link-list list-border-right position-relative" to={`${match.url}/base`} key={'base'}>
+						Base
+					</NavLink>
+					<NavLink className="px-2 py-1 d-block link-list list-border-right position-relative" to={`${match.url}/domains`} key={'base'}>
+						Domains
+					</NavLink>
 				</div>
 			</div>
-		</div>;
-
+			<div className="col-7 px-0 o-y-scroll panel-min-height" style={{maxHeight:maxContentH+'px'}}>
+				<div className="p-1">
+					<Switch>
+						<Route path={`${match.url}/base`} 
+							render={(props) => <VsettingBase handle={handle} style={style} {...props}/>}/>
+						<Route path={`${match.url}/domains`} 
+							render={(props) => <VsettingDomains handle={handle} style={style} {...props}/>}/>
+					</Switch>
+				</div>
+			</div>
+		</div>
 	}
 };

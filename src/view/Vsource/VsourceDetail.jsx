@@ -101,6 +101,12 @@ export default class VsourceDetail extends React.Component {
 		const editPath = match.url+'/edit';
 		const layersPath = match.url+'/layers';
 
+		/*
+					<!--NavLink className="d-inline-block layer-nav-link px-1" to={settingsPath}>
+						<i className="material-icons md-14 icon-btn gray">merge_type</i>
+					</NavLink-->
+						*/
+
 		return <div>
 			<h2 className="px-2 m-0 right-col-title bg-light row">
 				<div className="text-overflow-ellipsis flex-2 edit-name mr-2 font-med" onClick={this.handle.editIdShow}>
@@ -116,6 +122,8 @@ export default class VsourceDetail extends React.Component {
 					<NavLink className="d-inline-block layer-nav-link px-1" to={settingsPath}>
 						<i className="material-icons md-14 icon-btn gray">settings</i>
 					</NavLink>
+
+					
 					<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="d-inline-block layer-nav-link px-1">
 						<i className="material-icons md-14 icon-btn gray">arrow_drop_down</i>
 					</div>

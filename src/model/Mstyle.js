@@ -6,6 +6,7 @@ import Store from '../Store';
 import MapboxError from '../utility/MapboxError';
 import LocalStorage from '../utility/LocalStorage';
 import Uid from '../utility/Uid';
+import Url from '../utility/Url';
 
 const Mstyle = {
 
@@ -103,6 +104,20 @@ const Mstyle = {
 
 	get:function(){
 		return Store.getState().style;
+	},
+	getDomains:function(){
+		const style = this.get()
+
+		let domains = [];
+		const glyphs = style.getIn(['rec','glyphs'])
+		const glyphDomain = Url.getDomain(glyphs)
+		if (glyphDomain) domains.push(glyphDomain)
+
+
+		return domains
+	},
+	getStore:function(){
+		return this.get().getIn(['rec','_store'])
 	},
 	getJS:function(){
 		return this.get().toJS();
