@@ -110,9 +110,35 @@ const Mstyle = {
 
 		let domains = [];
 		const glyphs = style.getIn(['rec','glyphs'])
-		const glyphDomain = Url.getDomain(glyphs)
-		if (glyphDomain) domains.push(glyphDomain)
+		const glyphsDomain = Url.getDomain(glyphs)
+		if (glyphsDomain) domains.push(glyphsDomain)
 
+		const sprites = style.getIn(['rec','sprites'])
+		const spritesDomain = Url.getDomain(sprites)
+		if (spritesDomain && !domains.includes(spritesDomain)) domains.push(spritesDomain)
+
+		// loop through sources and get all domains (from tiles too)
+		const sources = style.getIn(['rec','sources'])
+		sources.forEach((source, sourceKey)=>{
+			const url = source.get('url');
+			if (url){
+				const domain = Url.getDomain(url)
+				if (domain && !domains.includes(domain)) domains.push(domain)
+				const sourceJson = Store.getState().style.getIn(['rec','_store','sourceJson',url])
+
+				let tiles;
+				if (source.has('tiles')){
+					tiles = source.get('tiles')
+				} else if (sourceJson && sourceJson.has('tiles')){
+					tiles = sourceJson.get('tiles')
+				}
+
+				tiles && tiles.forEach((tile)=>{
+					const domain = Url.getDomain(tile)
+					if (domain && !domains.includes(domain)) domains.push(domain)
+				})
+			}	
+		})
 
 		return domains
 	},
@@ -130,8 +156,6 @@ const Mstyle = {
 	getJSforMapbox:function(){
 
 		// apply interactive transformations to style
-		
-
 
 		return this.get().get('rec').delete('_store').toJS();
 	},
@@ -231,6 +255,26 @@ const Mstyle = {
 			});
 
 			Mstyle.save();
+			return resolve();
+		});
+	},
+
+	setDomains:function(domains){
+		//console.log('setJSON source:',source);
+		return new Promise((resolve,reject)=>{
+			Store.dispatch({
+				type:'STYLE_STORE_SETIN',
+				key:['domains'],
+				payload:domains
+			});
+
+			Mstyle.save();
+
+			Store.dispatch({
+				type:'SOURCE_RELOAD',
+				payload:{}
+			});
+
 			return resolve();
 		});
 	},

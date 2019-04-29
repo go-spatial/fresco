@@ -26,8 +26,6 @@ export default class VpropertyMetadata extends React.Component {
 		super(props);
 		const {handle, property} = this.props;
 
-		//console.log('handle:',handle);
-
 		// convert value into array of arrays [[k,v],[k,v]]
 		let valAry = [];
 		property.value && property.value.keySeq().toArray().forEach((key)=>{
@@ -43,7 +41,8 @@ export default class VpropertyMetadata extends React.Component {
 
 		this.handle = {
 			add:()=>{
-				this.setState({valAry:this.state.valAry.push(List([]))});
+				const valAry = this.state.valAry.push(List([]))
+				this.setState({valAry});
 			}
 		};
 
@@ -127,7 +126,7 @@ export default class VpropertyMetadata extends React.Component {
 			else if (value === false) value = 'false';
 
 			rows.push(
-				<div key={key} className="row">
+				<div key={key} className="row mb-2">
 					<div className="col-sm-6 pr-1">
 						<Vfield key={keyName} field={{
 							type:'string',
@@ -154,7 +153,7 @@ export default class VpropertyMetadata extends React.Component {
 			<div className="mt-2 p-2 func-border position-relative">
 				{rows}
 
-				<div className="mt-2">
+				<div className="">
 					<div onClick={this.handle.add} className="btn btn-xs btn-light">
 						<i className="material-icons md-14">add</i>
 					</div>

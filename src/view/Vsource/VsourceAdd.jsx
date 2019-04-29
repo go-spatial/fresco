@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Map} from 'immutable';
 
 import styleSpec from '../../vendor/style-spec/style-spec';
 import NameFromURL from '../../utility/NameFromURL';
@@ -19,6 +20,7 @@ export default class VsourceAdd extends React.Component {
 		const {handle} = props;
 
 		this.state = {
+			headers:Map({}),
 			name:'',
 			url:'',
 			type:'',
@@ -33,12 +35,10 @@ export default class VsourceAdd extends React.Component {
 			submit:(e)=>{
 				e.preventDefault();
 
-
-
 				Msource.add({
-					url:this.state.url,
-					type:this.state.type
-				},this.state.name,this.state.makeLayers).then((source)=>{
+					url: this.state.url,
+					type: this.state.type
+				}, this.state.name, this.state.makeLayers, this.state.headers).then((source)=>{
 					handle.route('source/'+encodeURIComponent(this.state.name));
 				}).catch((e)=>{
 					if (e === 'not localhost'){
@@ -105,6 +105,14 @@ export default class VsourceAdd extends React.Component {
 					error:error && error.get && error.get('type'),
 					options:options
 				}} focus={this.state.focus} handle={this.handle}/>
+				<Vproperty key="headers" property={{
+					hideOptions:true,
+					name:'headers',
+					label:'headers',
+					spec:{doc:'Headers attached to domain requests', type:'*'},
+					value:this.state.headers,
+					error:error && error.get && error.get('headers')
+				}} focus={this.state.focus} handle={this.handle}/>
 
 				<Vfield key="makeLayers" field={{
 					name:'makeLayers',
@@ -123,24 +131,5 @@ export default class VsourceAdd extends React.Component {
 			</div>
 
 		</form>
-
-		/*
-		return <form onSubmit={this.handle.submit}>
-			<h2 className="px-2 m-0 right-col-title bg-light font-med">Add Source</h2>
-			<div className="py-3 px-2">
-
-				<div className="form-group property">
-					<label>URL</label>
-					<input type="text" className="form-control" placeholder="Capabilities endpoint for source"
-						value={this.state.url} onChange={this.handle.urlChange}/>
-				</div>
-				<button type="submit" className="btn btn-primary">Add</button>
-				<div className="mt-3">
-					<Valert message={this.state.error}/>
-				</div>
-			</div>
-			
-		</form>
-		*/
 	}
 };

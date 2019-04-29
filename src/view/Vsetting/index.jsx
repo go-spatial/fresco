@@ -44,8 +44,8 @@ export default class Vsetting extends React.Component {
 					<NavLink className="px-2 py-1 d-block link-list list-border-right position-relative" to={`${match.url}/base`} key={'base'}>
 						Base
 					</NavLink>
-					<NavLink className="px-2 py-1 d-block link-list list-border-right position-relative" to={`${match.url}/domains`} key={'base'}>
-						Domains
+					<NavLink className="px-2 py-1 d-block link-list list-border-right position-relative" to={`${match.url}/domains`} key={'domains'}>
+						Domain Headers
 					</NavLink>
 				</div>
 			</div>
