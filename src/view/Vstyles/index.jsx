@@ -24,11 +24,10 @@ export default class Vstyles extends React.Component {
 	render (){
 		const {styles, handle} = this.props;
 
-		console.log('styles:',styles);
 		return <ul className="bg-dk m-0 row">
 			{styles.valueSeq().map((style) => {
 				if (typeof style !== 'object') return;
-				//console.log('style:',style);
+				
 				let path = '/style/'+style.get('id')+'/layer';
 				return <li key={style.get('id')} className="p-3 col-sm-6 col-lg-4">
 					<Link to={path}>
