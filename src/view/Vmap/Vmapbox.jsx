@@ -164,7 +164,7 @@ class Vmapbox extends React.Component {
 
 		const domain = Url.getDomain(url)
 
-		if (domains.has(domain)){
+		if (domains && domains.has(domain)){
 			const headers = domains.getIn([domain]).toJS()
 			return {
 				url: url,

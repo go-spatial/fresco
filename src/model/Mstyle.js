@@ -167,6 +167,12 @@ const Mstyle = {
 
 			if (all._config) delete all._config;
 
+			// remove all non-styles from all
+			for (let i in all){
+				if (!all[i] || !all[i].id || !all[i].layers) // not a mapbox style
+					delete all[i]
+			}
+
 			Store.dispatch({
 				type:'STYLES_DEFINE',
 				payload:all
