@@ -60,51 +60,19 @@ export default class VsourceSettings extends React.Component {
 	render (){
 		const {error, handle, sourceKey, style, source} = this.props;
 
-		// iterate tiles and source domains
+		const url = source.get('url');
+		if (!url) return <div/>;
 
-		// present headers for each
+		const domain = Url.getDomain(url)
 
+		const sourceJson = Msource.getJson(sourceKey)
 
-				const url = source.get('url');
-				if (!url) return <div/>;
-
-				const domain = Url.getDomain(url)
-
-				console.log('domain:',domain)
-
-				const sourceJson = Msource.getJson(sourceKey)
-
-				let tiles;
-				if (source.has('tiles')){
-					tiles = source.get('tiles')
-				} else if (sourceJson && sourceJson.has('tiles')){
-					tiles = sourceJson.get('tiles')
-				}
-
-				console.log('tiles:',tiles)
-
-
-/*
-			const sourceJson = Msource.getJson(sourceKey)
-
-				let tiles;
-				if (source.has('tiles')){
-					tiles = source.get('tiles')
-				} else if (sourceJson && sourceJson.has('tiles')){
-					tiles = sourceJson.get('tiles')
-				}
-
-				if (!tiles){
-					return false;
-				}
-				const tileMatch = tiles.find((path)=>{
-					var matches = path.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-					var domain = matches && matches[1];
-					if (!domain) return false;
-					return url.includes(domain)
-				})
-*/
-
+		let tiles;
+		if (source.has('tiles')){
+			tiles = source.get('tiles')
+		} else if (sourceJson && sourceJson.has('tiles')){
+			tiles = sourceJson.get('tiles')
+		}
 
 		return <form onSubmit={this.handle.submit} className="p-2">
 			<Vproperty key="headers" property={{
