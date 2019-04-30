@@ -1,29 +1,31 @@
 # fresco
 
-An open source map style editor. Fresco allows cartographers to craft stylesheets for use with [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/api/) maps. Fresco has support for modifying Mapbox GL style expressions for creating stylesheets with complex, attribute-based styles.
+Fresco is an open source [Mapbox Vector Tile Style](https://docs.mapbox.com/mapbox-gl-js/style-spec) editor that allows cartographers to craft stylesheets for use with [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/api/) maps. Unlike other style editors, Fresco does not attempt to hide the complexity of Mapbox GL Styles but rather exposes an interactive JSON code editor to allow for maximum control and flexibility. This allows the user to implement more complex styles concepts like data drive styles with [expressions](https://docs.mapbox.com/help/tutorials/mapbox-gl-js-expressions/). When using Fresco, it may be helpful to have the [Mapbox Style Spec](https://docs.mapbox.com/mapbox-gl-js/style-spec/) available as a reference.
 
-Unlike other style editors, Fresco does not attempt to hide the complexity in the Mapbox GL style spec - on the contrary, it exposes that complexity to give cartographers maximum control and flexibility. When using Fresco, it may be helpful to have the style spec open in another tab as a reference: [Mapbox Style Spec](https://docs.mapbox.com/mapbox-gl-js/style-spec/).
+Styles created and modified with Fresco are saved to the browser's local storage and are auto-saved on changes.
 
-Styles created and modified with Fresco are stored in the browser (in localStorage) and are auto-saved on changes. Be sure to download the styles to store them off the browser or deploy them.
+Give it a try: [https://fresco.gospatial.org/](https://fresco.gospatial.org/)
 
-[Try it](https://fresco.netlify.com/)
+![map editing screenshot](/docs/img/osm-screenshot.png)
 
 ## Features
 
+- Interactive JSON code editor
 - Style editor for Mapbox GL styles
 - Mapbox GL layer style expression editor
 - Auto save on changes
-- Styles stored in localStorage (in the browser)
-- JSON code editor
-- Mapbox GL error parser
+- Styles auto saved to localStorage (in the browser)
+- Mapbox GL style error parser. Displays the error at the error location in the style.
 - Integrated Mapbox GL style spec attributes (info on style fields)
-- Resource domain header controls
+- Custom domain header configurations. Useful for domains which require `Authorization` headers. 
 
 ## Usage
 
-Fresco may be used without download by going to [Fresco Editor](https://fresco.netlify.com/). However, if you'd like to download Fresco and run it on your computer, you may do that also. Installation instructions are provided below.
+Fresco may be used in the browser by visiting [https://fresco.gospatial.org/](https://fresco.gospatial.org/) or by downloading a [pre compiled binary](https://github.com/go-spatial/fresco/releases) from the releases page for your operating system.
 
-## Installation
+## Running from source
+
+Fresco is built ontop of React. To run Freco from source use the following steps:
 
 1. Download the latest version of [Node.js](https://nodejs.org/en/download/)
 2. Clone this repository to your computer
@@ -31,5 +33,10 @@ Fresco may be used without download by going to [Fresco Editor](https://fresco.n
 4. Run `npm install`
 5. To startup, run `npm start` - Fresco should open in a browser window
 
-![map editing screenshot](/docs/img/osm-screenshot.png)
+## Contributing
 
+Contributions are welcome! Fork the repo and send in a PR with any bug fixes or features.
+
+## Looking for a vector tile server?
+
+If you're looking to create vector tiles that can be styled with Fresco, check out [tegola](https://github.com/go-spatial/tegola)!
