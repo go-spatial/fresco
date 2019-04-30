@@ -1,6 +1,7 @@
 import Store from '../Store';
 import SourceReader from '../utility/SourceReader';
 import MaterialColor from '../utility/MaterialColor';
+import Url from '../utility/Url';
 
 import styleSpec from '../vendor/style-spec/style-spec';
 
@@ -8,7 +9,7 @@ import Mstyle from './Mstyle';
 
 export default {
 
-	add:function(source,key,makeLayers){
+	add:function(source, key, makeLayers, headers){
 		return new Promise((resolve,reject)=>{
 			if (!source.url) throw new Error('no source.url');
 			if (!source.type) throw new Error('no source.type');
@@ -22,7 +23,7 @@ export default {
 			//set key on source
 			key = key || source.url;
 
-			SourceReader.load(source.url).then((sourceJson)=>{
+			SourceReader.load(source.url, {headers:headers.toJS()}).then((sourceJson)=>{
 				
 				Store.dispatch({
 					type:'SOURCE_ADD',
@@ -33,6 +34,13 @@ export default {
 					type:'STYLE_STORE_SETIN',
 					key:['sourceJson',source.url],
 					payload:sourceJson
+				});
+
+				const domain = Url.getDomain(source.url)
+				Store.dispatch({
+					type:'STYLE_STORE_SETIN',
+					key:['domains', domain],
+					payload:headers
 				});
 
 				if (makeLayers){

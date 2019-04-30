@@ -6,6 +6,7 @@ import Store from '../Store';
 import MapboxError from '../utility/MapboxError';
 import LocalStorage from '../utility/LocalStorage';
 import Uid from '../utility/Uid';
+import Url from '../utility/Url';
 
 const Mstyle = {
 
@@ -104,6 +105,46 @@ const Mstyle = {
 	get:function(){
 		return Store.getState().style;
 	},
+	getDomains:function(){
+		const style = this.get()
+
+		let domains = [];
+		const glyphs = style.getIn(['rec','glyphs'])
+		const glyphsDomain = Url.getDomain(glyphs)
+		if (glyphsDomain) domains.push(glyphsDomain)
+
+		const sprites = style.getIn(['rec','sprites'])
+		const spritesDomain = Url.getDomain(sprites)
+		if (spritesDomain && !domains.includes(spritesDomain)) domains.push(spritesDomain)
+
+		// loop through sources and get all domains (from tiles too)
+		const sources = style.getIn(['rec','sources'])
+		sources.forEach((source, sourceKey)=>{
+			const url = source.get('url');
+			if (url){
+				const domain = Url.getDomain(url)
+				if (domain && !domains.includes(domain)) domains.push(domain)
+				const sourceJson = Store.getState().style.getIn(['rec','_store','sourceJson',url])
+
+				let tiles;
+				if (source.has('tiles')){
+					tiles = source.get('tiles')
+				} else if (sourceJson && sourceJson.has('tiles')){
+					tiles = sourceJson.get('tiles')
+				}
+
+				tiles && tiles.forEach((tile)=>{
+					const domain = Url.getDomain(tile)
+					if (domain && !domains.includes(domain)) domains.push(domain)
+				})
+			}	
+		})
+
+		return domains
+	},
+	getStore:function(){
+		return this.get().getIn(['rec','_store'])
+	},
 	getJS:function(){
 		return this.get().toJS();
 	},
@@ -115,8 +156,6 @@ const Mstyle = {
 	getJSforMapbox:function(){
 
 		// apply interactive transformations to style
-		
-
 
 		return this.get().get('rec').delete('_store').toJS();
 	},
@@ -127,6 +166,12 @@ const Mstyle = {
 			all = all || {};
 
 			if (all._config) delete all._config;
+
+			// remove all non-styles from all
+			for (let i in all){
+				if (!all[i] || !all[i].id || !all[i].layers) // not a mapbox style
+					delete all[i]
+			}
 
 			Store.dispatch({
 				type:'STYLES_DEFINE',
@@ -216,6 +261,26 @@ const Mstyle = {
 			});
 
 			Mstyle.save();
+			return resolve();
+		});
+	},
+
+	setDomains:function(domains){
+		//console.log('setJSON source:',source);
+		return new Promise((resolve,reject)=>{
+			Store.dispatch({
+				type:'STYLE_STORE_SETIN',
+				key:['domains'],
+				payload:domains
+			});
+
+			Mstyle.save();
+
+			Store.dispatch({
+				type:'SOURCE_RELOAD',
+				payload:{}
+			});
+
 			return resolve();
 		});
 	},

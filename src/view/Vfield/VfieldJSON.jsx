@@ -122,7 +122,6 @@ export default class VfieldJSON extends React.Component {
 				const val = this.cm.getValue();
 				const json = this.strToJson(val);
 				if (json) return handle.change(json);
-				console.log('perform lint!');
 				this.cm.performLint();
 			},
 			focus(){

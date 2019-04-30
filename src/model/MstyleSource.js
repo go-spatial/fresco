@@ -22,7 +22,6 @@ export default {
 					},NameFromURL.get(sourceUrl),true).then((source)=>{
 						//console.log('added source:',source);
 						const json = Msource.getJson(source.url);
-						console.log('added source json:',json);
 						const center = [
 							json.getIn(['center',0]),
 							json.getIn(['center',1])
@@ -47,7 +46,6 @@ export default {
 	},
 
 	setStyleSourceJSON:function(style){
-		console.log('style',style);
 		if (!style.has('sources') || style.get('sources').size < 1) return;
 
 		style.get('sources').keySeq().map((key)=>{

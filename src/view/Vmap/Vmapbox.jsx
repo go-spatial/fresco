@@ -10,6 +10,7 @@ import Mconfig from '../../model/Mconfig';
 import Msource from '../../model/Msource';
 import Mstyle from '../../model/Mstyle';
 import Mlayer from '../../model/Mlayer';
+import Url from '../../utility/Url';
 import VmapboxControls from './VmapboxControls';
 import VmapboxInspector from './VmapboxInspector';
 
@@ -157,6 +158,21 @@ class Vmapbox extends React.Component {
 	}
 
 	transformRequest = (url, resourceType)=>{
+
+		const store = Mstyle.getStore()
+		const domains = store.getIn(['domains'])
+
+		const domain = Url.getDomain(url)
+
+		if (domains && domains.has(domain)){
+			const headers = domains.getIn([domain]).toJS()
+			return {
+				url: url,
+				headers
+			}
+		}
+
+		/*
 		if (resourceType === 'Source') {
 			const sources = Msource.get(); // get all sources
 
@@ -217,6 +233,7 @@ class Vmapbox extends React.Component {
 				headers: settings.get('headers').toJS()
 			}
 		}
+		*/
 	}
 };
 

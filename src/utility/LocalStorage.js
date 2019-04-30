@@ -13,9 +13,7 @@ export default {
 			}
 		} catch(e){
 			console.error('localstorage json parse error:',e);
-			window.localStorage.clear();
 		}
-		console.log('items:',items);
 		return items;
 	},
 

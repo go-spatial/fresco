@@ -11,6 +11,8 @@ import VpropertyAdd from '../Vproperty/VpropertyAdd';
 import Msource from '../../model/Msource';
 import Mstyle from '../../model/Mstyle';
 
+import Url from '../../utility/Url' 
+
 export default class VsourceSettings extends React.Component {
 	static propTypes = {
 		error: PropTypes.oneOfType([
@@ -57,6 +59,20 @@ export default class VsourceSettings extends React.Component {
 
 	render (){
 		const {error, handle, sourceKey, style, source} = this.props;
+
+		const url = source.get('url');
+		if (!url) return <div/>;
+
+		const domain = Url.getDomain(url)
+
+		const sourceJson = Msource.getJson(sourceKey)
+
+		let tiles;
+		if (source.has('tiles')){
+			tiles = source.get('tiles')
+		} else if (sourceJson && sourceJson.has('tiles')){
+			tiles = sourceJson.get('tiles')
+		}
 
 		return <form onSubmit={this.handle.submit} className="p-2">
 			<Vproperty key="headers" property={{

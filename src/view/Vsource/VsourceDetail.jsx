@@ -113,9 +113,7 @@ export default class VsourceDetail extends React.Component {
 					<NavLink className="d-inline-block layer-nav-link px-1" to={layersPath}>
 						<i className="material-icons md-14 icon-btn gray">layers</i>
 					</NavLink>
-					<NavLink className="d-inline-block layer-nav-link px-1" to={settingsPath}>
-						<i className="material-icons md-14 icon-btn gray">settings</i>
-					</NavLink>
+
 					<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="d-inline-block layer-nav-link px-1">
 						<i className="material-icons md-14 icon-btn gray">arrow_drop_down</i>
 					</div>
