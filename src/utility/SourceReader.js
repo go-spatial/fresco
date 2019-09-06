@@ -2,9 +2,8 @@ import axios from 'axios';
 
 export default {
 
-	load:(sourceUrl, {headers})=>{
+	load:(sourceUrl, {headers = {}})=>{
 		return new Promise((resolve, reject)=>{
-			console.log('headers:',headers)
 			axios.get(sourceUrl, {headers})
 			.then(function (response) {
 				//if (!response.data.maps) return reject('no maps defined on source');

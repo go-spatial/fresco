@@ -8,7 +8,7 @@
     "codemirror": "^5.40.2",
     "flow-bin": "^0.69.0",
     "immutable": "^3.8.2",
-    "mapbox-gl": "^0.53.1",
+    "mapbox-gl": "^1.1.0",
     "randomatic": "^3.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

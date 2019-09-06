@@ -20,10 +20,15 @@ export default {
 				}
 			}
 
+			let loadOptions = {}
+			if (headers){
+				loadOptions.headers = headers.toJS()
+			}
+
 			//set key on source
 			key = key || source.url;
 
-			SourceReader.load(source.url, {headers:headers.toJS()}).then((sourceJson)=>{
+			SourceReader.load(source.url, loadOptions).then((sourceJson)=>{
 				
 				Store.dispatch({
 					type:'SOURCE_ADD',

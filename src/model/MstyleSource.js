@@ -8,7 +8,10 @@ import SourceReader from '../utility/SourceReader';
 export default {
 	addFromSource:function(sourceUrl){
 		return new Promise((resolve,reject)=>{
-			SourceReader.load(sourceUrl).then(()=>{
+
+
+
+			SourceReader.load(sourceUrl, {}).then(()=>{
 				const rec = {
 					name:NameFromURL.get(sourceUrl)
 				};
@@ -34,6 +37,7 @@ export default {
 						Mstyle.save();
 						return resolve(style);
 					}).catch((e)=>{
+						console.error('err:',e)
 						reject({message:'source not found'});
 					});
 				}).catch((e)=>{
