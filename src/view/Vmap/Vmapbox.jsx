@@ -80,6 +80,8 @@ class Vmapbox extends React.Component {
 		const nav = new MapboxGl.NavigationControl();
 		map.addControl(nav, 'top-right');
 
+		console.log('version:',MapboxGl);
+
 		map.on('error',(e)=>{
 			console.error('map error:',e);
 			if (e.sourceId){
