@@ -25,13 +25,31 @@ Fresco may be used in the browser by visiting [https://fresco.gospatial.org/](ht
 
 ## Running from source
 
-Fresco is built on top of React. To run Freco from source use the following steps:
+Fresco is built on top of React. To run Fresco from source use the following steps:
 
 1. Download the latest version of [Node.js](https://nodejs.org/en/download/)
 2. Clone this repository to your computer
 3. Navigate to this repo on your computer
 4. Run `npm install`
 5. To startup, run `npm start` - Fresco should open in a browser window
+6. To build Fresco for deployment run `npm run build` - the deployment files will be inside the `/build` directoty
+
+## Hosting Fresco from a subdirectory
+
+Fresco is able to be hosted from a subdirectory of a domain (i.e. https://yourhost.com/fresco/). To enable this functionality, modify the `package.json` file
+
+
+```
+{
+  "name": "fresco-app",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "/fresco",
+...
+
+```
+
+Then use `npm run build` to build Fresco for deployment.
 
 ## Contributing
 

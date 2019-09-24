@@ -16,15 +16,18 @@ import './App.css';
 export default class App extends Component {
 
    render (){
-      Mconfig.load();
+      Mconfig.load(); // load config from localStorage
+
+      const basename = process.env.PUBLIC_URL? process.env.PUBLIC_URL: '';
+
       return (
          <Provider store={Store}>
-            <Router>
+            <Router basename={basename}>
                <Switch>
-                  <Route exact path="/" component={Phome}/>
                   <Route path="/config" component={Pconfig}/>
                   <Route path="/style/:id" render={(props) => <Pstyle {...props} />}/>
                   <Route path="/add" component={Phome}/>
+                  <Route path="/" component={Phome}/>
                </Switch>
             </Router>
          </Provider>
