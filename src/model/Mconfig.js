@@ -26,7 +26,6 @@ export default {
 	save:function(){
 		return new Promise((resolve,reject)=>{
 			const config = this.get();
-			console.log('config save:',config);
 			LocalStorage.set(LOCALSTORAGE_KEY,config);
 			return resolve();
 		});
