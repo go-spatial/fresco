@@ -18,7 +18,7 @@ export default class VfieldColor extends React.Component {
 			placeholder: PropTypes.string,
 			error: PropTypes.string,
 			options: PropTypes.array,
-			autoFocus: PropTypes.boolean
+			autoFocus: PropTypes.bool
 		}),
 		handle: PropTypes.object
 	}

@@ -8,14 +8,14 @@ export default class VfieldCheckbox extends React.Component {
 			type: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			name: PropTypes.string.isRequired,
-			value: PropTypes.boolean,
+			value: PropTypes.bool,
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean,
+			controlled: PropTypes.bool,
 			inputClass: PropTypes.string,
-			inputNoAC: PropTypes.boolean,
-			autoFocus: PropTypes.boolean
+			inputNoAC: PropTypes.bool,
+			autoFocus: PropTypes.bool
 		}),
 		handle: PropTypes.object
 	}

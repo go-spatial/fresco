@@ -16,8 +16,8 @@ export default class VfieldSelect extends React.Component {
 			helper: PropTypes.string,
 			options: PropTypes.array,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean,
-			autoFocus: PropTypes.boolean
+			controlled: PropTypes.bool,
+			autoFocus: PropTypes.bool
 		}),
 		handle: PropTypes.object
 	}

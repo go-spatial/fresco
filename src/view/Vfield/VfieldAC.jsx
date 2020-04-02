@@ -14,7 +14,7 @@ export default class VfieldAC extends React.Component {
 			placeholder: PropTypes.string,
 			error: PropTypes.string,
 			options: PropTypes.array,
-			autoFocus: PropTypes.boolean,
+			autoFocus: PropTypes.bool,
 			size: PropTypes.string
 		}),
 		handle: PropTypes.object

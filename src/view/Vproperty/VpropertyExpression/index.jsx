@@ -49,10 +49,10 @@ export default class VpropertyExpression extends React.Component {
 				PropTypes.string,
 				PropTypes.object
 			]),
-			controlled: PropTypes.boolean,
+			controlled: PropTypes.bool,
 			inputClass: PropTypes.string,
-			inputNoAC: PropTypes.boolean,
-			autoFocus: PropTypes.boolean
+			inputNoAC: PropTypes.bool,
+			autoFocus: PropTypes.bool
 		}),
 		focus: PropTypes.string,
 		handle: PropTypes.object

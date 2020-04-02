@@ -12,10 +12,10 @@ export default class VfieldNumber extends React.Component {
 			placeholder: PropTypes.string,
 			helper: PropTypes.string,
 			error: PropTypes.string,
-			controlled: PropTypes.boolean,
+			controlled: PropTypes.bool,
 			inputClass: PropTypes.string,
-			inputNoAC: PropTypes.boolean,
-			autoFocus: PropTypes.boolean
+			inputNoAC: PropTypes.bool,
+			autoFocus: PropTypes.bool
 		}),
 		handle: PropTypes.object
 	}
