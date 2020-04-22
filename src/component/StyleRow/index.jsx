@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import modelStyle from '../../model/style'
-import Icon from '../Icon'
 
 class StyleRow extends React.Component {
 	render() {

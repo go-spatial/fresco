@@ -17,7 +17,7 @@ class FieldJSON extends React.Component {
 	constructor(props) {
 		super(props)
 
-		const {handle, value} = this.props
+		const {value} = this.props
 
 		// expose these includes to codemirror
 		window.jsonlint = jsonlint
@@ -79,13 +79,6 @@ class FieldJSON extends React.Component {
 		const {error} = props
 
 		this.cm.clearGutter('err-markers')
-
-		this.tooltipI = this.tooltipI || []
-		if (this.tooltipI.length > 0){
-			this.tooltipI.map((tooltipI)=>{
-				tooltipI.tooltip('dispose')
-			})
-		}
 
 		if (!error){
 			return

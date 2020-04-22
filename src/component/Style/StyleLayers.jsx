@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 import {NavLink, Link, Redirect, Route, Switch} from 'react-router-dom'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import {List} from 'immutable'
-
 import modelApp from '../../model/app'
 import modelLayer from '../../model/layer'
 import modelMap from '../../model/map'
@@ -30,8 +28,6 @@ class StyleLayers extends React.Component {
 	}
 	handleOnDragEnd = async (result)=>{
 		const {path} = this.props
-		
-		console.log('draggable res:',result.source,result.destination)
 
 		if (!result.source) throw new Error('StyleLayers.handleOnDragEnd: no source index found')
 		const sourceIndex = result.source.index
@@ -76,7 +72,7 @@ class StyleLayers extends React.Component {
 	}
 
 	render (){
-		const {error, focusLayers, layers, path, style, match} = this.props,
+		const {focusLayers, layers, match} = this.props,
 			{search, searchShow} = this.state
 
 		const handle = {
@@ -139,7 +135,7 @@ class StyleLayers extends React.Component {
 	}
 
 	renderList (){
-		const {error, focusLayers, layers, match, path} = this.props,
+		const {error, focusLayers, layers, match} = this.props,
 			{search} = this.state
 
 		if (!layers){
@@ -157,9 +153,9 @@ class StyleLayers extends React.Component {
 									if (!layer || !layer.has) return <div/>
 									const layerId = layer.has('id')? layer.get('id'): `layer-${i}`
 
-									if (focusLayers && focusLayers.length > 0 && !focusLayers.includes(layerId)) return
+									if (focusLayers && focusLayers.length > 0 && !focusLayers.includes(layerId)) return <div/>
 
-									if (search && search.length > 0 && layerId.toLowerCase().indexOf(search.toLowerCase()) === -1) return
+									if (search && search.length > 0 && layerId.toLowerCase().indexOf(search.toLowerCase()) === -1) return <div/>
 
 									let className = 'content-body-left-row row-icons '
 									if (error && error.hasIn([i])) className += ' error'
@@ -191,7 +187,7 @@ class StyleLayers extends React.Component {
 	}
 
 	renderLayerOption ({layer, layerId, layerInd}){
-		const {error, focusLayers} = this.props
+		const {error} = this.props
 
 		if (error && error.hasIn([layerInd])){
 			return (

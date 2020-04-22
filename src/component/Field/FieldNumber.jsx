@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class FieldNumber extends React.Component {
 
 	handleChange = (e)=>{
-		const {handle, name, field} = this.props
+		const {handle, name} = this.props
 
 		let value = (e.target.value)? Number(e.target.value): null
 		handle && handle.change && handle.change({

@@ -1,26 +1,22 @@
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom'
+import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 
 import React from 'react'
 
-import Alert from '../Alert'
 import Icon from '../Icon'
 import LayerEditActions from './LayerEditActions'
 import LayerEditFeatures from './LayerEditFeatures'
-import LayerEditModalRemove from './LayerEditModalRemove'
 import LayerEditJson from './LayerEditJson'
 import LayerEditView from './LayerEditView'
 import Tooltip from '../Tooltip'
-import modelApp from '../../model/app'
 import modelMap from '../../model/map'
-import modelLayer from '../../model/layer'
 import modelStyle from '../../model/style'
 
 class LayerEdit extends React.Component {
 
 	render (){
-		const {error, layer, match, path, style} = this.props
+		const {layer} = this.props
 
 		if (!layer) return <div/>
 
@@ -82,7 +78,7 @@ class LayerEdit extends React.Component {
 	}
 
 	renderTitle (){
-		const {focusFeatures, match, path, layer, style} = this.props
+		const {focusFeatures, match, layer} = this.props
 
 		const label = layer.getIn(['id'])
 
@@ -99,7 +95,7 @@ class LayerEdit extends React.Component {
 						</NavLink>
 					)}
 					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive tooltip-trigger'}>
-						<Icon icon={'editor'}/>
+						<Icon icon={'style editor'}/>
 						<Tooltip message={'editor'}/>
 					</NavLink>
 					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>

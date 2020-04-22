@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map} from 'immutable'
 
 import modelStyle from '../../model/style'
 
@@ -84,7 +83,7 @@ class PropertyMetadata extends React.Component {
 	}
 
 	render (){
-		const {focus, value} = this.props
+		const {value} = this.props
 
 		return <div className="">
 			<div className="">
@@ -102,7 +101,7 @@ class PropertyMetadata extends React.Component {
 	}
 
 	renderFields (){
-		const {path, value} = this.props
+		const {value} = this.props
 
 		const handleKey = {
 			change: this.handleKeyChange,

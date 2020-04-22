@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import {NavLink, Link, Redirect, Route, Switch} from 'react-router-dom'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import {List} from 'immutable'
-
-import modelLayer from '../../model/style'
 import modelStyle from '../../model/style'
 import Field from '../Field'
 import Icon from '../Icon'
@@ -43,14 +40,8 @@ class HomeStyles extends React.Component {
 	}
 
 	render (){
-		const {error, match, styles} = this.props,
+		const {styles} = this.props,
 			{search, searchShow} = this.state
-
-		//const error = Mstyle.errorGet()
-
-		const handle = {
-			change: this.handleChange
-		}
 
 		return (
 			<div className="content-body content-body-flex">
@@ -100,7 +91,7 @@ class HomeStyles extends React.Component {
 	}
 
 	renderList (){
-		const {error, styles, match, path} = this.props,
+		const {styles} = this.props,
 			{search} = this.state 
 
 		if (!styles){
@@ -153,8 +144,6 @@ class HomeStyles extends React.Component {
 	}
 
 	renderRight (){
-		const {error, match, path, style} = this.props
-
 		return (
 			<div className="content-body-right">
 				<Switch>

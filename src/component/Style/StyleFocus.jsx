@@ -1,18 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {fromJS, Map} from 'immutable'
 import {Link, NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import Property from '../Property'
 import modelMap from '../../model/map'
 
-import FeatureRow from '../FeatureRow'
 import Field from '../Field'
-import Alert from '../Alert'
 import Icon from '../Icon'
-
-import modelStyle from '../../model/style'
 
 class StyleFocus extends React.Component {
 	constructor(props) {
@@ -37,7 +31,7 @@ class StyleFocus extends React.Component {
 	}
 
 	render (){
-		const {error, focusFeatures, match, path, style} = this.props,
+		const {focusFeatures, match} = this.props,
 			{search, searchShow} = this.state
 
 		const handle = {
@@ -94,7 +88,7 @@ class StyleFocus extends React.Component {
 	}
 
 	renderList (){
-		const {error, focusLayers, match, path} = this.props,
+		const {focusLayers, match} = this.props,
 			{search} = this.state
 
 		if (!focusLayers){
@@ -104,7 +98,7 @@ class StyleFocus extends React.Component {
 		return (
 			<div className="">
 
-				{focusLayers !== undefined && focusLayers.map((layer,i)=>{
+				{focusLayers !== undefined && focusLayers.forEach((layer,i)=>{
 
 					if (search && search.length > 0 && layer.toLowerCase().indexOf(search.toLowerCase()) === -1) return
 

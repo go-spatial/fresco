@@ -51,8 +51,7 @@ class FeatureRow extends React.Component {
 	}
 
 	render (){
-		const {feature, style} = this.props, 
-			{featureStateShow} = this.state
+		const {feature} = this.props
 
 		return (
 			<div className="content-body-row feature-row">
@@ -67,7 +66,7 @@ class FeatureRow extends React.Component {
 	}
 
 	renderProperties (){
-		const {feature, style} = this.props,
+		const {feature} = this.props,
 			{groupShows} = this.state
 
 		if (!groupShows.properties){
@@ -120,7 +119,7 @@ class FeatureRow extends React.Component {
 	}
 
 	renderFeatureState (){
-		const {feature, featureState, style} = this.props,
+		const {featureState} = this.props,
 			{groupShows} = this.state
 
 		const handle = {

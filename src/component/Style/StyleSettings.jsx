@@ -1,14 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {NavLink, Link, Redirect, Route, Switch} from 'react-router-dom'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
-
-import {List} from 'immutable'
+import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 
 import modelLayer from '../../model/layer'
 import modelStyle from '../../model/style'
-import Field from '../Field'
 import Icon from '../Icon'
 import StyleSettingsActions from './StyleSettingsActions'
 import StyleSettingsDomains from './StyleSettingsDomains'
@@ -59,8 +55,7 @@ class StyleRoot extends React.Component {
 	}
 
 	render (){
-		const {error, layers, match, path, style} = this.props,
-			{search, searchShow} = this.state
+		const {match} = this.props
 
 		return (
 			<div className="content-body content-body-flex">
@@ -98,7 +93,7 @@ class StyleRoot extends React.Component {
 	}
 
 	renderRight (){
-		const {error, match, path, style} = this.props
+		const {match, path, style} = this.props
 
 		const currentPath = [...path, 'current']
 

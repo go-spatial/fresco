@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, NavLink, Redirect, Route, Switch} from 'react-router-dom'
+import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 
 import modelMap from '../../model/map'
 import modelStyle from '../../model/style'
@@ -9,7 +9,6 @@ import Alert from '../Alert'
 import Map from '../Map'
 import Icon from '../Icon'
 import StyleCode from './StyleCode'
-import StyleFocus from './StyleFocus'
 import StyleLayers from './StyleLayers'
 import StyleSources from './StyleSources'
 import StyleSettings from './StyleSettings'
@@ -17,7 +16,7 @@ import Tooltip from '../Tooltip'
 
 class Style extends React.Component {
 	render() {
-		const {error, match, style, styleId} = this.props
+		const {error, style, styleId} = this.props
 
 		if (!style) return <div/>
 

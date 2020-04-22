@@ -69,8 +69,6 @@ class FieldCheckbox extends React.Component {
 	render (){
 		const {autoFocus, helper, inputClass, label, name, placeholder, value} = this.props
 
-		if (value === null || value === undefined) value = false
-
 		return <div className="form-group mb-0">
 			<input type="checkbox" 
 				autoFocus={autoFocus}

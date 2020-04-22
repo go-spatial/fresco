@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
+import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
@@ -8,8 +8,6 @@ import utilMapboxSpec from '../../utility/utilMapboxSpec'
 import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
 
-import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
 class StyleSettingsRoot extends React.Component {
@@ -18,7 +16,7 @@ class StyleSettingsRoot extends React.Component {
 		const {history} = this.props,
 			{pathname} = this.props.location
 
-		const pathNew = pathname.replace(/\/layers\/[^\/]*/, `/layers/${value}`)
+		const pathNew = pathname.replace(/\/layers\/[^/]*/, `/layers/${value}`)
 		
 		await modelStyle.actions.setIn({
 			path,
@@ -28,7 +26,7 @@ class StyleSettingsRoot extends React.Component {
 	}
 
 	render (){
-		const {error, path, style} = this.props
+		const {path, style} = this.props
 
 		const fields = utilMapboxSpec.getStyleRootPropertyFields()
 

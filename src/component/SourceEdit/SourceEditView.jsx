@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
@@ -9,7 +8,6 @@ import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
 
 import modelSource from '../../model/source'
-import modelStyle from '../../model/style'
 
 class SourceEditView extends React.Component {
 
@@ -17,7 +15,7 @@ class SourceEditView extends React.Component {
 		const {history, path, sourceId} = this.props,
 			{pathname} = this.props.location
 
-		const pathNew = pathname.replace(/\/sources\/[^\/]*/, `/sources/${value}`)
+		const pathNew = pathname.replace(/\/sources\/[^/]*/, `/sources/${value}`)
 		
 		await modelSource.actions.changeId({
 			path: path.slice(0, -1),
@@ -28,7 +26,7 @@ class SourceEditView extends React.Component {
 	}
 
 	render (){
-		const {error, source, path, sourceId, style} = this.props
+		const {source, path, sourceId} = this.props
 
 		const group = 'source'
 

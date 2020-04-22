@@ -1,20 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {Map, List} from 'immutable'
-
 import Dropdown from '../Dropdown'
-import Field from '../Field'
 import Icon from '../Icon'
 import PropertyArray from './PropertyArray'
 import PropertyBool from './PropertyBool'
 import PropertyColor from './PropertyColor'
 import PropertyEnum from './PropertyEnum'
-import PropertyExpression from './PropertyExpression'
 import PropertyJson from './PropertyJson'
 import PropertyMetadata from './PropertyMetadata'
 import PropertyFile from './PropertyFile'
-import PropertyFunc from './PropertyFunc'
 import PropertyInfo from './PropertyInfo'
 import PropertyNumber from './PropertyNumber'
 import PropertyPoint from './PropertyPoint'
@@ -67,12 +62,7 @@ class Property extends React.Component {
 
 
 	render (){
-		const {className, error, info, label, required, type, value} = this.props
-
-		const handle = {
-			change: this.handleChange,
-			remove: this.handleRemove,
-		}
+		const {className, error, info, label} = this.props
 
 		/* {required && <Icon icon={'required'}/>} */
 
@@ -274,7 +264,7 @@ class Property extends React.Component {
 	}
 
 	renderOptions (){
-		const {casts, removeEnabled, type, value} = this.props,
+		const {casts, removeEnabled, type} = this.props,
 			{dropdownShow} = this.state
 
 		const hasDropdown = (casts && casts.length > 1) || removeEnabled

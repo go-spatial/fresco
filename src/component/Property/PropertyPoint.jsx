@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map} from 'immutable'
 
 import modelStyle from '../../model/style'
 
@@ -47,8 +46,6 @@ class PropertyPoint extends React.Component {
 	}
 
 	render (){
-		const {focus, value} = this.props
-
 		return <div className="form-group mb-0">
 			<div className="mt-2 p-2 func-border position-relative">
 				{this.renderFields()}
@@ -57,7 +54,7 @@ class PropertyPoint extends React.Component {
 	}
 
 	renderFields (){
-		const {path, value} = this.props
+		const {value} = this.props
 
 		const handle = {
 			change: this.handleChange,

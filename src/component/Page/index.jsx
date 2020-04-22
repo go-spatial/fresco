@@ -33,7 +33,6 @@ class Page extends React.Component {
 	render(){
 		return (
 		<React.Fragment>
-			<Loader/>
 			<Router>
 				{this.renderFrame()}
 			</Router>
@@ -42,7 +41,7 @@ class Page extends React.Component {
 	}
 
 	renderFrame(){
-		const {agentUser, error, loading, notifications} = this.props
+		const {error, loading} = this.props
 
 		const device = modelApp.helpers.getDevice()
 

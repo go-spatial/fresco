@@ -2,15 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../Modal'
 
-import Icon from '../Icon'
-
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
 
 class SourceEditModalRemove extends React.Component {
 
   handleRemove = async ()=>{
-    const {handleClose, handleDone, history, path} = this.props
+    const {path} = this.props
 
     try{
       await modelApp.actions.setLoading(true)
@@ -25,7 +23,7 @@ class SourceEditModalRemove extends React.Component {
   }
 
   render (){
-    const {handleClose, subject} = this.props
+    const {handleClose} = this.props
 
     return (
       <Modal>
@@ -36,7 +34,7 @@ class SourceEditModalRemove extends React.Component {
           </button>
         </div>
         <div className="modal-body text-left text-dark">
-          <p>Are you sure you want to remove this source?</p>
+          <p>Are you sure you want to remove this source?</p>s
           
         </div>  
         <div className="modal-footer">

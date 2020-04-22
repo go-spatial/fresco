@@ -1,21 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
-
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
 
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
 
 import Property from '../Property'
-import Alert from '../Alert'
 
 class StyleAddUpload extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			file: '',
@@ -24,7 +19,7 @@ class StyleAddUpload extends React.Component {
 
 	handleSubmit = async (e)=>{
 		e.preventDefault()
-		const {history, match} = this.props,
+		const {history} = this.props,
 			{file} = this.state
 		try{
 			await modelApp.actions.setLoading(true) 
@@ -42,8 +37,6 @@ class StyleAddUpload extends React.Component {
 	}
 
 	handleChange = ({name, value})=>{
-		const {type, url} = this.state
-
 		let state = {}
 		state[name] = value
 
@@ -51,15 +44,13 @@ class StyleAddUpload extends React.Component {
 	}
 
 	render (){
-		const {error, style} = this.props,
-			{file} = this.state
+		const {file} = this.state
 
 		const handle = {
 			change: this.handleChange
 		}
 
 		const isReady = file? true: false
-		const options = utilMapboxSpec.getSourceTypeOptions()
 
 		return <form className="content-body" onSubmit={this.handleSubmit}>
 			<h4 className="content-body-title">

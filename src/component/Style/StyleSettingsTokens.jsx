@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import Icon from '../Icon'
@@ -35,7 +34,7 @@ class StyleSettingsTokens extends React.Component {
 	}
 
 	render (){
-		const {accessTokens, error, handle, style} = this.props
+		const {accessTokens} = this.props
 
 		return <div>
 			<h2 className="content-title content-title-sub content-title-light">
@@ -59,11 +58,13 @@ class StyleSettingsTokens extends React.Component {
 
 
 	renderProperty (){
-		const {accessTokens, error, path, style} = this.props
+		const {accessTokens} = this.props
 
 		const handle = {
 			change: this.handleChange
 		}
+
+		const value = accessTokens? accessTokens.get('mapbox'): ''
 
 		const property = {
 			key: 'mapbox',
@@ -72,7 +73,7 @@ class StyleSettingsTokens extends React.Component {
 			name: 'mapbox',
 			label: 'API access token',
 			type:'string',
-			value: accessTokens && accessTokens.get('mapbox') || ''
+			value
 		}
 		return (
 			<Property key={'mapbox'}

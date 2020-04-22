@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Field from '../Field'
 
 import modelStyle from '../../model/style'
-import styleSpec from '../../vendor/style-spec/style-spec'
 
 class PropertyBool extends React.Component {
 

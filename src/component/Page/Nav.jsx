@@ -1,13 +1,10 @@
 import React from 'react';
 
-import {NavLink, Link} from 'react-router-dom'
-import Icon from '../Icon'
+import {NavLink} from 'react-router-dom'
 
 class Nav extends React.Component {
 
 	render (){
-		const {styles, handle} = this.props;
-
 		const paths = {
 			home:'/',
 			styles:'/styles',

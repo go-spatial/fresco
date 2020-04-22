@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, NavLink, Redirect, Route, Switch, withRouter} from 'react-router-dom'
+import {NavLink, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 
 import React from 'react'
 
-import Alert from '../Alert'
 import Icon from '../Icon'
 import SourceEditActions from './SourceEditActions'
 import SourceEditJson from './SourceEditJson'
@@ -13,16 +12,12 @@ import SourceEditView from './SourceEditView'
 import SourceEditModalRemove from './SourceEditModalRemove'
 import Tooltip from '../Tooltip'
 
-import modelApp from '../../model/app'
-import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
 class SourceEdit extends React.Component {
 
 	constructor(props) {
 		super(props)
-
-		const {handle} = this.props
 
 		// get mode preference
 
@@ -73,8 +68,7 @@ class SourceEdit extends React.Component {
 	}
 
 	render (){
-		const {error, match, source, path, style} = this.props,
-			{mode} = this.state
+		const {source} = this.props
 
 		if (!source) return <div/>
 
@@ -89,7 +83,7 @@ class SourceEdit extends React.Component {
 	}
 
 	renderModal (){
-		const {errors, path, style} = this.props,
+		const {path} = this.props,
 			{modal} = this.state
 
 		switch (modal){
@@ -159,8 +153,7 @@ class SourceEdit extends React.Component {
 	}
 
 	renderTitle (){
-		const {match, path, source, sourceId, style} = this.props,
-			{dropOpen} = this.state
+		const {match, sourceId} = this.props
 
 		return (
 			<h2 className="content-title content-title-sub content-title-light clearfix">

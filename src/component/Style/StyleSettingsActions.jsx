@@ -1,17 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
 import {Link, withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
-
 import Icon from '../Icon'
-import Property from '../Property'
-import PropertyAdd from '../Property/PropertyAdd'
 import StyleSettingsModalRemove from './StyleSettingsModalRemove'
 
-import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
 class StyleSettingsActions extends React.Component {
@@ -41,9 +34,7 @@ class StyleSettingsActions extends React.Component {
 	}
 
 	render (){
-		const {error, handle, match, style} = this.props
-
-		const domains = modelStyle.helpers.getDomains({style})
+		const {match} = this.props
 
 		return <div>
 			<h2 className="content-title content-title-sub content-title-light">

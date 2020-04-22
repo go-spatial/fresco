@@ -23,7 +23,7 @@ class FieldFile extends React.Component {
 	}
 
 	render (){
-		const {label, helper, placeholder, value} = this.props
+		const {label, helper, placeholder} = this.props
 
 		return <div>
 			{label && (

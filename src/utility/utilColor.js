@@ -5,8 +5,8 @@ const cssColors = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige
 const isColorStr = ({str})=>{
 		if (typeof str !== 'string') return false
 		if (/^#[0-9a-fA-F]{3,6}$/.test(str)) return true
-		if (/^rgb[a]+\([0-9\,\s]+\)$/.test(str)) return true
-		if (/^hsl[a]+\([0-9\,\s%]+\)$/.test(str)) return true
+		if (/^rgb[a]+\([0-9,\s]+\)$/.test(str)) return true
+		if (/^hsl[a]+\([0-9,\s%]+\)$/.test(str)) return true
 		if (cssColors.indexOf(str) !== -1) return true
 		return false
 	}

@@ -3,17 +3,7 @@ import React from 'react'
 import {Map} from 'immutable'
 import {NavLink, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 
-import utilUrl from '../../utility/utilUrl'
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
-
-import modelApp from '../../model/app'
-import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
-
-import Field from '../Field'
 import Icon from '../Icon'
-import Property from '../Property'
-import Alert from '../Alert'
 import StyleUpdateJson from './StyleUpdateJson'
 import StyleUpdateUpload from './StyleUpdateUpload'
 import Tooltip from '../Tooltip'
@@ -22,7 +12,6 @@ class StyleUpdate extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			headers: Map({}),
@@ -34,8 +23,7 @@ class StyleUpdate extends React.Component {
 	}
 
 	render (){
-		const {error, match, style} = this.props,
-			{headers, makeLayers, id, type, url} = this.state
+		const {match} = this.props
 
 		return <div>
 			<h2 className="content-title content-title-sub content-title-light">
@@ -58,7 +46,7 @@ class StyleUpdate extends React.Component {
 	}
 
 	renderBody(){
-		const {error, match, style} = this.props
+		const {match, style} = this.props
 
 		const redirect = `${match.url}/upload`
 

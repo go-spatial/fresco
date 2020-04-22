@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import modelLayer from '../../model/layer'
-import modelStyle from '../../model/style'
-
 import Icon from '../Icon'
 import LayerEditGroupRoot from './LayerEditGroupRoot'
 import LayerEditGroupProps from './LayerEditGroupProps'

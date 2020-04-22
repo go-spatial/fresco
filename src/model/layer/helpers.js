@@ -13,7 +13,7 @@ const getType = ({layer})=>{
 
 const getIndexById = ({layerId, style})=>{
 	return style.getIn(['current','layers']).findIndex((layer)=>{
-		if (!layer) return
+		if (!layer) return null
 		return layer.get('id') === layerId
 	})
 }

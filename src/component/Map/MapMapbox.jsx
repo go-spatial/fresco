@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Map, fromJS} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import modelMap from '../../model/map'
@@ -14,10 +13,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import utilUrl from '../../utility/utilUrl'
 
 import MapMapboxControls from './MapMapboxControls'
-import MapMapboxInspector from './MapMapboxInspector'
-
-import 'mapbox-gl-inspect/dist/mapbox-gl-inspect.css'
-const MapboxInspect = require('mapbox-gl-inspect')
 
 class CustomControls {
 	onAdd(map) {
@@ -45,7 +40,6 @@ class MapMapbox extends React.Component {
 			sourceObj.keySeq().forEach(sourceLayer => {
 				const sourceLayerObj = sourceObj.get(sourceLayer)
 				sourceLayerObj.keySeq().forEach(featureId => {
-					const featureState = sourceLayerObj.get(featureId)
 
 					this.map.removeFeatureState({
 						source,
@@ -150,7 +144,7 @@ class MapMapbox extends React.Component {
 	}
 
 	componentDidUpdate = async ()=>{
-		const {accessTokens, accessTokenDeploy, featureStates, focus, location, rebuildMap, style} = this.props,
+		const {accessTokenDeploy, focus, rebuildMap, style} = this.props,
 			{mapLoaded} = this.state
 
 		if (!style || !this.map || !mapLoaded) return
@@ -238,13 +232,12 @@ class MapMapbox extends React.Component {
 	handleMapError = (error)=>{
 		const {style} = this.props
 
-		console.log('map error:',error)
 		if (error.sourceId){
-			const error = {
+			const err= {
 				message:'sources.'+error.sourceId+'.url: error loading source'
 			}
 			modelStyle.actions.errorSet({
-				error: error, 
+				error: err, 
 				path: [style.getIn(['id'])],
 			})
 			//return Mstyle.errorAdd(error)
