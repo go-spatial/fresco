@@ -69,7 +69,7 @@ class StyleRoot extends React.Component {
 						</NavLink>
 						<NavLink to={`${match.url}/tokens`} className="content-body-left-row row-icons">
 							<div className="row-icon-left">
-								<Icon className="md-shadow" icon={'root'} weight={'regular'}/>
+								<Icon className="md-shadow" icon={'token'} weight={'regular'}/>
 							</div>
 							access tokens
 						</NavLink>

@@ -42,6 +42,7 @@ const icons = {
 	style: 'fa-brush',
 	styles: 'fa-globe-americas',
 	settings: 'fa-cog',
+	token: 'fa-key',
 	update: 'fa-wrench',
 	upload: 'fa-folder-upload',
 	visible: 'fa-eye',

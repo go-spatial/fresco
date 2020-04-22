@@ -50,7 +50,7 @@ class StyleSettingsDomains extends React.Component {
 			change: this.handleChange
 		}
 
-		const value = domainHeaders? domainHeaders.get(domain): Map({})
+		const value = domainHeaders && domainHeaders.has(domain)? domainHeaders.get(domain): Map({})
 
 		const property = {
 			key: domain,
