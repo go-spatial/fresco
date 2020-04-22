@@ -95,7 +95,7 @@ class LayerEdit extends React.Component {
 						</NavLink>
 					)}
 					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive tooltip-trigger'}>
-						<Icon icon={'style editor'}/>
+						<Icon icon={'editor'}/>
 						<Tooltip message={'editor'}/>
 					</NavLink>
 					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>

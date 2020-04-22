@@ -290,7 +290,7 @@ label .badge{position:relative;top:2px;}
 
 .right-col-title{line-height:30px;}
 
-.row-btn-remove{position:absolute;right:0.5rem;top:0.5rem;}
+.row-btn-remove{position:absolute;right:0.5rem;top:0.15rem;}
 .row-icons{padding:0 1.75rem 0 1.5rem;position:relative;}
 .row-icon-left{position:absolute;left:0.25rem;top:0;}
 .row-icon-right{position:absolute;right:0.25rem;top:0;}

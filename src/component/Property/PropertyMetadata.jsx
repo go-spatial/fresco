@@ -85,6 +85,8 @@ class PropertyMetadata extends React.Component {
 	render (){
 		const {value} = this.props
 
+		if (!value) return <div/>
+
 		return <div className="">
 			<div className="">
 				{this.renderFields()}
@@ -114,7 +116,7 @@ class PropertyMetadata extends React.Component {
 
 		return (
 			<div>
-				{value.keySeq().map((key)=>{
+				{value && value.keySeq().map((key)=>{
 					i++
 					return (
 						<div key={i} className="row position-relative">
