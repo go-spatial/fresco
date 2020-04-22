@@ -1,5 +1,7 @@
 # fresco
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/edab76b2-0437-4965-9d9c-6dae8de430ee/deploy-status)](https://app.netlify.com/sites/fresco/deploys)
+
 Fresco is an open source [Mapbox Vector Tile Style](https://docs.mapbox.com/mapbox-gl-js/style-spec) editor that allows cartographers to craft stylesheets for use with [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/api/) maps. Unlike other style editors, Fresco does not attempt to hide the complexity of Mapbox GL Styles but rather exposes an interactive JSON code editor to allow for maximum control and flexibility. This allows the user to implement more complex styles concepts like data driven styles with [expressions](https://docs.mapbox.com/help/tutorials/mapbox-gl-js-expressions/). When using Fresco, it may be helpful to have the [Mapbox Style Spec](https://docs.mapbox.com/mapbox-gl-js/style-spec/) available as a reference.
 
 Styles created and modified with Fresco are saved to the browser's local storage and are auto-saved on changes.
