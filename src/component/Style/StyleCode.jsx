@@ -21,7 +21,7 @@ class StyleCode extends React.Component {
 	}
 
 	render (){
-		const {error, path, style, match} = this.props
+		const {error, style} = this.props
 
 		const value = style.getIn(['current'])
 		const type = 'json'

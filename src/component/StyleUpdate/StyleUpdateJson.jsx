@@ -1,22 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
-
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
 
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
 
-import Field from '../Field'
 import Property from '../Property'
-import Alert from '../Alert'
 
 class StyleUpdateJson extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			json: {},
@@ -25,7 +19,7 @@ class StyleUpdateJson extends React.Component {
 
 	handleSubmit = async (e)=>{
 		e.preventDefault()
-		const {history, match, path, style, version} = this.props,
+		const {history, style} = this.props,
 			{json} = this.state
 
 		// generate id for style
@@ -48,7 +42,6 @@ class StyleUpdateJson extends React.Component {
 	}
 
 	handleChange = ({name, value})=>{
-		const {type, url} = this.state
 
 		let state = {}
 		state[name] = value
@@ -57,8 +50,7 @@ class StyleUpdateJson extends React.Component {
 	}
 
 	render (){
-		const {error, style} = this.props,
-			{json} = this.state
+		const {json} = this.state
 
 		const handle = {
 			change: this.handleChange

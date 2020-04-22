@@ -4,8 +4,6 @@ import {fromJS} from 'immutable'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 
-import Field from '../Field'
-import Alert from '../Alert'
 import Icon from '../Icon'
 
 import modelStyle from '../../model/style'
@@ -14,8 +12,7 @@ import modelSource from '../../model/source'
 class SourceEditLayers extends React.Component {
 
 	handleChange = async (value)=>{
-		const {history, path, source} = this.props,
-			{pathname} = this.props.location
+		const {path} = this.props
 
 		await modelStyle.actions.setIn({
 			path,
@@ -24,13 +21,7 @@ class SourceEditLayers extends React.Component {
 	}
 
 	render (){
-		const {error, path, source, sourceId, sourceData, style} = this.props
-
-		const handle = {
-			change: this.handleChange
-		}
-		const type = 'json'
-		const value = source
+		const {path, sourceId, sourceData, style} = this.props
 
 		if (!sourceData) return (
 			<div className="content-body">
@@ -55,7 +46,7 @@ class SourceEditLayers extends React.Component {
 					const layerId = layer.get('name') || layer.get('id')
 					let foundStyleLayers = []
 					
-					styleLayers && styleLayers.map((styleLayer)=>{
+					styleLayers && styleLayers.forEach((styleLayer)=>{
 						if (!styleLayer || !styleLayer.has) return
 						if (styleLayer.get('source') === sourceId && styleLayer.get('source-layer') === layerId)
 							foundStyleLayers.push(styleLayer.get('id'))

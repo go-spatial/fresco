@@ -1,17 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
-
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
 
 import Icon from '../Icon'
 import SourceEditModalRemove from './SourceEditModalRemove'
 
 import modelApp from '../../model/app'
-import modelLayer from '../../model/layer'
 import modelSource from '../../model/source'
-import modelStyle from '../../model/style'
 
 class SourceEditActions extends React.Component {
 	constructor (props){
@@ -63,8 +58,7 @@ class SourceEditActions extends React.Component {
 	}
 
 	render (){
-		const {error, handle} = this.props,
-			{refreshed} = this.state
+		const {refreshed} = this.state
 
 		return (
 			<div>

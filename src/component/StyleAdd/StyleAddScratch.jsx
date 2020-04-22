@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
@@ -8,15 +7,12 @@ import utilMapboxSpec from '../../utility/utilMapboxSpec'
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
 
-import Field from '../Field'
 import Property from '../Property'
-import Alert from '../Alert'
 
 class StyleAddScratch extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			makeLayers: false,
@@ -28,7 +24,7 @@ class StyleAddScratch extends React.Component {
 
 	handleSubmit = async (e)=>{
 		e.preventDefault()
-		const {history, match, path, style, version} = this.props,
+		const {history} = this.props,
 			{makeLayers, name, source, sourceType} = this.state
 
 		// generate id for style
@@ -53,8 +49,6 @@ class StyleAddScratch extends React.Component {
 	}
 
 	handleChange = ({name, value})=>{
-		const {type, url} = this.state
-
 		let state = {}
 		state[name] = value
 
@@ -62,8 +56,7 @@ class StyleAddScratch extends React.Component {
 	}
 
 	render (){
-		const {error, style} = this.props,
-			{makeLayers, source, name, sourceType} = this.state
+		const {makeLayers, source, name, sourceType} = this.state
 
 		const handle = {
 			change: this.handleChange

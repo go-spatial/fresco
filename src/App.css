@@ -267,6 +267,9 @@ label .badge{position:relative;top:2px;}
 .o-scroll{overflow:scroll;}
 .o-y-scroll{overflow-y:auto;}
 
+.page-loader{position:absolute;top:0;bottom:0;left:0;right:0;}
+.page-loader-spinner{position:absolute;top:50%;left:50%;right:50%;bottom:50%;margin:-3rem;}
+
 .panel-float{position:fixed;z-index:1000;}
 
 .panel-min-height{min-height:300px;}
@@ -299,7 +302,7 @@ label .badge{position:relative;top:2px;}
 .swatch-flex:hover{border:1px solid #FFF;}
 .swatch-flex.active{border:1px solid #fff;}
 .swatch-border{border:1px solid #E6E6E6;}
-.swatch-pos{left:6px;top:8px;}
+.swatch-pos{left:5px;top:5px;}
 .swatch-input-pl{padding-left:38px;}
 
 .text-flow-breaks{overflow-wrap: break-word;max-width:100%;}

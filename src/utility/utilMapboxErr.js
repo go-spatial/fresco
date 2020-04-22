@@ -21,7 +21,7 @@ const	getKey = (error)=>{
 			key.push(part.replace(/\[\d+\]/g,''))
 			//console.log('search res:',res);
 			for (let i=0;i<res.length;i++){
-				key.push(Number(res[i].replace(/[\[\]]/g, '')))
+				key.push(Number(res[i].replace(/[[\]]/g, '')))
 			}
 			return;
 		}

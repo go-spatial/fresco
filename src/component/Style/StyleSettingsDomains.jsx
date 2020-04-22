@@ -1,16 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Map, List} from 'immutable'
+import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
-
 import Property from '../Property'
-import PropertyAdd from '../Property/PropertyAdd'
-
-import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
 class StyleSettingsDomains extends React.Component {
@@ -29,7 +23,7 @@ class StyleSettingsDomains extends React.Component {
 	}
 
 	render (){
-		const {error, handle, style} = this.props;
+		const {style} = this.props;
 
 		const domains = modelStyle.helpers.getDomains({style})
 
@@ -50,11 +44,13 @@ class StyleSettingsDomains extends React.Component {
 
 
 	renderProperty ({domain}){
-		const {domainHeaders, error, path, style} = this.props
+		const {domainHeaders, error} = this.props
 
 		const handle = {
 			change: this.handleChange
 		}
+
+		const value = domainHeaders? domainHeaders.get(domain): Map({})
 
 		const property = {
 			key: domain,
@@ -62,7 +58,7 @@ class StyleSettingsDomains extends React.Component {
 			name: domain,
 			label: domain,
 			type:'metadata',
-			value: domainHeaders && domainHeaders.get(domain) || Map({}),
+			value,
 			error: error && error.get && error.get(domain)
 		}
 		return (

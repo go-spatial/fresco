@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {List, Map} from 'immutable'
 
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
 import modelStyle from '../../model/style'

@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
+import {Map} from 'immutable'
 
-import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
-import modelStyle from '../../model/style'
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
 
 import Property from '../Property'
@@ -13,7 +10,7 @@ import PropertyAdd from '../Property/PropertyAdd'
 class LayerEditGroupProps extends React.Component {
 
 	render (){
-		const {error, group, layer, path, style} = this.props
+		const {group, layer, path} = this.props
 
 		const layerGroup = layer.get(group)
 

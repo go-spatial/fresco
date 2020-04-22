@@ -2,11 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {NavLink, Link, Redirect, Route, Switch} from 'react-router-dom'
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
-import {List} from 'immutable'
-
-import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 import Field from '../Field'
 import Icon from '../Icon'
@@ -37,7 +33,7 @@ class StyleSources extends React.Component {
 	}
 
 	render (){
-		const {errors, path, sources, style, match} = this.props,
+		const {sources, match} = this.props,
 			{search, searchShow} = this.state
 
 		//const errors = Mstyle.errorsGet()
@@ -94,12 +90,10 @@ class StyleSources extends React.Component {
 	}
 
 	renderList (){
-		const {errors, match, path, sources} = this.props,
+		const {match, sources} = this.props,
 			{search} = this.state
 
 		if (!sources) return <div/>
-
-		let dragInd = -1
 
 		return (
 			<div className="">
@@ -108,12 +102,10 @@ class StyleSources extends React.Component {
 					if (!source || !source.has) return <div/>
 					const sourceId = name
 
-					if (search && sourceId.toLowerCase().indexOf(search.toLowerCase()) === -1) return
+					if (search && sourceId.toLowerCase().indexOf(search.toLowerCase()) === -1) return <div/>
 
 					let className = 'content-body-left-row row-icons '
 					const icon = 'source'
-
-					dragInd++
 
 					return (
 						<NavLink key={sourceId} to={`${match.url}/${sourceId}`} className={className}>

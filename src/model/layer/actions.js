@@ -1,4 +1,3 @@
-import Store from '../../Store'
 import {fromJS} from 'immutable'
 import actions from '../actions'
 

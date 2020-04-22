@@ -7,7 +7,6 @@ import modelApp from '../../model/app'
 import modelLayer from '../../model/layer'
 import modelSource from '../../model/source'
 
-import Field from '../Field'
 import Alert from '../Alert'
 import Property from '../Property'
 
@@ -15,7 +14,6 @@ class LayerAdd extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			rec:{
@@ -53,19 +51,10 @@ class LayerAdd extends React.Component {
 			name === 'source-layer' ? parts.push(utilUrl.getName(value)) :
 				rec['source-layer'] && parts.push(utilUrl.getName(rec['source-layer']))
 
-			let id = parts.join('.'), newId
+			let id = parts.join('.')
 
-			if (id){
-				let num = 1,
-					newId = id,
-					existing
-				/*
-				while (existing = Mlayer.get(newId)){
-					num++
-					newId = id+'_'+num
-				}*/
-				id = newId
-			}
+			// TODO: check for layer id collisions
+
 			this.setState({rec:{
 				...rec,
 				id

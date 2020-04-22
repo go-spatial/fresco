@@ -6,7 +6,6 @@ import PropertyArrayRow from './PropertyArrayRow'
 import Icon from '../Icon'
 
 import modelStyle from '../../model/style'
-import styleSpec from '../../vendor/style-spec/style-spec'
 
 class PropertyArray extends React.Component {
 
@@ -43,7 +42,7 @@ class PropertyArray extends React.Component {
 	}
 
 	renderRows (){
-		const {error, handle, name, path, type, value, valueDefault} = this.props
+		const {handle, name, path, type, value, valueDefault} = this.props
 
 		if (!value || !value.map) return <div/>
 

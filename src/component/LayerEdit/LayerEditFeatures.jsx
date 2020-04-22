@@ -1,29 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {fromJS, Map} from 'immutable'
-import {Link, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import Property from '../Property'
 import modelMap from '../../model/map'
 
 import FeatureRow from '../FeatureRow'
-import Field from '../Field'
-import Alert from '../Alert'
-import Icon from '../Icon'
-
-import modelStyle from '../../model/style'
 
 class LayerEditFeatures extends React.Component {
 
 	render (){
-		const {error, focusFeatures, layer, path, style} = this.props
-
-		const handle = {
-			change: this.handleChange
-		}
-		const type = 'json'
-		const value = layer
+		const {focusFeatures, style} = this.props
 
 		return (
 			<div className="content-body">

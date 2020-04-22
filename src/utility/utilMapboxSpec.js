@@ -1,4 +1,4 @@
-import styleSpec from '../vendor/style-spec/style-spec'
+import {latest} from 'mapbox-gl/src/style-spec'
 
 import {fromJS, Map, List} from 'immutable'
 
@@ -12,10 +12,10 @@ const typeMap = {
 	'*': 'metadata',
 }
 
-const getExpressionOptions = ({})=>{
-	if (!styleSpec.latest.expression_name || !styleSpec.latest.expression_name.values) return []
+const getExpressionOptions = ()=>{
+	if (!latest.expression_name || !latest.expression_name.values) return []
 
-	return Object.keys(styleSpec.latest.expression_name.values).map(key => {
+	return Object.keys(latest.expression_name.values).map(key => {
 		return {name: key, value: key}
 	})
 }
@@ -119,8 +119,8 @@ const getPropertyOptions = ({group, layer})=>{
 
 const getGroupSpec = ({group, layer})=>{
 	if (group === 'source') return getSourceSpec() || {}
-	if (group !== 'root') return styleSpec.latest[group+'_'+getLayerType({layer})] || {}
-	return styleSpec.latest.layer || {}
+	if (group !== 'root') return latest[group+'_'+getLayerType({layer})] || {}
+	return latest.layer || {}
 }
 
 const getRootPropertyFields = ({layer})=>{
@@ -134,11 +134,11 @@ const getRootPropertyFields = ({layer})=>{
 }
 
 const getSourceSpec = ()=>{
-	return styleSpec.latest['source_vector']
+	return latest['source_vector']
 }
 
 const getSourceTypeOptions = ()=>{
-	const spec = styleSpec.latest
+	const spec = latest
 
 	let options = []
 	Object.keys(spec).forEach(key => {
@@ -149,17 +149,6 @@ const getSourceTypeOptions = ()=>{
 		}
 	})
 	return options
-
-	let values = {}
-
-	for (let i in spec){
-		if (i.indexOf('source_') === 0){
-			const type = i.replace('source_','').replace('_','-')
-			if (spec[i].type && spec[i].type.values && spec[i].type.values[type])
-				values[type] = {doc:spec[i].type.values[type].doc}
-		}
-	}
-	return values
 }
 
 const getSpecDefault = ({spec})=>{
@@ -213,7 +202,7 @@ const getStyleRootPropertyOptions = ()=>{
 const getStyleProperties = ({key, value})=>{
 	let properties = {}
 
-	const	spec = styleSpec.latest.$root[key]
+	const	spec = latest.$root[key]
 
 	if (!spec) return {}
 
@@ -253,19 +242,15 @@ const getTypeChangeValue = ({type, value, valueDefault})=>{
 		case 'expression':
 			if (List.isList(value)) return value
 			return List([])
-			break
 		case 'function':
 			if (Map.isMap(value)) return value
 			return fromJS({stops:[[6,null],[10,null]]})
-			break
 		case 'string':
 			if (typeof value === 'string') return value
 			return valueDefault || ''
-			break
 		case 'number':
 			if (typeof value === 'number') return value
 			return valueDefault || 0
-			break
 		case 'color':
 			if (typeof value === 'string') return value
 			return valueDefault

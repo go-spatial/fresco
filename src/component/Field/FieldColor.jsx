@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { SketchPicker } from 'react-color'
 import Dropdown from '../Dropdown'
 
 import utilMaterialColor from '../../utility/utilMaterialColors'
@@ -104,7 +103,7 @@ class FieldColor extends React.Component {
 	}
 
 	render (){
-		const {autoFocus, error, handle, inputClass, helper, icon, label, name, placeholder, value} = this.props,
+		const {autoFocus, error, inputClass, helper, icon, label, name, placeholder, value} = this.props,
 			{panelOpen} = this.state
 
 		return (

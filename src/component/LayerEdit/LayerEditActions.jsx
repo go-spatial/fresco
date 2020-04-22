@@ -1,19 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
 import utilPath from '../../utility/utilPath'
 
 import Icon from '../Icon'
 import LayerEditModalRemove from './LayerEditModalRemove'
-import Property from '../Property'
-import PropertyAdd from '../Property/PropertyAdd'
 
 import modelLayer from '../../model/layer'
-import modelSource from '../../model/source'
-import modelStyle from '../../model/style'
 
 class LayerEditActions extends React.Component {
 	constructor (props){
@@ -44,7 +38,6 @@ class LayerEditActions extends React.Component {
 	}
 
 	render (){
-		const {error, handle} = this.props;
 
 		return (
 			<div>

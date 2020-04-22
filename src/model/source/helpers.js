@@ -1,4 +1,4 @@
-import styleSpec from '../../vendor/style-spec/style-spec'
+import {latest} from 'mapbox-gl/src/style-spec'
 
 
 const getLayerOptions = ({style, sourceId})=>{
@@ -16,7 +16,6 @@ const getLayerOptions = ({style, sourceId})=>{
 const getOptions = ({style})=>{
 	if (!style.hasIn(['current','sources'])) return []
 
-	let options = []
 	const sources = style.getIn(['current','sources'])
 
 	return sources.keySeq().map((key)=>{
@@ -28,7 +27,7 @@ const getOptions = ({style})=>{
 }
 
 const getTypeOptions = ()=>{
-	const spec = styleSpec.latest
+	const spec = latest
 	let values = {}
 	for (let i in spec){
 		if (i.indexOf('source_') === 0){

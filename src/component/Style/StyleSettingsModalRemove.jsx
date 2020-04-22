@@ -2,15 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../Modal'
 
-import Icon from '../Icon'
-
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
 
 class StyleSettingsModalRemove extends React.Component {
 
   handleRemove = async ()=>{
-    const {handleClose, handleDone, style} = this.props
+    const {handleDone, style} = this.props
 
     try{
       await modelApp.actions.setLoading(true)
@@ -26,7 +24,7 @@ class StyleSettingsModalRemove extends React.Component {
   }
 
   render (){
-    const {handleClose, subject} = this.props
+    const {handleClose} = this.props
 
     return (
       <Modal>

@@ -4,7 +4,6 @@ import {fromJS} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import Field from '../Field'
-import Alert from '../Alert'
 
 import modelStyle from '../../model/style'
 
@@ -15,7 +14,7 @@ class LayerEditJson extends React.Component {
 			{pathname} = this.props.location
 
 		if (layer.get('id') !== value.id){
-			const pathNew = pathname.replace(/\/layers\/[^\/]*/, `/layers/${value.id}`)
+			const pathNew = pathname.replace(/\/layers\/[^/]*/, `/layers/${value.id}`)
 			history.replace(pathNew)
 		}
 
@@ -26,7 +25,7 @@ class LayerEditJson extends React.Component {
 	}
 
 	render (){
-		const {error, layer, path, style} = this.props
+		const {error, layer} = this.props
 
 		const handle = {
 			change: this.handleChange

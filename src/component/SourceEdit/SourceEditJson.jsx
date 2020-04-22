@@ -4,15 +4,13 @@ import {fromJS} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import Field from '../Field'
-import Alert from '../Alert'
 
 import modelStyle from '../../model/style'
 
 class SourceEditJson extends React.Component {
 
 	handleChange = async (value)=>{
-		const {history, path, source} = this.props,
-			{pathname} = this.props.location
+		const {path} = this.props
 
 		await modelStyle.actions.setIn({
 			path,
@@ -21,7 +19,7 @@ class SourceEditJson extends React.Component {
 	}
 
 	render (){
-		const {error, source, path, style} = this.props
+		const {error, source} = this.props
 
 		const handle = {
 			change: this.handleChange

@@ -7,10 +7,8 @@ import utilUrl from '../../utility/utilUrl'
 import utilMapboxSpec from '../../utility/utilMapboxSpec'
 
 import modelApp from '../../model/app'
-import modelLayer from '../../model/layer'
 import modelSource from '../../model/source'
 
-import Field from '../Field'
 import Property from '../Property'
 import Alert from '../Alert'
 
@@ -18,7 +16,6 @@ class SourceAdd extends React.Component {
 
 	constructor(props) {
 		super(props)
-		const {handle} = props
 
 		this.state = {
 			headers: Map({}),
@@ -56,7 +53,6 @@ class SourceAdd extends React.Component {
 	}
 
 	handleChange = ({name, value})=>{
-		const {type, url} = this.state
 
 		let state = {}
 
@@ -71,7 +67,7 @@ class SourceAdd extends React.Component {
 	}
 
 	render (){
-		const {error, style} = this.props,
+		const {error} = this.props,
 			{headers, makeLayers, id, type, url} = this.state
 
 		const options = utilMapboxSpec.getSourceTypeOptions()

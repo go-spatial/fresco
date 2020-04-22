@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {List} from 'immutable'
 
 import Field from '../Field'
 
 import modelStyle from '../../model/style'
-import styleSpec from '../../vendor/style-spec/style-spec'
 
 class PropertyArrayRow extends React.Component {
 

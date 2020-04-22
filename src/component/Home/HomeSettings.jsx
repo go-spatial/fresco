@@ -1,20 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {fromJS} from 'immutable'
 import {connect} from 'react-redux'
-import {Link, withRouter} from 'react-router-dom'
-
-import Field from '../Field'
-import Alert from '../Alert'
-import Icon from '../Icon'
+import {withRouter} from 'react-router-dom'
 
 import modelStyle from '../../model/style'
 
 class HomeSettings extends React.Component {
 
 	render (){
-		const {error, styles} = this.props
-
 		return (
 			<div className="content-body content-body-scroll content-body-full">
 				<h2 className="content-title">

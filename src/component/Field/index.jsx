@@ -32,9 +32,9 @@ class Field extends React.Component {
 				return <FieldString {...this.props}/>
 			case 'json':
 				return <FieldJSON {...this.props}/>
+			default:
+				return <FieldString {...this.props}/>
 		}
-
-		return <div/>
 	}
 }
 
