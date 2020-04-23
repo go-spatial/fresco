@@ -9,7 +9,7 @@ import modelStyle from '../../model/style'
 
 class LayerEditJson extends React.Component {
 
-	handleChange = async (value)=>{
+	handleChange = async ({value})=>{
 		const {history, path, layer} = this.props,
 			{pathname} = this.props.location
 

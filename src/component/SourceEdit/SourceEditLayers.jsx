@@ -11,15 +11,6 @@ import modelSource from '../../model/source'
 
 class SourceEditLayers extends React.Component {
 
-	handleChange = async (value)=>{
-		const {path} = this.props
-
-		await modelStyle.actions.setIn({
-			path,
-			value: fromJS(value),
-		})
-	}
-
 	render (){
 		const {path, sourceId, sourceData, style} = this.props
 
