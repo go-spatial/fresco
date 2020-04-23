@@ -150,12 +150,11 @@ class StyleLayers extends React.Component {
 							<div ref={provided.innerRef}>
 								{layers !== undefined && layers.map((layer,i)=>{
 									
-									if (!layer || !layer.has) return <div/>
+									if (!layer || !layer.has) return <div key={i}/>
 									const layerId = layer.has('id')? layer.get('id'): `layer-${i}`
 
-									if (focusLayers && focusLayers.length > 0 && !focusLayers.includes(layerId)) return <div/>
-
-									if (search && search.length > 0 && layerId.toLowerCase().indexOf(search.toLowerCase()) === -1) return <div/>
+									if (focusLayers && focusLayers.length > 0 && !focusLayers.includes(layerId)) return <div key={i}/>
+									if (search && search.length > 0 && layerId.toLowerCase().indexOf(search.toLowerCase()) === -1) return <div key={i}/>
 
 									let className = 'content-body-left-row row-icons '
 									if (error && error.hasIn([i])) className += ' error'

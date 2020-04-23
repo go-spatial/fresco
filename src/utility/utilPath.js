@@ -4,7 +4,7 @@ const getRoute = (path)=>{
 
 const getStyleIn = ({path, pathIn})=>{
 	// return [styleId, [...pathIn]]
-	return [path[0], path[1], [...pathIn]]
+	return [path[0], path[1], ...pathIn]
 }
 
 const getStyleLocation = ({path, pathSub})=>{
