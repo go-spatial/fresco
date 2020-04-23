@@ -41,7 +41,6 @@ class StyleAddJson extends React.Component {
 	}
 
 	handleChange = ({name, value})=>{
-
 		let state = {}
 		state[name] = value
 

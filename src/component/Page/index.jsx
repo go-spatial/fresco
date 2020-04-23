@@ -3,7 +3,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
-import ErrorC from './Error'
+import Alert from '../Alert'
 import Loader from './Loader'
 import Nav from './Nav'
 import Route from './Route'
@@ -48,7 +48,7 @@ class Page extends React.Component {
 		return (
 			<React.Fragment>
 				<div className={`page ${device}`}>
-					<ErrorC handleClose={this.handleErrorClose} message={error}/>
+					<Alert handleClose={this.handleErrorClose} message={error}/>
 					<Nav/>
 					<Route/>
 					{loading && <Loader/>}

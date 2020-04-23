@@ -1,30 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Icon from '../Icon'
 
 class Alert extends React.Component {
-	constructor(props){
-		super(props)
-		this.state = {
-			show:true
-		}
-	}
-
-	handleClose = ()=>{
-		this.setState({show:false})
-	}
 
 	render (){
-		const {message} = this.props,
-			{show} = this.state
+		const {handleClose, message} = this.props
 
-		if (!message || !show) return <div/>
+		if (!message) return <div/>
 
-		let className = 'alert alert-danger alert-dismissible fade show alert-position'
+		let className = 'alert alert-danger fade show alert-position'
 		return (
 			<div className={className}>
-			{message}
-				<button onClick={this.handleClose} type="button" className="close" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+				<span className="alert-message">{message}</span>
+				<button onClick={handleClose} type="button" className="close" aria-label="Close">
+					<Icon className="text-danger" icon={'close'}/>
 				</button>
 			</div>
 		)
@@ -32,6 +22,7 @@ class Alert extends React.Component {
 }
 
 Alert.propTypes = {
+	handleClose: PropTypes.func,
 	message:PropTypes.string,
 }
 export default Alert

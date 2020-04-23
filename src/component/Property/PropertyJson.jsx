@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {fromJS} from 'immutable'
 
 import Field from '../Field'
 
@@ -9,10 +10,11 @@ class PropertyJson extends React.Component {
 
 	handleChange = async ({value})=>{
 		const {handle, name, path} = this.props
-		if (handle && handle.change) return handle.change({name, path, value})
+		const valueImm = fromJS(value)
+		if (handle && handle.change) return handle.change({name, path, value: valueImm})
 		await modelStyle.actions.setIn({
 			path,
-			value,
+			value: valueImm,
 		})
 	}
 

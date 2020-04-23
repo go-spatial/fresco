@@ -16,7 +16,8 @@ ul{padding:0;}
 
 .alert{font-size:0.8em;}
 .alert .alert-danger{background-color:#FFD7DA;border-color:#FFD7DA;color:#D33D34;}
-.alert-dismissible .close{padding:0.5rem;}
+.alert .close{position:absolute;top:15px;right:10px;font-size:1rem;}
+.alert-message{font-size:0.9rem;line-height:1.5;}
 .alert-position{position:fixed;bottom:0.5rem;left:0.5rem;right:0.5rem;margin-bottom:0;z-index:100;}
 
 label .badge{position:relative;top:2px;}

@@ -44,7 +44,7 @@ class FieldJSON extends React.Component {
 		const {handle} = this.props
 		const val = this.cm.getValue()
 		const json = this.strToJson(val)
-		if (json) return handle.change(json)
+		if (json) return handle.change({value:json})
 		this.cm.performLint()
 	}
 	handleFocus = ()=>{
@@ -68,10 +68,9 @@ class FieldJSON extends React.Component {
 
 	strToJson(str){
 		try {
-			//console.log('str to json:',str)
 			return JSON.parse(str)
 		} catch(err) {
-			return console.warn(err)
+			return console.log(err)
 		}
 	}
 	

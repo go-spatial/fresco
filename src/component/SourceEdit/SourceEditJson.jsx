@@ -9,7 +9,7 @@ import modelStyle from '../../model/style'
 
 class SourceEditJson extends React.Component {
 
-	handleChange = async (value)=>{
+	handleChange = async ({value})=>{
 		const {path} = this.props
 
 		await modelStyle.actions.setIn({

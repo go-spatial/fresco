@@ -11,7 +11,7 @@ class StyleCode extends React.Component {
 		this.state = {}
 	}
 
-	handleChange = async (value)=>{
+	handleChange = async ({value})=>{
 		const {path} = this.props
 
 		await modelStyle.actions.setIn({
