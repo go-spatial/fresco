@@ -32,8 +32,10 @@ const add = async ({headers, makeLayers, id, path, style, type, url})=>{
 	if (makeLayers){
 		const layers = await makeLayersFromData({sourceId: id, sourceData})
 
+		const pathLayers = utilPath.getStyleIn({path, pathIn: ['layers']})
+
 		await actions.act('style.listConcat', {
-			path: utilPath.getStyleIn({path, pathIn: ['layers']}),
+			path: pathLayers,
 			list: fromJS(layers),
 		})
 	}

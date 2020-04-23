@@ -50,7 +50,8 @@ class Style extends React.Component {
 
 		const path = [styleId]
 		let redirect = `${match.url}/layers`
-		if (!style.hasIn(['current','layers'])) redirect = `${match.url}/sources`
+
+		if (!style.hasIn(['current','sources']) || style.getIn(['current','sources']).size < 1) redirect = `${match.url}/sources`
 		return (
 			<Switch>
 				<Route path={`${match.url}/json`} 
