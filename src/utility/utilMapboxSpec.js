@@ -61,7 +61,7 @@ const getProperties = ({group, layer, key, value})=>{
 }
 
 const getPropCasts = ({spec})=>{
-	if (spec['property-function']){ // property may be an expression or function
+	if (spec['property-function'] || spec.expression){ // property may be an expression or function
 		return ['expression', 'function', typeMap[spec.type]]
 	}
 	if (typeMap[spec.type]){
@@ -84,7 +84,7 @@ const getPropType = ({key, spec, value})=>{
 	if (key === 'filter'){
 		return 'expression'
 	}
-	if (spec['property-function']){ // property may be an expression or function
+	if (spec['property-function'] || spec.expression){ // property may be an expression or function
 		if (List.isList(value)){
 			return 'expression'
 		}

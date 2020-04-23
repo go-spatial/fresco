@@ -16,7 +16,7 @@ const defaultLayers = [
 ]
 
 const defaultStyles = {
-	starter:{
+	'hot-osm-starter':{
 		current:{
 			...starter
 		}
