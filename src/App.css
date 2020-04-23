@@ -234,7 +234,7 @@ label .badge{position:relative;top:2px;}
 
 .marker{font-size:1.4rem;cursor: pointer;text-align:center;
 	color:#FF9800;text-shadow: -1px 0 rgba(39,50,55,0.9), 0 1px rgba(39,50,55,0.9), 1px 0 rgba(39,50,55,0.9), 0 -1px rgba(39,50,55,0.9);
-	position:relative;
+	position:relative;width:15px;
 }
 .marker-number{background-color:rgba(39,50,55,0.9);border-radius:0.15rem;padding:0.1rem 0.4rem;color:#FFF;font-size:0.7rem;
 	position:absolute;left:22px;top:-3px;white-space:nowrap;}
