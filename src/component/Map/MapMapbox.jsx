@@ -95,7 +95,6 @@ class MapMapbox extends React.Component {
 		if (accessTokens && accessTokens.has('mapbox')) MapboxGl.accessToken = accessTokens.get('mapbox')
 
 		window.onerror = (message, source, lineno, colno, error)=>{
-			console.log('natural error:',error)
 			modelStyle.actions.errorSet({
 				error, 
 				path: [style.getIn(['id'])],
@@ -166,9 +165,19 @@ class MapMapbox extends React.Component {
      
 		// if there is a point, set it on the map and query features
 		if (focus){
-			const features = modelMap.helpers.queryMapFeatures({
+			const featuresDuped = modelMap.helpers.queryMapFeatures({
 				map: this.map,
 				point: focus,
+			})
+
+			// dedupe features
+			let found = [], features = []
+			featuresDuped.forEach(feature => {
+				const key = `${feature.source}~${feature.sourceLayer}~${feature.layer.id}~${feature.id}`
+				if (!found.includes(key)){
+					found.push(key)
+					features.push(feature)
+				}
 			})
 
 			modelMap.actions.setFocusFeatures({

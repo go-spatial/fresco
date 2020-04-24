@@ -4,21 +4,10 @@ import actions from '../actions'
 // map features do not support transformation into immutable, use generics
 
 const setFocusFeatures = async ({features})=>{
-
-	// dedupe features by id
-	let found = [], deduped = []
-	features.forEach(feature => {
-		const key = `${feature.source}~${feature.sourceLayer}~${feature.layer.id}~${feature.id}`
-		if (!found.includes(key)){
-			found.push(key)
-			deduped.push(feature)
-		}
-	})
-
 	Store.dispatch({
 		type:'MAP_FOCUS_FEATURES_SET',
 		payload:{
-			focusFeatures: deduped,
+			focusFeatures: features,
 		}
 	})
 }

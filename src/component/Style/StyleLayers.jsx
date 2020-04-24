@@ -117,10 +117,10 @@ class StyleLayers extends React.Component {
 							</div>
 						</h2>
 					}
-					{focusLayers && focusLayers.length > 0 && (
+					{focusLayers && Object.keys(focusLayers).length > 0 && (
 						<div className="content-body-title bg-info pl-1">
 							<Icon className="mr-1" icon={'map-focus'} weight={'solid'}/>
-							{focusLayers.length} Focused
+							{Object.keys(focusLayers).length} Layers Focused
 							<button type="button" className="btn btn-outline-light btn-xs float-right" 
 								onClick={this.handleFocusClose}>
 								<Icon icon={'close'}/>
@@ -153,7 +153,7 @@ class StyleLayers extends React.Component {
 									if (!layer || !layer.has) return <div key={i}/>
 									const layerId = layer.has('id')? layer.get('id'): `layer-${i}`
 
-									if (focusLayers && focusLayers.length > 0 && !focusLayers.includes(layerId)) return <div key={i}/>
+									if (focusLayers && Object.keys(focusLayers).length > 0 && !focusLayers[layerId]) return <div key={i}/>
 									if (search && search.length > 0 && layerId.toLowerCase().indexOf(search.toLowerCase()) === -1) return <div key={i}/>
 
 									let className = 'content-body-left-row row-icons '
@@ -186,7 +186,7 @@ class StyleLayers extends React.Component {
 	}
 
 	renderLayerOption ({layer, layerId, layerInd}){
-		const {error} = this.props
+		const {error, focusLayers} = this.props
 
 		if (error && error.hasIn([layerInd])){
 			return (
@@ -196,15 +196,14 @@ class StyleLayers extends React.Component {
 			)
 		}
 
-		/*
-		if (focusLayers && focusLayers.includes(layerId)){
+		if (focusLayers && focusLayers[layerId]){
 			return (
 				<div className="row-icon-right">
 					<Icon className="md-shadow text-info" icon={'map-focus'} weight={'solid'}/>
+					<b className="text-info">{focusLayers[layerId]}</b>
 				</div>
 			)
 		}
-		*/
 		if (layer.getIn(['layout','visibility']) === 'none'){
 			return (
 				<div onClick={(e)=>this.handleVisibility({e, layerId, show:true})} className="row-icon-right">

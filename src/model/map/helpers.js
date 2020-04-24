@@ -3,7 +3,7 @@ const queryMapFeatures = ({map, point})=>{
 
 	const pointProj = map.project(point)
 
-	const margin = 2
+	const margin = 5
 	const bbox = [
 		{x:pointProj.x-margin,y:pointProj.y+margin},
 		{x:pointProj.x+margin,y:pointProj.y-margin}
@@ -14,12 +14,11 @@ const queryMapFeatures = ({map, point})=>{
 }
 
 const getFeatureLayers = ({features})=>{
-	let layers = []
+	let layers = {}
 	features.forEach((feature)=>{
-		if (feature.layer && feature.layer.id && 
-			!layers.includes(feature.layer.id)){ 
-
-			layers.push(feature.layer.id)
+		if (feature.layer && feature.layer.id){ 
+			layers[feature.layer.id] = layers[feature.layer.id] || 0
+			layers[feature.layer.id]++
 		}
 	})
 	return layers
