@@ -159,39 +159,39 @@ class FieldAC extends React.Component {
 			<div className="form-group mb-2 position-relative">
 				{label && <label className="mb-0">{label}</label>}
 				<div className="position-relative">
-				<Dropdown handleClose={()=>this.handleBlur(false)} open={focused}>
-					<input type="text" className={inputClass? inputClass: 'form-control'} placeholder={placeholder}
-						onChange={this.handleInputChange}
-						onFocus={this.handleFocus} 
-						onKeyUp={this.handleKeyUp}
-						autoFocus={autoFocus}
-						value={inputValue}
-					/>
-					{focused && (
-						<div className="drop-menu" data-boundary="window">
-							{options.map((exp,i)=>{
-								
-								if (exp.value.indexOf(inputValue) === -1) return null
-								count++
-								if (count > maxDropdowns) return null
+					<Dropdown handleClose={()=>this.handleBlur(false)} open={focused}>
+						<input type="text" className={inputClass? inputClass: 'form-control'} placeholder={placeholder}
+							onChange={this.handleInputChange}
+							onFocus={this.handleFocus} 
+							onKeyUp={this.handleKeyUp}
+							autoFocus={autoFocus}
+							value={inputValue}
+						/>
+						{focused && (
+							<div className="drop-menu" data-boundary="window">
+								{options.map((exp,i)=>{
+									
+									if (exp.value.indexOf(inputValue) === -1) return null
+									count++
+									if (count > maxDropdowns) return null
 
-								let className = 'drop-item'
-								if (selected === exp.value) className += ' active'
+									let className = 'drop-item'
+									if (selected === exp.value) className += ' active'
 
-								return (
-									<div 
-										className={className} 
-										onClick={(e)=>{this.handleSelect(exp.value)}} 
-										key={exp.value}>
+									return (
+										<div 
+											className={className} 
+											onClick={(e)=>{this.handleSelect(exp.value)}} 
+											key={exp.value}>
 
-										{exp.value}
-									</div>
-								)
-							})}
-						</div>
-					)}
+											{exp.value}
+										</div>
+									)
+								})}
+							</div>
+						)}
 
-				</Dropdown>
+					</Dropdown>
 					
 				</div>
 			</div>

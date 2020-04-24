@@ -10,14 +10,17 @@ import modelStyle from '../../model/style'
 import MapboxGl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import constants from './constants'
 import utilUrl from '../../utility/utilUrl'
 
+import Dropdown from '../Dropdown'
 import MapMapboxControls from './MapMapboxControls'
 
 class CustomControls {
+	handleLocationToggle = null
 	onAdd(map) {
 		this._container = document.createElement('div')
-		ReactDOM.render(<MapMapboxControls map={map}/>,this._container)
+		ReactDOM.render(<MapMapboxControls handleLocationToggle={this.handleLocationToggle} map={map}/>,this._container)
 		return this._container
 	}
 	onRemove() {
@@ -110,8 +113,10 @@ class MapMapbox extends React.Component {
 			hash:true
 		})
 
+		const Controls = new CustomControls({})
+		Controls.handleLocationToggle = this.handleLocationToggle
 
-		map.addControl(new CustomControls({}))
+		map.addControl(Controls)
 
 		map.addControl(new MapboxGl.AttributionControl({
 			compact: true
@@ -221,6 +226,7 @@ class MapMapbox extends React.Component {
 		this.state = {
 			debugLines: null,
 			mapLoaded: false,
+			locationShow: false,
 		}
 
 		this.container = null // node to put map in
@@ -236,6 +242,29 @@ class MapMapbox extends React.Component {
 
 		// store point
 		modelMap.actions.setFocus({point})
+	}
+
+	handleLocationSelect = (location)=>{
+		this.map.flyTo({
+			center: [location.lng, location.lat],
+			zoom: location.zoom
+		})
+	}
+
+	handleLocationClose = ()=>{
+		this.setState({
+			locationShow:false
+		})
+	}
+
+	handleLocationToggle = (show)=>{
+		const {locationShow} = this.state
+
+		if (locationShow){
+			this.setState({locationShow:false})
+		} else {
+			this.setState({locationShow:true})
+		}
 	}
 
 	handleMapError = (error)=>{
@@ -288,8 +317,31 @@ class MapMapbox extends React.Component {
 	}
 
 	render (){
+		const {locationShow} = this.state
+		
 		return (
-			<div id="map" ref={el => this.container = el}></div>
+			<React.Fragment>
+				<div id="map" ref={el => this.container = el}></div>
+				<Dropdown handleClose={()=>this.handleLocationClose()} open={locationShow}>
+					{locationShow && (
+						<div className="drop-menu drop-menu-locations">
+							{constants.locations.map((loc,i)=>{
+
+								const className = 'drop-item interactive'
+								return (
+									<div 
+										className={className} 
+										onClick={(e)=>{this.handleLocationSelect(loc)}} 
+										key={i}>
+
+										{loc.label}
+									</div>
+								)
+							})}
+						</div>
+					)}
+				</Dropdown>
+			</React.Fragment>
 		)
 	}
 

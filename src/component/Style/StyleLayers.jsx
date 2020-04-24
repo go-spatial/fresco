@@ -259,7 +259,7 @@ class StyleLayers extends React.Component {
 
 StyleLayers.propTypes = {
 	error: PropTypes.object,
-	focusLayers: PropTypes.array,
+	focusLayers: PropTypes.object,
 	layers: PropTypes.object,
 	match: PropTypes.object,
 	path: PropTypes.array,

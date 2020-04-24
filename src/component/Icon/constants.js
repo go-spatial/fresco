@@ -30,7 +30,8 @@ const icons = {
 	'layer-line': 'fa-pen-nib',
 	'layer-raster': 'fa-satellite',
 	'layer-symbol': 'fa-text',
-	'layer-fill-extrusion': 'fa-text',
+	location: 'fa-location',
+
 	'map-focus': 'fa-map-marker',
 	refresh: 'fa-redo',
 	remove: 'fa-trash',
