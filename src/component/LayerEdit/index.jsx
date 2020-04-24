@@ -96,15 +96,15 @@ class LayerEdit extends React.Component {
 					)}
 					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive tooltip-trigger'}>
 						<Icon icon={'editor'}/>
-						<Tooltip message={'editor'}/>
+						<Tooltip message={'layer editor'}/>
 					</NavLink>
 					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>
 						<Icon icon={'code'}/>
-						<Tooltip message={'json'}/>
+						<Tooltip message={'layer json'}/>
 					</NavLink>
 					<NavLink to={`${match.url}/actions`} className={'content-title-option interactive tooltip-trigger'}>
 						<Icon icon={'action'}/>
-						<Tooltip message={'actions'}/>
+						<Tooltip message={'layer actions'}/>
 					</NavLink>
 				</div>
 			</h2>
