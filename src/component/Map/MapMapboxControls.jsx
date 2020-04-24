@@ -1,55 +1,58 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../Icon'
+import Tooltip from '../Tooltip'
 
-export default class MapMapboxControls extends React.Component {
-	static propTypes = {
-		map:PropTypes.object
-	}
+class MapMapboxControls extends React.Component {
 
 	constructor (props){
 		super(props)
-		const {map} = props
 
 		this.state = {
-			debugLines:false
-		}
-
-		this.handle = {
-			debugLinesToggle:()=>{
-				if (this.state.debugLines){
-					this.setState({debugLines:false})
-					map.showTileBoundaries = false
-				} else {
-					this.setState({debugLines:true})
-					map.showTileBoundaries = true
-				}
-			}
-		}
-
-		for (let i in this.handle){
-			this.handle[i] = this.handle[i].bind(this)
+			debugLines:false,
 		}
 	}
 
-	componentDidMount(){
-		this.tooltip()
-	}
+	handleDebugLinesToggle = ()=>{
+		const {map} = this.props,
+			{debugLines} = this.state
 
-	tooltip(){
-		//console.log('ref:',)
-		//window.$(this.tooltipsRef).children().tooltip()
+		if (debugLines){
+			this.setState({debugLines:false})
+			map.showTileBoundaries = false
+		} else {
+			this.setState({debugLines:true})
+			map.showTileBoundaries = true
+		}
 	}
 
 	render (){
+		const {handleLocationToggle} = this.props, 
+			{debugLines} = this.state
 
-		const className = 'mapboxgl-ctrl-icon'+(this.state.debugLines? ' active': '')
-
-		return <div className="mapboxgl-ctrl mapboxgl-ctrl-group" ref={ref => this.tooltipsRef = ref}>
-			<button className={className} onClick={this.handle.debugLinesToggle} title="debug lines">
-				<Icon icon={'debug-lines'}/>
-			</button>
-		</div>
+		return (
+			<React.Fragment>			
+				<div className="mapboxgl-ctrl mapboxgl-ctrl-group tooltip-trigger">
+					<button className={`mapboxgl-ctrl-icon`} onClick={handleLocationToggle}>
+						<Icon icon={'location'}/>
+					</button>
+					<Tooltip direction={'left'} message={'jump to location'} origin={'left'}/>
+				</div>
+				<div className="mapboxgl-ctrl mapboxgl-ctrl-group tooltip-trigger">
+					<button className={`mapboxgl-ctrl-icon ${debugLines? 'active': ''}`} onClick={this.handleDebugLinesToggle}>
+						<Icon icon={'debug-lines'}/>
+					</button>
+					<Tooltip direction={'left'} message={`debug lines ${debugLines? 'off': 'on'}`} origin={'left'}/>
+				</div>
+			</React.Fragment>
+		)
 	}
 
 }
+
+MapMapboxControls.propTypes = {
+	handleLocationToggle: PropTypes.func,
+	map:PropTypes.object,
+}
+
+export default MapMapboxControls

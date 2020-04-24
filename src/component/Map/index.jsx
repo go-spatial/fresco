@@ -10,7 +10,9 @@ class Map extends React.Component {
 	render (){
 		const {focus, style} = this.props
 
-		return <MapMapbox focus={focus} style={style}/>
+		return (
+			<MapMapbox focus={focus} style={style}/>
+		)
 	}
 }
 

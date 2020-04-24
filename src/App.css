@@ -107,6 +107,7 @@ label .badge{position:relative;top:2px;}
 .drop-menu{position:absolute;background-color:#FFF;color:#273237;
 	padding:0.25rem;border-radius:0.25rem;z-index:999;border:1px solid #8FA3AE;
 	left:0;right:0;}
+.drop-menu-locations{top:6px;right:45px;left:auto;width:140px;position:fixed;z-index:10000;}
 
 .content-title-options .drop-menu{top:20px;right:0;}
 .drop-item{color:#273237;white-space:nowrap;font-size:0.8rem;padding:0.25rem 0.5rem;cursor:pointer;}
@@ -114,11 +115,6 @@ label .badge{position:relative;top:2px;}
 .drop-item.active{background-color:#283592;color:#FFF;}
 
 .dropdown-cover{position:fixed;top:0;bottom:0;left:0;right:0;background-color:transparent;}
-
-.dropdown-menu{padding:0;}
-.dropdown-menu a{padding:0.25rem 0.5rem;font-size:0.8rem;}
-.dropdown-menu a.active{background-color:#EEEEEE;color:#273237;}
-.dropdown-divider{margin:0.15rem 0;}
 
 .exp-ml{margin-left:12px;}
 .exp-arrow{left:-16px;top:10px;border-radius:4px;width:14px;height:14px;
@@ -228,7 +224,7 @@ label .badge{position:relative;top:2px;}
 
 .mapboxgl-ctrl-icon.active{background-color:#00ACC1;color:#FFF;}
 .mapboxgl-ctrl-icon.active:hover{background-color:#0197A7!important;color:#FFF;}
-.mapboxgl-ctrl-icon i{position:relative;top:-1px;}
+.mapboxgl-ctrl-icon i{position:relative;top:1px;font-size:1rem;}
 
 .mapboxgl-popup-close-button{color:#AEAEAE;}
 .mapboxgl-popup-close-button:hover{color:#747474;}
@@ -312,6 +308,7 @@ label .badge{position:relative;top:2px;}
 
 .tooltip{font-size:0.7rem;}
 .tooltip-source{position:absolute;bottom:0;left:0;right:0;text-align:center;height:0;}
+.tooltip-source.tooltip-origin-left{bottom:0;left:0;top:0;text-align:center;width:0;}
 .tooltip-point{display:inline-block;position:relative;}
 
 .tooltip-bubble{position:absolute;right:-11px;z-index:1000;top:-4px;
@@ -329,6 +326,10 @@ label .badge{position:relative;top:2px;}
 .tooltip-trigger:hover .tooltip-bubble{display:block;}
 .tooltip-trigger:hover .tooltip-source:hover .tooltip-bubble{display:none;}
 .tooltip-trigger{position:relative;}
+
+.tooltip-source.tooltip-origin-left .tooltip-bubble {right:11px;top:-15px;}
+.tooltip-source.tooltip-origin-left .tooltip-bubble span:after{right:-8px;top:11px;width:6px;height:8px;
+  border-left:4px solid #1B2124;border-bottom:4px solid transparent;border-top:4px solid transparent;}
 
 .w-max-500{max-width:500px;}
 
