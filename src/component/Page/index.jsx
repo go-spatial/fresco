@@ -9,6 +9,7 @@ import Nav from './Nav'
 import Route from './Route'
 
 import modelApp from '../../model/app'
+import modelPreference from '../../model/preference'
 import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
@@ -17,6 +18,7 @@ class Page extends React.Component {
 	async componentDidMount(){
 		try{
 			await modelApp.actions.setLoading(true)
+			await modelPreference.actions.init()
 			await modelStyle.actions.init()
 			await modelSource.actions.init()
 			await modelApp.actions.setLoading(false)

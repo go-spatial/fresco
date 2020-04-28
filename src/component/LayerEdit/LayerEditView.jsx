@@ -2,8 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import LayerEditGroup from './LayerEditGroup'
+import modelPreference from '../../model/preference'
 
 class LayerEditView extends React.Component {
+
+	componentDidMount (){
+		// set user preference to json
+		modelPreference.actions.setIn({
+			path: ['editMode'],
+			value: 'editor',
+		})
+	}
 	
 	render (){
 		const {error, layer, path, style} = this.props

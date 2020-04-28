@@ -115,7 +115,7 @@ export const reducer = (st = state, action)=>{
 			})
 		}
 		case 'STYLE_REMOVEIN':{
-			const {path, value} = action.payload
+			const {path} = action.payload
 			const styles = st.styles.removeIn(path)
 
 			if (path.length < 3){ // changed whole style, no updated needed

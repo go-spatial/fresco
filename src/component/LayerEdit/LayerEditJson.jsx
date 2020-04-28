@@ -6,8 +6,17 @@ import {withRouter} from 'react-router-dom'
 import Field from '../Field'
 
 import modelStyle from '../../model/style'
+import modelPreference from '../../model/preference'
 
 class LayerEditJson extends React.Component {
+
+	componentDidMount (){
+		// set user preference to json
+		modelPreference.actions.setIn({
+			path: ['editMode'],
+			value: 'json',
+		})
+	}
 
 	handleChange = async ({value})=>{
 		const {history, path, layer} = this.props,

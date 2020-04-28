@@ -76,6 +76,7 @@ class MapMapbox extends React.Component {
 
 	buildMap (){
 		const {accessTokens, style} = this.props
+		if (!style) return <div/>
 
 		if (this.map){
 			// tear down map
@@ -386,10 +387,10 @@ MapMapbox.propTypes = {
 const mapStoreToProps = (store, props)=>{
 	const {style} = props
 	return {
-		accessTokens: modelStyle.selectors.accessTokens(store, {styleId: style.get('id')}),
+		accessTokens: modelStyle.selectors.accessTokens(store, {styleId: style && style.get('id')}),
 		accessTokenDeploy: modelMap.selectors.accessTokenDeploy(store),
-		domainHeaders: modelStyle.selectors.domainHeaders(store, {styleId: style.get('id')}),
-		featureStates: modelStyle.selectors.featureStates(store, {styleId: style.get('id')}),
+		domainHeaders: modelStyle.selectors.domainHeaders(store, {styleId: style && style.get('id')}),
+		featureStates: modelStyle.selectors.featureStates(store, {styleId: style && style.get('id')}),
 		featureStateDeploy: modelMap.selectors.featureStateDeploy(store),
 	}
 }

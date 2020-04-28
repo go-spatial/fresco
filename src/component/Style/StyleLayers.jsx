@@ -96,7 +96,7 @@ class StyleLayers extends React.Component {
 									value={search}
 								 />
 							</div>
-							<div className="content-title-option" onClick={()=>this.handleSearchShowSet({show:false})}>
+							<div className="search-option" onClick={()=>this.handleSearchShowSet({show:false})}>
 								<Icon icon={'close'}/>
 							</div>
 						</div>
@@ -200,7 +200,7 @@ class StyleLayers extends React.Component {
 			return (
 				<div className="row-icon-right">
 					<Icon className="md-shadow text-info" icon={'map-focus'} weight={'solid'}/>
-					<b className="text-info">{focusLayers[layerId]}</b>
+					<b className="text-info focus-layer-features">{focusLayers[layerId]}</b>
 				</div>
 			)
 		}

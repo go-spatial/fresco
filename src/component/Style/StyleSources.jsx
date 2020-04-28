@@ -61,7 +61,7 @@ class StyleSources extends React.Component {
 									value={search}
 								 />
 							</div>
-							<div className="content-title-option" onClick={()=>this.handleSearchShowSet({show:false})}>
+							<div className="search-option" onClick={()=>this.handleSearchShowSet({show:false})}>
 								<Icon icon={'close'}/>
 							</div>
 						</div>
