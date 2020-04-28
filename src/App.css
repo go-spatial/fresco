@@ -139,6 +139,7 @@ label .badge{position:relative;top:2px;}
 
 .field-border-bottom{border-bottom:1px solid #BDBDBD;}
 .focus .field-border-bottom{border-bottom:1px solid #0687D1;}
+.focus-layer-features{font-size:0.65rem;}
 
 .flex-2{flex:2;}
 
@@ -292,6 +293,9 @@ label .badge{position:relative;top:2px;}
 .row-icon-left{position:absolute;left:0.25rem;top:0;}
 .row-icon-right{position:absolute;right:0.25rem;top:0;}
 .row-icon-right-second{right:1.3rem;}
+
+.search-option{color:#EDEFF1;padding:2px 2px 1px 2px;cursor:pointer;}
+.search-option:hover{color:#FFF;}
 
 .swatch{width:22px;height:22px;cursor:pointer;}
 .swatch:hover{border:1px solid #AEAEAE;}

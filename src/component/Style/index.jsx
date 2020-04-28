@@ -115,7 +115,7 @@ class Style extends React.Component {
 					<Tooltip message={'sources'}/>
 				</NavLink>
 				<NavLink className={`content-title-option interactive tooltip-trigger ${error && error.hasIn(['current','layers'])? 'error': ''}`} to={`${match.url}/layers`}>
-					{focusLayers && focusLayers.length > 0 && (
+					{focusLayers && Object.keys(focusLayers).length > 0 && (
 						<Icon className="text-info content-title-option-super" icon={'map-focus'} weight={'solid'}/>
 					)}
 					<Icon icon={'layer'}/>

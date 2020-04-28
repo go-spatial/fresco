@@ -43,26 +43,28 @@ class HomeStyles extends React.Component {
 		const {styles} = this.props,
 			{search, searchShow} = this.state
 
+		const handle = {
+			change: this.handleSearchChange
+		}
+
 		return (
 			<div className="content-body content-body-flex">
 				<div className="content-body-left">
 					{searchShow ? 
-						<div className="d-flex">
+						<div className="d-flex p-1">
 							<div className="property flex-fill">
-								<Field field={{
-									type:'string',
-									name:'search',	
-									value: search,
-									placeholder:'Search for style',
-									controlled:false,
-									inputClass:'form-control-sm font-sm',
-									inputNoAC:true,
-									autoFocus:true
-								}} key="type" handle={{
-									change:this.handleSearchChange
-								}}/>
+								<Field
+									autoFocus={true}
+									handle={handle}
+									name={'search'}
+									placeholder={'Search for style'}
+									inputClass={'form-control-sm font-sm'}
+									inputNoAC={true}
+									type={'string'}
+									value={search}
+								 />
 							</div>
-							<div className="content-title-option" onClick={()=>this.handleSearchShowSet({show:false})}>
+							<div className="search-option" onClick={()=>this.handleSearchShowSet({show:false})}>
 								<Icon icon={'close'}/>
 							</div>
 						</div>

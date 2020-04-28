@@ -11,6 +11,7 @@ import LayerEditJson from './LayerEditJson'
 import LayerEditView from './LayerEditView'
 import Tooltip from '../Tooltip'
 import modelMap from '../../model/map'
+import modelPreference from '../../model/preference'
 import modelStyle from '../../model/style'
 
 class LayerEdit extends React.Component {
@@ -30,9 +31,17 @@ class LayerEdit extends React.Component {
 	}
 
 	renderSection (){
-		const {focusFeatures, error, match, layer, path, style} = this.props
+		const {editMode, focusFeatures, error, match, layer, path, style} = this.props
 
-		const redirect = (focusFeatures.length > 0)? `${match.url}/features` :`${match.url}/editor`
+		let redirect
+		if (focusFeatures.length > 0){
+			redirect = `${match.url}/features`
+		} else if (editMode === 'json'){
+			redirect = `${match.url}/json`
+		} else {
+			redirect = `${match.url}/editor`
+		}
+
 		return (
 			<Switch>
 				<Route path={`${match.url}/actions`} 
@@ -126,6 +135,7 @@ class LayerEdit extends React.Component {
 */
 
 LayerEdit.propTypes = {
+	editMode: PropTypes.string,
 	error: PropTypes.object, // map
 	layer: PropTypes.object,
 	layerId: PropTypes.string,
@@ -138,6 +148,7 @@ LayerEdit.propTypes = {
 const mapStateToProps = (state, props) => {
 	const {layerId} = props
 	return {
+		editMode: modelPreference.selectors.getIn(state, {path:['editMode']}),
 		focusFeatures: modelMap.selectors.focusFeaturesByLayerId(state, {layerId}),
 		layer: modelStyle.selectors.getIn(state, {path: props.path}),
 	}
