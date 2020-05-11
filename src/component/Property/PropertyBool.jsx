@@ -9,10 +9,13 @@ class PropertyBool extends React.Component {
 
 	handleChange = async ({value})=>{
 		const {handle, name, path} = this.props
-		if (handle && handle.change) return handle.change({name, path, value})
+		let val = value
+		if (value === 'true') val = true
+		if (value === 'false') val = false
+		if (handle && handle.change) return handle.change({name, path, value: val})
 		await modelStyle.actions.setIn({
 			path,
-			value,
+			value: val,
 		})
 	}
 
