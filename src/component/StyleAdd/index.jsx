@@ -7,7 +7,7 @@ import Icon from '../Icon'
 import StyleAddJson from './StyleAddJson'
 import StyleAddScratch from './StyleAddScratch'
 import StyleAddUpload from './StyleAddUpload'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class StyleAdd extends React.Component {
 
@@ -31,17 +31,17 @@ class StyleAdd extends React.Component {
 				<span className="content-title-label">Add Style</span>
 
 				<div className="content-title-options">
-					<NavLink to={`${match.url}/scratch`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/scratch`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'scratch'}/>
-						<Tooltip message={'from scratch'}/>
+						<Infotip direction={'y'} message={'from scratch'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/upload`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/upload`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'upload'}/>
-						<Tooltip message={'from upload'}/>
+						<Infotip direction={'y'} message={'from upload'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/json`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'code'}/>
-						<Tooltip message={'from json'}/>
+						<Infotip direction={'y'} message={'from json'}/>
 					</NavLink>
 				</div>
 			</h2>

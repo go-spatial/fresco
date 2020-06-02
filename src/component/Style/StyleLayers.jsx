@@ -12,7 +12,7 @@ import Field from '../Field'
 import Icon from '../Icon'
 import LayerAdd from '../LayerAdd'
 import LayerEdit from '../LayerEdit'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class StyleLayers extends React.Component {
 	constructor(props) {
@@ -106,13 +106,13 @@ class StyleLayers extends React.Component {
 								Layers ({layers? layers.size: 0})
 							</span>
 							<div className="content-title-options">
-								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive tooltip-trigger'}>
+								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'search'}/>
-									<Tooltip message={'search'}/>
+									<Infotip direction={'y'} message={'search'}/>
 								</span>
-								<Link to={`${match.url}/add`} className={'content-title-option interactive tooltip-trigger'}>
+								<Link to={`${match.url}/add`} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'add'}/>
-									<Tooltip message={'add layer'}/>
+									<Infotip direction={'y'} message={'add layer'}/>
 								</Link>
 							</div>
 						</h2>

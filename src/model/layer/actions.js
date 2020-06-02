@@ -21,11 +21,11 @@ const add = async ({afterLayerInd = 0, rec, path})=>{
 	})
 }
 
-const clone = async ({layer, path})=>{
-
-	await actions.act('style.cloneInList',{
-		layer,
-		path
+const clone = async ({index, layer, path})=>{
+	await actions.act('style.listAdd',{
+		item: layer,
+		path,
+		pos: index,
 	})
 }
 
@@ -44,5 +44,6 @@ actions.subscribe('layer',{
 
 export default {
 	add,
+	clone,
 	reorder,
 }
