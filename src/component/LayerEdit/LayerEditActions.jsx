@@ -46,7 +46,7 @@ class LayerEditActions extends React.Component {
 				</h2>
 				<div className="content-body">
 					<div className="content-body-row">
-						<button onClick={()=>this.handleClone()} className="btn btn-sm btn-outline-dark btn-block" disabled="disabled">
+						<button disabled="disabled" onClick={()=>this.handleClone()} className="btn btn-sm btn-outline-dark btn-block">
 							<Icon className="mr-1" icon={'clone'}/>
 							Clone Layer
 						</button>

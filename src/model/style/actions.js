@@ -188,13 +188,14 @@ const init = async ()=>{
 	})
 }
 
-const listAdd = async ({item, path})=>{ 
+const listAdd = async ({item, path, pos})=>{ 
 
 	if (!path) throw new Error('style.actions.listAdd: no path defined')
 
 	Store.dispatch({
 		type:'STYLE_LIST_ADD',
 		payload:{
+			pos,
 			item,
 			path,
 		}

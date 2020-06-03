@@ -8,7 +8,7 @@ import modelStyle from '../../model/style'
 import Field from '../Field'
 import Icon from '../Icon'
 import StyleAdd from '../StyleAdd'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class HomeStyles extends React.Component {
 	constructor(props) {
@@ -74,13 +74,13 @@ class HomeStyles extends React.Component {
 								Styles ({styles? styles.size: 0})
 							</span>
 							<div className="content-title-options">
-								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive tooltip-trigger'}>
+								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'search'}/>
-									<Tooltip message={'search'}/>
+									<Infotip direction={'y'} message={'search'}/>
 								</span>
-								<Link to={`/styles/add`} className={'content-title-option interactive tooltip-trigger'}>
+								<Link to={`/styles/add`} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'add'}/>
-									<Tooltip message={'add style'}/>
+									<Infotip direction={'y'} message={'add style'}/>
 								</Link>
 							</div>
 						</h2>

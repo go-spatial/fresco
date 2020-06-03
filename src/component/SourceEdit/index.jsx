@@ -10,7 +10,7 @@ import SourceEditJson from './SourceEditJson'
 import SourceEditLayers from './SourceEditLayers'
 import SourceEditView from './SourceEditView'
 import SourceEditModalRemove from './SourceEditModalRemove'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 import modelStyle from '../../model/style'
 
@@ -161,21 +161,21 @@ class SourceEdit extends React.Component {
 					{sourceId}
 				</span>
 				<div className="content-title-options">
-					<NavLink to={`${match.url}/layers`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/layers`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'source'}/>
-						<Tooltip message={'source data'}/>
+						<Infotip direction={'y'} message={'source data'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'editor'}/>
-						<Tooltip message={'editor'}/>
+						<Infotip direction={'y'} message={'editor'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/json`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'code'}/>
-						<Tooltip message={'json'}/>
+						<Infotip direction={'y'} message={'json'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/actions`} className="content-title-option interactive tooltip-trigger">
+					<NavLink to={`${match.url}/actions`} className="content-title-option interactive infotip-trigger">
 						<Icon icon={'action'}/>
-						<Tooltip message={'actions'}/>
+						<Infotip direction={'y'} message={'actions'}/>
 					</NavLink>
 				</div>
 			</h2>

@@ -6,7 +6,7 @@ import {NavLink, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 import Icon from '../Icon'
 import StyleUpdateJson from './StyleUpdateJson'
 import StyleUpdateUpload from './StyleUpdateUpload'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class StyleUpdate extends React.Component {
 
@@ -30,13 +30,13 @@ class StyleUpdate extends React.Component {
 				<span className="content-title-label">Update Style</span>
 
 				<div className="content-title-options">
-					<NavLink to={`${match.url}/upload`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/upload`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'upload'}/>
-						<Tooltip message={'from upload'}/>
+						<Infotip direction={'y'} message={'from upload'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/json`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'code'}/>
-						<Tooltip message={'from json'}/>
+						<Infotip direction={'y'} message={'from json'}/>
 					</NavLink>
 				</div>
 			</h2>

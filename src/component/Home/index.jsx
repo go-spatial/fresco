@@ -7,7 +7,7 @@ import Alert from '../Alert'
 import Icon from '../Icon'
 import HomeStyles from './HomeStyles'
 import HomeSettings from './HomeSettings'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class Home extends React.Component {
 
@@ -80,9 +80,9 @@ class Home extends React.Component {
 	renderOptions(){
 		return (
 			<div className="content-title-options">
-				<NavLink to={'/styles'} className={'content-title-option tooltip-trigger interactive'}>
+				<NavLink to={'/styles'} className={'content-title-option infotip-trigger interactive'}>
 					<Icon icon={'style'}/>
-					<Tooltip message={'styles'}/>
+					<Infotip direction={'y'} message={'styles'}/>
 				</NavLink>
 			</div>
 		)

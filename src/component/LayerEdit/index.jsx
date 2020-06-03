@@ -9,7 +9,7 @@ import LayerEditActions from './LayerEditActions'
 import LayerEditFeatures from './LayerEditFeatures'
 import LayerEditJson from './LayerEditJson'
 import LayerEditView from './LayerEditView'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 import modelMap from '../../model/map'
 import modelPreference from '../../model/preference'
 import modelStyle from '../../model/style'
@@ -98,22 +98,22 @@ class LayerEdit extends React.Component {
 				</span>
 				<div className="content-title-options">
 					{focusFeatures.length > 0 && (
-						<NavLink to={`${match.url}/features`} className={'content-title-option interactive tooltip-trigger'}>
+						<NavLink to={`${match.url}/features`} className={'content-title-option interactive infotip-trigger'}>
 							<Icon className="text-info" icon={'map-focus'} weight={'solid'}/>
-							<Tooltip message={'layer features'}/>
+							<Infotip direction={'y'} message={'layer features'}/>
 						</NavLink>
 					)}
-					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/editor`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'editor'}/>
-						<Tooltip message={'layer editor'}/>
+						<Infotip direction={'y'} message={'layer editor'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/json`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/json`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'code'}/>
-						<Tooltip message={'layer json'}/>
+						<Infotip direction={'y'} message={'layer json'}/>
 					</NavLink>
-					<NavLink to={`${match.url}/actions`} className={'content-title-option interactive tooltip-trigger'}>
+					<NavLink to={`${match.url}/actions`} className={'content-title-option interactive infotip-trigger'}>
 						<Icon icon={'action'}/>
-						<Tooltip message={'layer actions'}/>
+						<Infotip direction={'y'} message={'layer actions'}/>
 					</NavLink>
 				</div>
 			</h2>

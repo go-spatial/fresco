@@ -12,7 +12,7 @@ import StyleCode from './StyleCode'
 import StyleLayers from './StyleLayers'
 import StyleSources from './StyleSources'
 import StyleSettings from './StyleSettings'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class Style extends React.Component {
 	render() {
@@ -106,24 +106,24 @@ class Style extends React.Component {
 
 		return (
 			<div className="content-title-options">
-				<NavLink className={`content-title-option interactive tooltip-trigger ${error && error.hasIn(['current','settings'])? 'error': ''}`} to={`${match.url}/settings`}>
+				<NavLink className={`content-title-option interactive infotip-trigger ${error && error.hasIn(['current','settings'])? 'error': ''}`} to={`${match.url}/settings`}>
 					<Icon icon={'settings'}/>
-					<Tooltip message={'style settings'}/>
+					<Infotip direction={'y'} message={'style settings'}/>
 				</NavLink>
-				<NavLink className={`content-title-option interactive tooltip-trigger ${error && error.hasIn(['current','sources'])? 'error': ''}`} to={`${match.url}/sources`}>
+				<NavLink className={`content-title-option interactive infotip-trigger ${error && error.hasIn(['current','sources'])? 'error': ''}`} to={`${match.url}/sources`}>
 					<Icon icon={'source'}/>
-					<Tooltip message={'sources'}/>
+					<Infotip direction={'y'} message={'sources'}/>
 				</NavLink>
-				<NavLink className={`content-title-option interactive tooltip-trigger ${error && error.hasIn(['current','layers'])? 'error': ''}`} to={`${match.url}/layers`}>
+				<NavLink className={`content-title-option interactive infotip-trigger ${error && error.hasIn(['current','layers'])? 'error': ''}`} to={`${match.url}/layers`}>
 					{focusLayers && Object.keys(focusLayers).length > 0 && (
 						<Icon className="text-info content-title-option-super" icon={'map-focus'} weight={'solid'}/>
 					)}
 					<Icon icon={'layer'}/>
-					<Tooltip message={'layers'}/>
+					<Infotip direction={'y'} message={'layers'}/>
 				</NavLink>
-				<NavLink className={`content-title-option interactive tooltip-trigger ${error && error.hasIn(['current','json'])? 'error': ''}`} to={`${match.url}/json`}>
+				<NavLink className={`content-title-option interactive infotip-trigger ${error && error.hasIn(['current','json'])? 'error': ''}`} to={`${match.url}/json`}>
 					<Icon icon={'code'}/>
-					<Tooltip message={'json'}/>
+					<Infotip direction={'y'} message={'json'}/>
 				</NavLink>
 			</div>
 		)
