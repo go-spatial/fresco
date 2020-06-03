@@ -201,7 +201,6 @@ class MapMapbox extends React.Component {
 			if (this.clickMarker) this.clickMarker.remove()
 		}
 
-
 		if (!this.style || !this.style.equals(style)){
 			this.style = style
 			

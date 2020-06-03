@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../Icon'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class MapMapboxControls extends React.Component {
 
@@ -32,17 +32,17 @@ class MapMapboxControls extends React.Component {
 
 		return (
 			<React.Fragment>			
-				<div className="mapboxgl-ctrl mapboxgl-ctrl-group tooltip-trigger">
-					<button className={`mapboxgl-ctrl-icon`} onClick={handleLocationToggle}>
+				<div onClick={handleLocationToggle} className="mapboxgl-ctrl mapboxgl-ctrl-group infotip-trigger map-control">
+					<button className={`mapboxgl-ctrl-icon`}>
 						<Icon icon={'location'}/>
 					</button>
-					<Tooltip direction={'left'} message={'jump to location'} origin={'left'}/>
+					<Infotip direction={'x'} message={'jump to location'}/>
 				</div>
-				<div className="mapboxgl-ctrl mapboxgl-ctrl-group tooltip-trigger">
-					<button className={`mapboxgl-ctrl-icon ${debugLines? 'active': ''}`} onClick={this.handleDebugLinesToggle}>
+				<div onClick={this.handleDebugLinesToggle} className="mapboxgl-ctrl mapboxgl-ctrl-group infotip-trigger map-control">
+					<button className={`mapboxgl-ctrl-icon ${debugLines? 'active': ''}`}>
 						<Icon icon={'debug-lines'}/>
 					</button>
-					<Tooltip direction={'left'} message={`debug lines ${debugLines? 'off': 'on'}`} origin={'left'}/>
+					<Infotip direction={'x'} message={`debug lines ${debugLines? 'off': 'on'}`}/>
 				</div>
 			</React.Fragment>
 		)

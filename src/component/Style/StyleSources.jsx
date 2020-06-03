@@ -8,7 +8,7 @@ import Field from '../Field'
 import Icon from '../Icon'
 import SourceAdd from '../SourceAdd'
 import SourceEdit from '../SourceEdit'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class StyleSources extends React.Component {
 	constructor(props) {
@@ -71,13 +71,13 @@ class StyleSources extends React.Component {
 								Sources ({sources? sources.size: 0})
 							</span>
 							<div className="content-title-options">
-								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive tooltip-trigger'}>
+								<span onClick={()=>this.handleSearchShowSet({show:true})} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'search'}/>
-									<Tooltip message={'search'}/>
+									<Infotip direction={'y'} message={'search'}/>
 								</span>
-								<Link to={`${match.url}/add`} className={'content-title-option interactive tooltip-trigger'}>
+								<Link to={`${match.url}/add`} className={'content-title-option interactive infotip-trigger'}>
 									<Icon icon={'add'}/>
-									<Tooltip message={'add source'}/>
+									<Infotip direction={'y'} message={'add source'}/>
 								</Link>
 							</div>
 						</h2>

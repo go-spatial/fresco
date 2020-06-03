@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Map, List} from 'immutable'
 
 import Icon from '../Icon'
-import Tooltip from '../Tooltip'
+import Infotip from '../Infotip'
 
 class PropertyInfo extends React.Component {
 
@@ -25,24 +25,24 @@ class PropertyInfo extends React.Component {
 		//console.log('error:',error)
 
 		if (error !== null && error !== undefined) return (
-			<span className="helper-icon tooltip-trigger">
+			<span className="helper-icon infotip-trigger">
 				<Icon 
 					className="text-danger" 
 					icon={'alert'} 
 					ref={ref => {this.errorIcon = ref}} 
 					weight={'solid'}
 				/>
-				<Tooltip direction={'right'} message={this.errorMessage(error)}/>
+				<Infotip direction={'y'} message={this.errorMessage(error)}/>
 			</span>
 		)
 		if (doc) return (
-			<span className="helper-icon tooltip-trigger">
+			<span className="helper-icon infotip-trigger">
 				<Icon 
 					className="text-muted"
 					icon={'info'}
 					ref={ref => {this.icon = ref}}
 				/>
-				<Tooltip direction={'right'} message={doc}/>
+				<Infotip direction={'y'} message={doc}/>					
 			</span>
 		)
 		return <span/>
