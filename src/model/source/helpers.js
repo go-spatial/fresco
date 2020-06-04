@@ -1,16 +1,25 @@
 import {latest} from 'mapbox-gl/src/style-spec'
+import Store from '../../Store'
 
 
 const getLayerOptions = ({style, sourceId})=>{
-	if (!style.hasIn(['sources', sourceId, 'layers'])) return []
 
-	const sourceLayers = style.getIn(['sources', sourceId, 'layers'])
+	const state = Store.getState()
+
+	if (!state.source || !state.source.sources) return []
+
+	const sourceUrl = style.getIn(['current', 'sources', sourceId, 'url'])
+	if (!sourceUrl) return []
+
+	const sourceLayers = state.source.sources.getIn([sourceUrl, 'data', 'vector_layers'])
+	if (!sourceLayers) return []
+
 	return sourceLayers.map((layer)=>{
 		return {
 			name:layer.get('id'),
 			value:layer.get('id')
 		}
-	})
+	}).toJS()
 }
 
 const getOptions = ({style})=>{
@@ -23,7 +32,20 @@ const getOptions = ({style})=>{
 			name:key,
 			value:key
 		}
-	})
+	}).toJS()
+}
+
+const getLayerTypeFromSourceLayer = ({layer})=>{
+	switch(layer.get('geometry_type')){
+		case 'line':
+			return 'line'
+		case 'polygon':
+			return 'fill'
+		case 'point':
+			return 'symbol'
+		default:
+			return 'fill'
+	}
 }
 
 const getTypeOptions = ()=>{
@@ -46,6 +68,7 @@ const getLayersFromData = ({data})=>{
 export default {
 	getLayerOptions,
 	getLayersFromData,
+	getLayerTypeFromSourceLayer,
 	getOptions,
 	getTypeOptions,
 }
