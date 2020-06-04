@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'react-router-dom'
 
 import utilPath from '../../utility/utilPath'
 
 import Icon from '../Icon'
 import LayerEditModalRemove from './LayerEditModalRemove'
-
-import modelLayer from '../../model/layer'
+import LayerEditModalClone from './LayerEditModalClone'
 
 class LayerEditActions extends React.Component {
 	constructor (props){
@@ -19,8 +17,9 @@ class LayerEditActions extends React.Component {
 	}
 
 	handleClone = async ()=>{
-		const {layer} = this.props
-		await modelLayer.actions.clone({layer})
+		this.setState({
+			modal: 'cloneDone'
+		})
 	}
 
 	handleModalSet = (modal)=>{
@@ -46,7 +45,7 @@ class LayerEditActions extends React.Component {
 				</h2>
 				<div className="content-body">
 					<div className="content-body-row">
-						<button disabled="disabled" onClick={()=>this.handleClone()} className="btn btn-sm btn-outline-dark btn-block">
+						<button onClick={()=>this.handleClone()} className="btn btn-sm btn-outline-dark btn-block">
 							<Icon className="mr-1" icon={'clone'}/>
 							Clone Layer
 						</button>
@@ -65,7 +64,7 @@ class LayerEditActions extends React.Component {
 	}
 
 	renderModal (){
-		const {path, style} = this.props,
+		const {layer, path, style} = this.props,
 			{modal} = this.state
 
 		switch (modal){
@@ -73,7 +72,15 @@ class LayerEditActions extends React.Component {
 				return (
 					<LayerEditModalRemove 
 						handleClose={()=>this.handleModalSet(null)}
-						handleDone={this.handleRemoveDone} 
+						layer={layer}
+						path={path} 
+						style={style}/>
+				)
+			case 'cloneDone':
+				return (
+					<LayerEditModalClone 
+						handleClose={()=>this.handleModalSet(null)}
+						layer={layer}
 						path={path} 
 						style={style}/>
 				)
@@ -92,4 +99,4 @@ LayerEditActions.propTypes = {
 	style: PropTypes.object,
 }
 
-export default withRouter(LayerEditActions)
+export default LayerEditActions

@@ -63,6 +63,7 @@ class StyleSettingsRoot extends React.Component {
 			name: key,
 			label: key,
 			path: pathProp,
+			removeEnabled: true,
 			value: value,
 			error: error && error.get && error.get(key)
 		}

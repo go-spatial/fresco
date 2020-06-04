@@ -145,6 +145,7 @@ const makeLayersFromData = async ({sourceId, sourceData})=>{
 actions.subscribe('source',{
 	add,
 	makeLayersFromData,
+	pullData,
 })
 
 export default {

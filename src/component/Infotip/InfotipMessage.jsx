@@ -39,7 +39,6 @@ class InfotipMessage extends React.Component {
 	}
 
 	componentWillUnmount (){
-		console.log('cleanup:',this.parentEl)
 		document.body.removeChild(this.parentEl)
 	}
 
