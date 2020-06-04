@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable'
 import actions from '../actions'
-
+import helpers from './helpers'
 
 const add = async ({afterLayerInd = 0, rec, path})=>{
 
@@ -21,12 +21,25 @@ const add = async ({afterLayerInd = 0, rec, path})=>{
 	})
 }
 
-const clone = async ({index, layer, path})=>{
-	await actions.act('style.listAdd',{
-		item: layer,
-		path,
-		pos: index,
-	})
+const clone = async ({cloneId, layer, path, placement, style})=>{
+
+	const clone = layer.setIn(['id'], cloneId)
+	const layersPath = path.slice(0,-1)
+
+	if (placement === 'after'){
+		let pos = helpers.getIndexById({layerId: layer.get('id'), style})
+		await actions.act('style.listAddAt',{
+			at: pos+1,
+			item: clone,
+			path: layersPath,
+		})
+	} else {
+		await actions.act('style.listAdd',{
+			item: clone,
+			path: layersPath,
+		})
+	}
+	return clone
 }
 
 const reorder = async ({indexOld, indexNew, path})=>{

@@ -18,6 +18,23 @@ const getIndexById = ({layerId, style})=>{
 	})
 }
 
+const getLayerCloneId = ({layer, style})=>{
+	const layers = style.getIn(['current','layers'])
+	const id = layer.getIn(['id'])
+	const idBase = id.replace(/_[0-9]*$/, '')
+
+	let cloneId, inc = 1
+	while (!cloneId){
+		inc++
+		const testId = `${idBase}_${inc}`
+		if (!layers.find(layer=>layer.get('id') === testId)){
+			cloneId = testId
+		}
+	}
+
+	return cloneId
+}
+
 const getLayerPath = ({layerId, style})=>{
 	const index = getIndexById({layerId, style})
 	return [style.getIn(['current','id']), 'current', 'layers', index]
@@ -33,6 +50,7 @@ const getTypeOptions = ()=>{
 export default {
 	getColor,
 	getIndexById,
+	getLayerCloneId,
 	getLayerPath,
 	getType,
 	getTypeOptions,

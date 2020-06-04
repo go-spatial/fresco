@@ -204,6 +204,23 @@ const listAdd = async ({item, path, pos})=>{
 	await localBackup()
 }
 
+const listAddAt = async ({at, item, path, pos})=>{ 
+
+	if (!path) throw new Error('style.actions.listAddAt: no path defined')
+
+	Store.dispatch({
+		type:'STYLE_LIST_ADD_AT',
+		payload:{
+			at,
+			pos,
+			item,
+			path,
+		}
+	})
+
+	await localBackup()
+}
+
 const listConcat = async ({list, path})=>{ 
 
 	if (!path) throw new Error('style.actions.listConcat: no path defined')
@@ -373,6 +390,7 @@ const updateUpload = async ({file, style})=>{
 actions.subscribe('style',{
 	changeKeyIn,
 	listAdd,
+	listAddAt,
 	listConcat,
 	reorderInList,
 	setIn,
@@ -388,6 +406,7 @@ export default {
 	errorSet,
 	focusIn,
 	init,
+	listAddAt,
 	listConcat,
 	remove,
 	removeIn,

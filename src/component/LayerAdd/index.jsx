@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 
 import utilUrl from '../../utility/utilUrl'
 
 import modelApp from '../../model/app'
 import modelLayer from '../../model/layer'
 import modelSource from '../../model/source'
+import modelStyle from '../../model/style'
 
 import Alert from '../Alert'
 import Property from '../Property'
@@ -15,12 +17,15 @@ class LayerAdd extends React.Component {
 	constructor(props) {
 		super(props)
 
+		// check for query params
+		const query = new URLSearchParams(window.location.search)
+
 		this.state = {
 			rec:{
-				id:'',
-				source:'',
-				'source-layer':'',
-				type:''
+				id:query.has('source-layer')? query.get('source-layer'): '',
+				source:query.has('source')? query.get('source'): '',
+				'source-layer':query.has('source-layer')? query.get('source-layer'): '',
+				type:query.has('type')? query.get('type'): '',
 			},
 			error:null
 		}
@@ -28,16 +33,20 @@ class LayerAdd extends React.Component {
 
 	handleSubmit = async (e)=>{
 		e.preventDefault()
-		const {path, style} = this.props,
+		const {history, path, style} = this.props,
 			{rec} = this.state
 
 		try{
+
+			if (style.getIn(['current','layers']).find(layer => layer.get('id') === rec.id)){
+				throw new Error(`LayerAdd.submit: layerId already exists`)
+			}
 			await modelApp.actions.setLoading(true)
 			await modelLayer.actions.add({path, rec, style})
 			await modelApp.actions.setLoading(false)
 
-			// route user to layer
-			// handle.route('layer/'+layer.id)
+			const route = `layers/${rec.id}`
+      history.push(modelStyle.helpers.getRouteFromPath({path, route}))
 		} catch(e){
 			await modelApp.actions.setLoading(false)
 			await modelApp.actions.setError(e)
@@ -52,8 +61,6 @@ class LayerAdd extends React.Component {
 				rec['source-layer'] && parts.push(utilUrl.getName(rec['source-layer']))
 
 			let id = parts.join('.')
-
-			// TODO: check for layer id collisions
 
 			this.setState({rec:{
 				...rec,
@@ -86,9 +93,9 @@ class LayerAdd extends React.Component {
 			{rec} = this.state
 
 		const typeOptions = modelLayer.helpers.getTypeOptions()
-		const sourceOptions = modelSource.helpers.getOptions({style})
-		const sourceLayerOptions = (this.state.source)? modelSource.helpers.getLayerOptions({style, sourceId:this.state.source}):
-			null
+		const sourceOptions = modelSource.helpers.getOptions({style}) || []
+		const sourceLayerOptions = rec.source? modelSource.helpers.getLayerOptions({style, sourceId:rec.source}):
+			[]
 
 		const handle = {
 			change: this.handleChange
@@ -165,10 +172,11 @@ class LayerAdd extends React.Component {
 }
 
 LayerAdd.propTypes = {
+	history: PropTypes.object,
 	handle: PropTypes.object,
 	match: PropTypes.object,
 	path: PropTypes.array,
 	style: PropTypes.object,
 }
 
-export default LayerAdd
+export default withRouter(LayerAdd)

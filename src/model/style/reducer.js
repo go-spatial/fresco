@@ -82,6 +82,24 @@ export const reducer = (st = state, action)=>{
 				styles,
 			})
 		}
+		case 'STYLE_LIST_ADD_AT':{
+			const {at, item, path} = action.payload
+			if (!st.styles.hasIn(path)){
+				const styles = st.styles.setIn(path, List([item]))
+				return updateStyle({
+					path,
+					st,
+					styles,
+				})
+			}
+			const list = st.styles.getIn(path).insert(at, item)
+			const styles = st.styles.setIn(path, list)
+			return updateStyle({
+				path,
+				st,
+				styles,
+			})
+		}
 		case 'STYLE_LIST_CONCAT':{
 			const {list, path} = action.payload
 

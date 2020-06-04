@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {fromJS} from 'immutable'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 
@@ -43,8 +42,11 @@ class SourceEditLayers extends React.Component {
 							foundStyleLayers.push(styleLayer.get('id'))
 					})
 
+					const type = modelSource.helpers.getLayerTypeFromSourceLayer({layer})
+					const layerAddPath = modelStyle.helpers.getRouteFromPath({path, route:`layers/add?source=${sourceId}&source-layer=${layer.get('id')}&type=${type}`})
+
 					if (foundStyleLayers.length < 1){
-						const layerAddPath = modelStyle.helpers.getRouteFromPath({path, route:`layers/add`})
+						
 						return (
 							<div className="content-body-row" key={layerId}>
 								{layerId}
@@ -58,10 +60,14 @@ class SourceEditLayers extends React.Component {
 						return (
 							<div className="content-body-row" key={layerId}>
 								{layerId}
-								<Link to={layerPath} className="float-right text-right">
+								<Link to={layerAddPath} className="float-right text-right">
+									<Icon className="pr-2" icon="add"/>
+								</Link>
+								<Link to={layerPath} className="float-right text-right pr-2">
 									<Icon className="pr-2" icon="layer"/>
 									{foundStyleLayers.length}
 								</Link>
+								
 							</div>
 						)
 					}

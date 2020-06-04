@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import modelLayer from '../../model/layer'
+
 class FieldSelect extends React.Component {
 
 	handleChange = (e)=>{
@@ -19,6 +21,11 @@ class FieldSelect extends React.Component {
 	handleBlur = (e)=>{
 		const {handle, name} = this.props
 		handle.blur && handle.blur(name)
+	}
+
+	handleSubmit = async ()=>{
+		const {layer, path, style} = this.props
+		await modelLayer.actions.clone({layer, path, style})
 	}
 
 	render (){
