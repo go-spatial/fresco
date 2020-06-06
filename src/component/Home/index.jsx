@@ -3,7 +3,6 @@ import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 
 import React from 'react'
 
-import Alert from '../Alert'
 import Icon from '../Icon'
 import HomeStyles from './HomeStyles'
 import HomeSettings from './HomeSettings'
@@ -24,7 +23,6 @@ class Home extends React.Component {
 	}
 
 	render() {
-		const {error} = this.props
 
 	//<Map path={[styleId]} style={style.get('current')}/>
 
@@ -44,8 +42,6 @@ class Home extends React.Component {
 						</div>
 					</div>
 				</div>
-
-				{error && <Alert message={error}/>}
 				
 			</React.Fragment>
 		)

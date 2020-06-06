@@ -22,7 +22,7 @@ class Alert extends React.Component {
 }
 
 Alert.propTypes = {
-	handleClose: PropTypes.func,
+	handleClose: PropTypes.func.isRequired,
 	message:PropTypes.string,
 }
 export default Alert

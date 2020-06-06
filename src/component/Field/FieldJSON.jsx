@@ -10,8 +10,6 @@ import 'codemirror/addon/lint/lint.css'
 import jsonlint from '../../vendor/jsonlint'
 import {JSHINT} from 'jshint'
 
-import Alert from '../Alert'
-
 class FieldJSON extends React.Component {
 
 	constructor(props) {
@@ -161,7 +159,7 @@ class FieldJSON extends React.Component {
 	}
 
 	render (){
-		const {error, value} = this.props
+		const {value} = this.props
 
 		return <div className="font-lg code-window">
 			<textarea
@@ -169,9 +167,6 @@ class FieldJSON extends React.Component {
 				onChange={this.handleTextareaChange}
 				ref={ref => this.textarea = ref}
 				autoComplete="off"/>
-			{error && typeof error === 'string' &&
-				<Alert message={error}/>
-			}
 		</div>
 	}
 }
