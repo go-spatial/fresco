@@ -83,22 +83,13 @@ class MapMapbox extends React.Component {
 			this.map.remove()
 		}
 
-
-
-		/*
-
-		Mstyle.errorsSet()
-
-		const config = Mconfig.get()
-		const token = config.get('mapboxToken')
-
-		MapboxGl.accessToken = token
-
-		*/
-
 		if (accessTokens && accessTokens.has('mapbox')) MapboxGl.accessToken = accessTokens.get('mapbox')
 
 		window.onerror = (message, source, lineno, colno, error)=>{
+			const errString = JSON.stringify(error)
+			if (errString === this.prevErr) return
+			this.prevErr = errString
+
 			modelStyle.actions.errorSet({
 				error, 
 				path: [style.getIn(['id'])],
@@ -235,6 +226,7 @@ class MapMapbox extends React.Component {
 		this.builtMap = null
 		this.featureStates = null
 		this.hash = window.location.hash
+		this.prevErr = null
 	}
 
 	handleClick = (e)=>{
@@ -269,6 +261,10 @@ class MapMapbox extends React.Component {
 
 	handleMapError = (error)=>{
 		const {style} = this.props
+
+		const errString = JSON.stringify(error)
+		if (errString === this.prevErr) return
+		this.prevErr = errString
 
 		if (error.sourceId){
 			const err= {

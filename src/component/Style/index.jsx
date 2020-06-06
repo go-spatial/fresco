@@ -15,6 +15,11 @@ import StyleSettings from './StyleSettings'
 import Infotip from '../Infotip'
 
 class Style extends React.Component {
+	handleAlertClose = ()=>{
+		const {styleId} = this.props
+		modelStyle.actions.errorClear({path:[styleId]})
+	}
+
 	render() {
 		const {error, style, styleId} = this.props
 
@@ -39,7 +44,7 @@ class Style extends React.Component {
 					</div>
 				</div>
 
-				{error && typeof error.get('current') === 'string' && <Alert message={error.get('current')}/>}
+				{error && typeof error.get('current') === 'string' && <Alert handleClose={this.handleAlertClose} message={error.get('current')}/>}
 				
 			</React.Fragment>
 		)

@@ -58,14 +58,14 @@ const add = async ({makeLayers, name, source, sourceType})=>{
 
 const addFromJson = async ({json})=>{
 	if (!json) throw new Error('style.addFromJson: no json defined')
-	if (!json.name) throw new Error('style.addFromJson: name is required')
+	if (!json.has('name')) throw new Error('style.addFromJson: name is required')
 
 	let style = {
-		...json
+		...json.toJS()
 	}
 	//TODO check if ID is unique
-	style.id = json.id || utilUid.make()
-	style.version = json.version || constants.defaultMapboxVersion
+	style.id = utilUid.make()
+	style.version = json.get('version') || constants.defaultMapboxVersion
 
 	const styleImm = fromJS(style)
 	const stylePath = [style.id, 'current']
