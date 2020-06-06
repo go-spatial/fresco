@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {List} from 'immutable'
 
 import modelStyle from '../../model/style'
 
@@ -13,7 +14,8 @@ class PropertyPoint extends React.Component {
 		const key = name === 'lng'? 0: 1
 
 		if (handle && handle.change){
-			const valueNew = this.props.value.setIn([key], value)
+			const valueSet = this.props.value? this.props.value: List([])
+			const valueNew = valueSet.setIn([key], value)
 			return handle.change({
 				name:this.props.name, 
 				path,
@@ -31,7 +33,8 @@ class PropertyPoint extends React.Component {
 		const {handle, path} = this.props
 
 		if (handle && handle.change){
-			const valueNew = this.props.value.setIn([name], value)
+			const valueSet = this.props.value? this.props.value: List([])
+			const valueNew = valueSet.setIn([name], value)
 			return handle.change({
 				name:this.props.name, 
 				path,
@@ -68,7 +71,7 @@ class PropertyPoint extends React.Component {
 						label={'longitude'}
 						name={'lng'}
 						type={'number'}
-						value={value.get(0)}
+						value={value? value.get(0): 0}
 					/>
 				</div>
 				<div className="col-sm-6 pl-0">
@@ -77,7 +80,7 @@ class PropertyPoint extends React.Component {
 						label={'latitude'}
 						name={'lat'}
 						type={'number'}
-						value={value.get(1)}
+						value={value? value.get(1): 0}
 					/>
 				</div>
 			</div>

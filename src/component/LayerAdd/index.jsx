@@ -9,7 +9,6 @@ import modelLayer from '../../model/layer'
 import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
 
-import Alert from '../Alert'
 import Property from '../Property'
 
 class LayerAdd extends React.Component {
@@ -161,10 +160,6 @@ class LayerAdd extends React.Component {
 
 				<div className="form-group mt-3 text-right">
 					<button type="submit" className="btn btn-primary">Add</button>
-				</div>
-
-				<div className="mt-3">
-					<Alert message={error}/>
 				</div>
 			</div>
 		</form>

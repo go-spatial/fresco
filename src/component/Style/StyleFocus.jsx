@@ -97,11 +97,9 @@ class StyleFocus extends React.Component {
 
 		return (
 			<div className="">
-
 				{focusLayers !== undefined && focusLayers.forEach((layer,i)=>{
 
 					if (search && search.length > 0 && layer.toLowerCase().indexOf(search.toLowerCase()) === -1) return
-
 					return (
 							<NavLink key={i} to={`${match.url}/layer/${layer}`} className="content-body-left-row row-icons" >
 								<div className="row-icon-left">

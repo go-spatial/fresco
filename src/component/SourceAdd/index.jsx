@@ -10,7 +10,6 @@ import modelApp from '../../model/app'
 import modelSource from '../../model/source'
 
 import Property from '../Property'
-import Alert from '../Alert'
 
 class SourceAdd extends React.Component {
 
@@ -140,10 +139,6 @@ class SourceAdd extends React.Component {
 
 				<div className="form-group mt-3 text-right">
 					<button type="submit" className={`btn btn-primary ${isReady? '': 'disabled'}`}>Add</button>
-				</div>
-
-				<div className="mt-3">
-					<Alert message={error}/>
 				</div>
 			</div>
 		</form>

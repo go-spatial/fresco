@@ -27,6 +27,8 @@ const add = async ({headers, makeLayers, id, path, style, type, url})=>{
 		value: fromJS(add),
 	})
 
+	if (!url) return
+
 	const sourceData = await pullData({url, headers})
 
 	if (makeLayers){
