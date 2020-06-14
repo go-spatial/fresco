@@ -1,5 +1,3 @@
-import starter from './starterStyle'
-
 const localStoragePath = 'frescoStylesStore'
 
 const defaultLayers = [
@@ -15,13 +13,6 @@ const defaultLayers = [
 	}
 ]
 
-const defaultStyles = {
-	'hot-osm-starter':{
-		current:{
-			...starter
-		}
-	}
-}
 // source: https://osm-lambda.tegola.io/v1/capabilities/osm.json
 
 const defaultMapboxVersion = 8
@@ -29,6 +20,5 @@ const defaultMapboxVersion = 8
 export default {
 	defaultLayers,
 	defaultMapboxVersion,
-	defaultStyles,
 	localStoragePath,
 }
