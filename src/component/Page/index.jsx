@@ -8,6 +8,7 @@ import Loader from './Loader'
 import Nav from './Nav'
 import Route from './Route'
 
+import config from '../../config'
 import modelApp from '../../model/app'
 import modelPreference from '../../model/preference'
 import modelSource from '../../model/source'
@@ -35,7 +36,7 @@ class Page extends React.Component {
 	render(){
 		return (
 		<React.Fragment>
-			<Router>
+			<Router basename={config.homepage}>
 				{this.renderFrame()}
 			</Router>
 		</React.Fragment>
