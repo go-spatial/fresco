@@ -48,17 +48,45 @@ Fresco is built on top of React. To run Fresco from source use the following ste
 Fresco is able to be hosted from a subdirectory of a domain (i.e. https://yourhost.com/fresco/). To enable this functionality, modify the `package.json` file
 
 
-```
+``` json
 {
-  "name": "fresco-app",
-  "version": "0.1.0",
+  "name": "fresco",
+  "version": "0.0.1",
   "private": true,
   "homepage": "/fresco",
 ...
 
 ```
 
+Also, you'll need to modify the config inside `/src/config/index.json`.
+
+``` json
+{
+	"homepage": "/fresco"
+}
+```
+
 Then use `npm run build` to build Fresco for deployment.
+
+## Change default Fresco styles
+
+You are able to change the default styles that Fresco loads up with. Update `/src/config/stylesDefault.json` with any number of Mapbox style JSONs. To load multiple styles in use an array structure like shown below:
+
+``` json
+[
+	{
+		"id": "style1",
+		...
+	},{
+		"id": "style2",
+		...
+	}
+]
+```
+
+For a single style, just replace the contents of `/src/config/stylesDefault.json` with the style JSON.
+
+When testing default styles, you'll have to clear out your localStorage `frescoStylesStore` or use an incognito window.
 
 ## Contributing
 

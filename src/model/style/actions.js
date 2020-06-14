@@ -5,7 +5,9 @@ import {fromJS, Map} from 'immutable'
 import fileDownload from 'js-file-download'
 
 import actions from '../actions'
+import stylesDefault from '../../config/stylesDefault'
 
+import utilType from '../../utility/utilType'
 import utilFile from '../../utility/utilFile'
 import utilLocalStorage from '../../utility/utilLocalStorage'
 import utilMapboxErr from '../../utility/utilMapboxErr'
@@ -178,12 +180,39 @@ const init = async ()=>{
 		return
 	}
 
-	const stylesDefault = fromJS(constants.defaultStyles)
+	// get all config styles
+
+	// check if it's an array or obj
+
+
+	const type = utilType.get(stylesDefault)
+	let styles = {}
+	if (type === 'ary'){
+		stylesDefault.forEach(style => {
+			const id = style.id? style.id: utilUid.make()
+			styles[id] = {
+				current:{
+					...style,
+					id
+				}
+			}
+		})
+	} else if (type === 'obj'){
+		const id = stylesDefault.id? stylesDefault.id: utilUid.make()
+		styles[id] = {
+			current:{
+				...stylesDefault,
+				id
+			}
+		}
+	} else {
+		throw new Error(`style.init: defaultStyles (${type}) is not an array or object`)
+	}
 
 	Store.dispatch({
 		type:'STYLES_SET',
 		payload:{
-			styles: stylesDefault,
+			styles: fromJS(styles),
 		}
 	})
 }

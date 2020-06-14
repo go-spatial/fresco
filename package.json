@@ -1,7 +1,8 @@
 {
-  "name": "fresco-new",
+  "name": "fresco",
   "version": "0.1.0",
   "private": true,
+  "homepage": "",
   "dependencies": {
     "@mapbox/mapbox-gl-style-spec": "^13.13.1",
     "@testing-library/jest-dom": "^4.2.4",
