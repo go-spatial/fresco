@@ -10,7 +10,7 @@ When using Fresco, it may be helpful to have the [Mapbox Style Spec](https://doc
 
 Fresco runs in the browser and styles created and modified with Fresco are saved to the browser's local storage and are synced on changes. Be sure to download styles to your computer as a backup. Remote style storage and collaboration tools are coming soon.
 
-Give it a try: [https://fresco.gospatial.org/](https://fresco.gospatial.org/)
+Give it a try: [https://fresco.go-spatial.org/](https://fresco.go-spatial.org/)
 
 ![map editing screen shot](/docs/img/osm-screenshot.png)
 
@@ -30,7 +30,7 @@ Give it a try: [https://fresco.gospatial.org/](https://fresco.gospatial.org/)
 
 ## Usage
 
-Fresco may be used in the browser by visiting [https://fresco.gospatial.org/](https://fresco.gospatial.org/) or by downloading a pre compiled binary from the [releases](https://github.com/go-spatial/fresco/releases) page.
+Fresco may be used in the browser by visiting [https://fresco.go-spatial.org/](https://fresco.go-spatial.org/) or by downloading a pre compiled binary from the [releases](https://github.com/go-spatial/fresco/releases) page.
 
 ## Running from source
 
