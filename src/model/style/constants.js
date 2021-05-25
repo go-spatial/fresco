@@ -13,7 +13,7 @@ const defaultLayers = [
 	}
 ]
 
-// source: https://osm-lambda.tegola.io/v1/capabilities/osm.json
+// source: https://tegola-osm-worker.go-spatial.org/v1/capabilities/osm.json
 
 const defaultMapboxVersion = 8
 

@@ -19,7 +19,7 @@
   "sources": { 
     "osm": {
       "type": "vector",
-      "url": "https://osm-lambda.tegola.io/v1/capabilities/osm.json"
+      "url": "https://tegola-osm-worker.go-spatial.org/v1/capabilities/osm.json"
     }
   },
   "sprite": "https://go-spatial.github.io/carto-assets/spritesets/osm_tegola_spritesheet",
