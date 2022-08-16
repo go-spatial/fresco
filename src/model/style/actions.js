@@ -361,6 +361,28 @@ const setDomainHeader = async ({domain, header, style})=>{
 	await localBackup()
 }
 
+const setRenderer = async ({renderer, style})=>{
+	const styleId = style.getIn(['current','id'])
+
+	const path = [styleId, 'current', 'metadata', 'fresco:renderer']
+	console.log(path)
+
+	await setIn({
+	    path,
+	    value: renderer,
+	})
+
+	// Store.dispatch({
+	// 	type:'STYLE_SETIN',
+	// 	payload:{
+	// 		path,
+	// 		value: renderer
+	// 	}
+	// })
+
+	// await localBackup()
+}
+
 // [{styleId}, 'current', 'layers', 0,  ...]
 
 const setIn = async ({path, value})=>{ 
@@ -442,6 +464,7 @@ export default {
 	reorderInList,
 	setAccessToken,
 	setDomainHeader,
+	setRenderer,
 	setFeatureState,
 	setIn,
 	updateFromJson,
