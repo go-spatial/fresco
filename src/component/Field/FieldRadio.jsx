@@ -33,43 +33,29 @@ class FieldRadio extends React.Component {
 
 		return <div className="form-group mb-0">
 			{label && <label className="mb-0">{label}</label>}
-            <div>
-                {options.map((option)=>{
-                    const optionId = `field-radio-${name}-${option.value?.replaceAll(' ', '_')}`
+			<div>
+				{options.map((option)=>{
+					const optionId = `field-radio-${name}-${option.value?.replaceAll(' ', '_')}`
 
-                    return <div key={option.value} className="form-check">
-                        <input
-                            name={name}
-                            value={option.value}
-                            checked={value === option.value}
-                            type="radio"
-                            className="form-check-input"
-                            id={optionId}
-                            onChange={this.handleChange}
-                            onFocus={this.handleFocus}
-                            onBlur={this.handleBlur}
-                        />
-                        <label className="form-check-label" htmlFor={optionId}>{option.name}</label>
-                        {option.helper && <div className="form-text font-med text-muted">
-                            {option.helper}
-                        </div>}
-                    </div>
-                })}
-            </div>
-			{/* <select  */}
-			{/* 	autoFocus={autoFocus} */}
-			{/* 	className="form-control font-med"  */}
-			{/* 	name={name} */}
-			{/* 	onChange={this.handleChange} */}
-			{/* 	onFocus={this.handleFocus} */}
-			{/* 	onBlur={this.handleBlur} */}
-			{/* 	placeholder={placeholder}  */}
-			{/* 	value={value}> */}
-			{/* 	<option key="default" value="">**Select one**</option> */}
-			{/* 	{options.map((option)=>{ */}
-			{/* 		return <option key={option.value} value={option.value}>{option.name}</option> */}
-			{/* 	})} */}
-			{/* </select> */}
+					return <div key={option.value} className="form-check">
+						<input
+							name={name}
+							value={option.value}
+							checked={value === option.value}
+							type="radio"
+							className="form-check-input"
+							id={optionId}
+							onChange={this.handleChange}
+							onFocus={this.handleFocus}
+							onBlur={this.handleBlur}
+						/>
+						<label className="form-check-label" htmlFor={optionId}>{option.name}</label>
+						{option.helper && <div className="form-text font-med text-muted">
+							{option.helper}
+						</div>}
+					</div>
+				})}
+			</div>
 			{helper && <small className="form-text text-muted">{helper}</small>}
 		</div>
 	}
