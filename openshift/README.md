@@ -10,7 +10,7 @@ docker login $registry
 docker build -t $registry/fresco:latest -f Dockerfile .
 docker push $registry/fresco:latest
 oc login
-oc apply -f openshift/fresco-deployment.yaml
-oc apply -f openshift/fresco-service.yaml
-oc apply -f openshift/fresco-route.yaml
+oc apply -f openshift/deployment-fresco.yaml
+oc apply -f openshift/service-fresco.yaml
+oc apply -f openshift/route-fresco.yaml
 ```
