@@ -1,0 +1,21 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fresco
+  namespace: $namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fresco
+  template:
+    metadata:
+      labels:
+        app: fresco
+    spec:
+      containers:
+        - name: fresco
+          image: 'fresco:latest'
+          ports:
+            - containerPort: 3000
+              protocol: TCP

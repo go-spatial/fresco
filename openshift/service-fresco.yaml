@@ -1,0 +1,12 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: fresco
+  namespace: $namespace
+spec:
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: fresco
