@@ -15,8 +15,11 @@ RUN npm run build
 # ==== Final Image
 FROM node:16-bullseye-slim as final
 
+# Install serve and update npm
 USER root
 RUN npm install -g npm serve
+
+# Switch to node user to work with openshift
 USER node:node
 WORKDIR /app
 
