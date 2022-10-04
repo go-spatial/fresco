@@ -1,2 +1,11 @@
 .gitignore
 README.md
+.travis.yml
+Dockerfile
+LICENSE
+docs/
+docs/*
+.git/
+.git/*
+.github/
+.github/*
