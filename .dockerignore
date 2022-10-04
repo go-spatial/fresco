@@ -9,7 +9,5 @@ docs/*
 .git/*
 .github/
 .github/*
-ci/
-ci/*
 openshift/
 openshift/*
