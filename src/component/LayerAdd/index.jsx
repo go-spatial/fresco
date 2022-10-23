@@ -88,7 +88,7 @@ class LayerAdd extends React.Component {
 	}
 
 	render (){
-		const {error, style} = this.props,
+		const {style} = this.props,
 			{rec} = this.state
 
 		const typeOptions = modelLayer.helpers.getTypeOptions()
