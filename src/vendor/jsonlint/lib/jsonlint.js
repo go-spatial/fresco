@@ -1,4 +1,6 @@
 /* Jison generated parser */
+
+/* eslint-disable */
 var jsonlint = (function(){
 var parser = {trace: function trace() { },
 yy: {},

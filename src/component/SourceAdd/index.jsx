@@ -66,8 +66,7 @@ class SourceAdd extends React.Component {
 	}
 
 	render (){
-		const {error} = this.props,
-			{headers, makeLayers, id, type, url} = this.state
+		const {headers, makeLayers, id, type, url} = this.state
 
 		const options = utilMapboxSpec.getSourceTypeOptions()
 
