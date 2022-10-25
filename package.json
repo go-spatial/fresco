@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "codemirror": "^5.53.2",
+    "codemirror": "^5.58.2",
     "immutable": "^4.0.0-rc.12",
     "js-file-download": "^0.4.11",
     "jshint": "^2.11.0",
