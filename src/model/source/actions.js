@@ -104,7 +104,7 @@ const makeLayersFromData = async ({sourceId, sourceData})=>{
 
 	const sourceLayers = helpers.getLayersFromData({data: sourceData})
 
-	sourceLayers.map((sourceLayer)=>{
+	sourceLayers.forEach((sourceLayer) => {
 		const color = utilMaterialColor.getBright(sourceLayer.get('id'))
 
 		let layer = {
