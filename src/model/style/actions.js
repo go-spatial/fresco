@@ -453,6 +453,7 @@ export default {
 	reorderInList,
 	setAccessToken,
 	setDomainHeader,
+	setRenderer,
 	setFeatureState,
 	setIn,
 	updateFromJson,

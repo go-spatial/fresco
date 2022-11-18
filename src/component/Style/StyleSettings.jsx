@@ -10,6 +10,7 @@ import StyleSettingsActions from './StyleSettingsActions'
 import StyleSettingsDomains from './StyleSettingsDomains'
 import StyleSettingsRoot from './StyleSettingsRoot'
 import StyleSettingsTokens from './StyleSettingsTokens'
+import StyleSettingsRenderers from './StyleSettingsRenderers'
 import StyleUpdate from '../StyleUpdate'
 
 class StyleRoot extends React.Component {
@@ -85,6 +86,12 @@ class StyleRoot extends React.Component {
 							</div>
 							domains
 						</NavLink>
+						<NavLink to={`${match.url}/renderers`} className="content-body-left-row row-icons">
+							<div className="row-icon-left">
+								<Icon className="md-shadow" icon={'renderer'} weight={'regular'}/>
+							</div>
+							renderers
+						</NavLink>
 					</div>
 				</div>
 				{this.renderRight()}
@@ -112,6 +119,8 @@ class StyleRoot extends React.Component {
 						render={(props) => <StyleSettingsDomains path={path} style={style} {...props}/>}/>
 					<Route path={`${match.url}/tokens`} 
 						render={(props) => <StyleSettingsTokens path={currentPath} style={style} {...props}/>}/>
+					<Route path={`${match.url}/renderers`} 
+						render={(props) => <StyleSettingsRenderers path={currentPath} style={style} {...props}/>}/>
 
 					<Redirect to={redirect}/>
 				</Switch>

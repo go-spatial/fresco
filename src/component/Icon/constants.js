@@ -47,6 +47,7 @@ const icons = {
 	update: 'fa-wrench',
 	upload: 'fa-folder-upload',
 	visible: 'fa-eye',
+	renderer: 'fa-vector-square',
 }
 
 const weights = {

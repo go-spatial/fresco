@@ -7,7 +7,6 @@ import {withRouter} from 'react-router-dom'
 import modelMap from '../../model/map'
 import modelStyle from '../../model/style'
 
-import MapboxGl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import constants from './constants'
