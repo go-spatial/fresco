@@ -7,11 +7,11 @@ import {withRouter} from 'react-router-dom'
 import modelMap from '../../model/map'
 import modelStyle from '../../model/style'
 
-import MapboxGl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import constants from './constants'
 import utilUrl from '../../utility/utilUrl'
+import utilRenderer from '../../utility/utilRenderer'
 
 import Dropdown from '../Dropdown'
 import MapMapboxControls from './MapMapboxControls'
@@ -74,6 +74,20 @@ class MapMapbox extends React.Component {
 		await modelMap.actions.setFeatureStateDeploy({deploy: false})
 	}
 
+	getRendererNameOrDefault (style){
+		return style?.get('metadata')?.get('fresco:renderer') || utilRenderer.defaultRenderer
+	}
+
+	getMapRenderer (){
+		const renderer = this.getRendererNameOrDefault(this.props.style)
+		let MapRenderer = utilRenderer.availableRenderers[renderer]
+		if (!MapRenderer) {
+			console.warn(`Renderer "${renderer}" is not a recognized option. Falling back to "${utilRenderer.defaultRenderer}".`)
+			MapRenderer = utilRenderer.availableRenderers[utilRenderer.defaultRenderer]
+		}
+		return MapRenderer
+	}
+
 	buildMap (){
 		const {accessTokens, style} = this.props
 		if (!style) return <div/>
@@ -83,7 +97,9 @@ class MapMapbox extends React.Component {
 			this.map.remove()
 		}
 
-		if (accessTokens && accessTokens.has('mapbox')) MapboxGl.accessToken = accessTokens.get('mapbox')
+		const MapRenderer = this.getMapRenderer()
+
+		if (accessTokens && accessTokens.has('mapbox')) MapRenderer.accessToken = accessTokens.get('mapbox')
 
 		window.onerror = (message, source, lineno, colno, error)=>{
 			const errString = JSON.stringify(error)
@@ -96,7 +112,7 @@ class MapMapbox extends React.Component {
 			})
 		}
 
-		const map = new MapboxGl.Map({
+		const map = new MapRenderer.Map({
 			attributionControl:false,
 			logoPosition:'bottom-right',
 			container: this.container,
@@ -110,11 +126,11 @@ class MapMapbox extends React.Component {
 
 		map.addControl(Controls)
 
-		map.addControl(new MapboxGl.AttributionControl({
+		map.addControl(new MapRenderer.AttributionControl({
 			compact: true
 		}))
 
-		const nav = new MapboxGl.NavigationControl()
+		const nav = new MapRenderer.NavigationControl()
 		map.addControl(nav, 'top-right')
 
 		map.on('error',(e)=>{
@@ -139,7 +155,7 @@ class MapMapbox extends React.Component {
 		this.map = map
 	}
 
-	componentDidUpdate = async ()=>{
+	componentDidUpdate = async (previousProps)=>{
 		const {accessTokenDeploy, focus, rebuildMap, style} = this.props,
 			{mapLoaded} = this.state
 
@@ -153,13 +169,13 @@ class MapMapbox extends React.Component {
 
 		if (!window.location.hash){
 			if (window.history.replaceState) {
-	    	window.history.replaceState(null, null, this.hash)
+			window.history.replaceState(null, null, this.hash)
 			}
 			else {
 			  window.location.hash = this.hash
 			}
 		}
-     
+	 
 		// if there is a point, set it on the map and query features
 		if (focus){
 			const featuresDuped = modelMap.helpers.queryMapFeatures({
@@ -185,7 +201,8 @@ class MapMapbox extends React.Component {
 			el.innerHTML = `<span class="marker-number"><span>${features.length}</span><span class="marker-close" onclick="window.mapMarkerClose(event)"><i class="fas fa-times"></i></span></span><i class="fas fa-map-marker text-info"></i>`
 			el.className = 'marker'
 			if (this.clickMarker) this.clickMarker.remove()
-			this.clickMarker = new MapboxGl.Marker(el, {offset:[0,-17]})
+			const MapRenderer = this.getMapRenderer()
+			this.clickMarker = new MapRenderer.Marker(el, {offset:[0,-17]})
 				.setLngLat(focus)
 				.addTo(this.map)
 		} else {
@@ -204,6 +221,12 @@ class MapMapbox extends React.Component {
 			this.buildMap()
 
 			await modelMap.actions.setAccessTokenDeploy({deploy: false})
+		}
+
+		const currentRenderer = this.getRendererNameOrDefault(style)
+		const previousRenderer = this.getRendererNameOrDefault(previousProps.style)
+		if (currentRenderer !== previousRenderer) {
+			this.buildMap()
 		}
 	}
 

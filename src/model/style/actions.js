@@ -361,6 +361,17 @@ const setDomainHeader = async ({domain, header, style})=>{
 	await localBackup()
 }
 
+const setRenderer = async ({renderer, style})=>{
+	const styleId = style.getIn(['current','id'])
+
+	const path = [styleId, 'current', 'metadata', 'fresco:renderer']
+
+	await setIn({
+	    path,
+	    value: renderer,
+	})
+}
+
 // [{styleId}, 'current', 'layers', 0,  ...]
 
 const setIn = async ({path, value})=>{ 
@@ -442,6 +453,7 @@ export default {
 	reorderInList,
 	setAccessToken,
 	setDomainHeader,
+	setRenderer,
 	setFeatureState,
 	setIn,
 	updateFromJson,

@@ -9,6 +9,7 @@ import FieldJSON from './FieldJSON'
 import FieldNumber from './FieldNumber'
 import FieldSelect from './FieldSelect'
 import FieldString from './FieldString'
+import FieldRadio from './FieldRadio'
 
 class Field extends React.Component {
 
@@ -32,6 +33,8 @@ class Field extends React.Component {
 				return <FieldString {...this.props}/>
 			case 'json':
 				return <FieldJSON {...this.props}/>
+			case 'radio':
+				return <FieldRadio {...this.props}/>
 			default:
 				return <FieldString {...this.props}/>
 		}
