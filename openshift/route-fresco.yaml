@@ -1,0 +1,17 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: fresco
+  namespace: $namespace
+spec:
+  host: fresco-$namespace.apps.$domain
+  to:
+    kind: Service
+    name: fresco
+    weight: 100
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
