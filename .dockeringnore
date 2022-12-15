@@ -1,4 +1,4 @@
-.git/
-.git/*
-.gitignore
-Dockerfile
+*
+!package.json
+!public
+!src
