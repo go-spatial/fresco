@@ -1,4 +1,4 @@
-FROM registry.dso.xc.nga.mil/agc/tileserver-gl/ubuntu:22.04 as builder
+FROM ubuntu:22.04 as builder
 
 USER root
 RUN apt-get update && apt-get upgrade -y
@@ -15,7 +15,7 @@ COPY . .
 RUN npm install && npm run build
 
 # ==== Final Image
-FROM registry.dso.xc.nga.mil/agc/tileserver-gl/ubuntu:22.04 AS final
+FROM ubuntu:22.04 AS final
 
 ENV DEBIAN_FRONTEND=noninteractive
 
