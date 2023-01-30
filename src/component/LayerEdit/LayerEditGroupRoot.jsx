@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
@@ -29,7 +29,7 @@ class LayerEditGroupRoot extends React.Component {
 	render (){
 		const {group, layer, path} = this.props
 
-		const fields = utilMapboxSpec.getRootPropertyFields({layer})
+		const fields = utilMaplibreSpec.getRootPropertyFields({layer})
 
 		return (
 			<div className="property-content">
@@ -53,7 +53,7 @@ class LayerEditGroupRoot extends React.Component {
 		const pathProp = [...path, key]
 		const value = layer.get(key)
 		let property = {
-			...utilMapboxSpec.getProperties({group, layer, key, value}),
+			...utilMaplibreSpec.getProperties({group, layer, key, value}),
 			key: key,
 			name: key,
 			label: key,

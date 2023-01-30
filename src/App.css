@@ -226,12 +226,12 @@ label .badge{position:relative;top:2px;}
 .map-inspect-list a{color:inherit;}
 .map-inspect-list .list-left{top:-1px;left:0;}
 
-.mapboxgl-ctrl-icon.active{background-color:#00ACC1;color:#FFF;}
-.mapboxgl-ctrl-icon.active:hover{background-color:#0197A7!important;color:#FFF;}
-.mapboxgl-ctrl-icon i{position:relative;top:1px;font-size:1rem;}
+.maplibregl-ctrl-icon.active{background-color:#00ACC1;color:#FFF;}
+.maplibregl-ctrl-icon.active:hover{background-color:#0197A7!important;color:#FFF;}
+.maplibregl-ctrl-icon i{position:relative;top:1px;font-size:1rem;}
 
-.mapboxgl-popup-close-button{color:#AEAEAE;}
-.mapboxgl-popup-close-button:hover{color:#747474;}
+.maplibregl-popup-close-button{color:#AEAEAE;}
+.maplibregl-popup-close-button:hover{color:#747474;}
 
 .marker{font-size:1.4rem;cursor: pointer;text-align:center;
 	color:#FF9800;text-shadow: -1px 0 rgba(39,50,55,0.9), 0 1px rgba(39,50,55,0.9), 1px 0 rgba(39,50,55,0.9), 0 -1px rgba(39,50,55,0.9);

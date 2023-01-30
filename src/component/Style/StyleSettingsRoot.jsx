@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
@@ -28,7 +28,7 @@ class StyleSettingsRoot extends React.Component {
 	render (){
 		const {path, style} = this.props
 
-		const fields = utilMapboxSpec.getStyleRootPropertyFields()
+		const fields = utilMaplibreSpec.getStyleRootPropertyFields()
 
 		const current = style.get('current')
 
@@ -45,7 +45,7 @@ class StyleSettingsRoot extends React.Component {
 					<div className="property">
 						<PropertyAdd 
 							path={path}
-							propertyOptions={utilMapboxSpec.getStyleRootPropertyOptions()}
+							propertyOptions={utilMaplibreSpec.getStyleRootPropertyOptions()}
 						/>
 					</div>
 				</div>
@@ -58,7 +58,7 @@ class StyleSettingsRoot extends React.Component {
 		const pathProp = [...path, key]
 		const value = style.getIn(['current',key])
 		let property = {
-			...utilMapboxSpec.getStyleProperties({key, value}),
+			...utilMaplibreSpec.getStyleProperties({key, value}),
 			key: key,
 			name: key,
 			label: key,

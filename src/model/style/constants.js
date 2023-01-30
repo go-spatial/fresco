@@ -15,10 +15,10 @@ const defaultLayers = [
 
 // source: https://tegola-osm-worker.go-spatial.org/v1/capabilities/osm.json
 
-const defaultMapboxVersion = 8
+const defaultMaplibreVersion = 8
 
 export default {
 	defaultLayers,
-	defaultMapboxVersion,
+	defaultMaplibreVersion,
 	localStoragePath,
 }

@@ -1,14 +1,14 @@
 
 import constants from './constants'
 import utilColor from '../../utility/utilColor'
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 const getColor = ({layer})=>{
 	return utilColor.getFromBlock({block: layer})
 }
 
 const getType = ({layer})=>{
-	return utilMapboxSpec.getLayerType({layer})
+	return utilMaplibreSpec.getLayerType({layer})
 }
 
 const getIndexById = ({layerId, style})=>{

@@ -61,7 +61,7 @@ class StyleUpdateUpload extends React.Component {
 			<div className="property-content">
 				<Property 
 					handle={handle}
-					info={'upload a Mapbox json style file'}
+					info={'upload a Maplibre json style file'}
 					key={'file'}
 					label={'file'}
 					name={'file'}

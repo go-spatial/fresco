@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
@@ -63,7 +63,7 @@ class StyleAddScratch extends React.Component {
 		}
 
 		const isReady = name.length > 0? true: false
-		const options = utilMapboxSpec.getSourceTypeOptions()
+		const options = utilMaplibreSpec.getSourceTypeOptions()
 
 		return <form className="content-body" onSubmit={this.handleSubmit}>
 			<h4 className="content-body-title">
@@ -104,7 +104,7 @@ class StyleAddScratch extends React.Component {
 							type={'bool'}
 							value={makeLayers}
 						/>
-						<Property {...utilMapboxSpec.getProperties({group: 'source', key: 'type', value: sourceType})}
+						<Property {...utilMaplibreSpec.getProperties({group: 'source', key: 'type', value: sourceType})}
 							handle={handle}
 							key={'sourceType'}
 							label={'source type'}
