@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
@@ -33,21 +33,21 @@ class SourceEditView extends React.Component {
 		const idHandle = {
 			change: this.handleIdChange
 		}
-		const options = utilMapboxSpec.getSourceTypeOptions()
+		const options = utilMaplibreSpec.getSourceTypeOptions()
 
 		return <div className="content-body">
 			<h4 className="content-body-title">
 				Source Editor
 			</h4>
 			<div className="property-content">
-				<Property {...utilMapboxSpec.getProperties({group, key: 'url', value: source.get('url')})}
+				<Property {...utilMaplibreSpec.getProperties({group, key: 'url', value: source.get('url')})}
 					key={'url'}
 					label={'url'}
 					name={'url'}
 					path={[...path, 'url']}
 					value={source.get('url')}
 				/>
-				<Property {...utilMapboxSpec.getProperties({group, key: 'id', value: sourceId})}
+				<Property {...utilMaplibreSpec.getProperties({group, key: 'id', value: sourceId})}
 					info={'Unique reference to the source'}
 					handle={idHandle}
 					key={'id'}
@@ -56,7 +56,7 @@ class SourceEditView extends React.Component {
 					path={path}
 					value={sourceId}
 				/>
-				<Property {...utilMapboxSpec.getProperties({group, key: 'type', value: source.get('type')})}
+				<Property {...utilMaplibreSpec.getProperties({group, key: 'type', value: source.get('type')})}
 					key={'type'}
 					label={'type'}
 					name={'type'}
@@ -78,7 +78,7 @@ class SourceEditView extends React.Component {
 		const pathProp = [...path, key]
 		const value = source.get(key)
 		let property = {
-			...utilMapboxSpec.getProperties({group, source, key, value}),
+			...utilMaplibreSpec.getProperties({group, source, key, value}),
 			key: key,
 			name: key,
 			label: key,

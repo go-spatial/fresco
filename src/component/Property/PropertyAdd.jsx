@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 import modelStyle from '../../model/style'
 import Field from '../Field'
 import Icon from '../Icon'
@@ -19,7 +19,7 @@ class PropertyAdd extends React.Component {
 	handleChange = async ({name, value})=>{
 		const {group, layer, path} = this.props
 
-		const propValue = utilMapboxSpec.getPropDefault({group, layer, key:value})
+		const propValue = utilMaplibreSpec.getPropDefault({group, layer, key:value})
 		await modelStyle.actions.setIn({
 			path: [...path, value],
 			value: propValue,
@@ -45,7 +45,7 @@ class PropertyAdd extends React.Component {
 		if (propertyOptions){
 			options = propertyOptions
 		} else if (layer) {
-			options = utilMapboxSpec.getPropertyOptions({group, layer})
+			options = utilMaplibreSpec.getPropertyOptions({group, layer})
 		}
 
 		if (!options || options.length < 1) return <div/>

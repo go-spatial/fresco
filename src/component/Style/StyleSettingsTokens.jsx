@@ -41,7 +41,7 @@ class StyleSettingsTokens extends React.Component {
 				<span className="content-title-label">Access Tokens</span>
 			</h2>
 			<h4 className="content-body-title">
-				Mapbox
+				Maplibre
 			</h4>
 			<div className="property-content">
 				{this.renderProperty()}
@@ -64,19 +64,19 @@ class StyleSettingsTokens extends React.Component {
 			change: this.handleChange
 		}
 
-		const value = accessTokens? accessTokens.get('mapbox'): ''
+		const value = accessTokens? accessTokens.get('maplibre'): ''
 
 		const property = {
-			key: 'mapbox',
+			key: 'maplibre',
 			handle,
-			info: 'Your mapbox token from https://mapbox.com',
-			name: 'mapbox',
+			info: 'Your maplibre token from https://maplibre.com',
+			name: 'maplibre',
 			label: 'API access token',
 			type:'string',
 			value
 		}
 		return (
-			<Property key={'mapbox'}
+			<Property key={'maplibre'}
 				{...property}
 			/>
 

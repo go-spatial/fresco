@@ -1,4 +1,4 @@
-import {latest} from 'mapbox-gl/src/style-spec'
+import {latest} from '@maplibre/maplibre-gl-style-spec'
 
 import {fromJS, Map, List} from 'immutable'
 

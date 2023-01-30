@@ -65,7 +65,7 @@ class StyleUpdateJson extends React.Component {
 			<div className="property-content">
 				<Property 
 					handle={handle}
-					info={'Mapbox style JSON'}
+					info={'Maplibre style JSON'}
 					key={'json'}
 					label={'json'}
 					name={'json'}

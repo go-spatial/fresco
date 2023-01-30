@@ -17,7 +17,7 @@ import PropertyString from './PropertyString'
 
 import modelStyle from '../../model/style'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 class Property extends React.Component {
 
@@ -34,7 +34,7 @@ class Property extends React.Component {
 		const {handle, path, value, valueDefault} = this.props
 
 		if (handle && handle.typeChange) return handle.typeChange({type, value, valueDefault})
-		const newVal = utilMapboxSpec.getTypeChangeValue({type, value, valueDefault})
+		const newVal = utilMaplibreSpec.getTypeChangeValue({type, value, valueDefault})
 		await modelStyle.actions.setIn({path, value: newVal})
 	}
 

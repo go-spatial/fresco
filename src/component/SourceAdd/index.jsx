@@ -4,7 +4,7 @@ import {Map} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
 import utilUrl from '../../utility/utilUrl'
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import modelApp from '../../model/app'
 import modelSource from '../../model/source'
@@ -68,7 +68,7 @@ class SourceAdd extends React.Component {
 	render (){
 		const {headers, makeLayers, id, type, url} = this.state
 
-		const options = utilMapboxSpec.getSourceTypeOptions()
+		const options = utilMaplibreSpec.getSourceTypeOptions()
 
 		const handle = {
 			change: this.handleChange
@@ -82,7 +82,7 @@ class SourceAdd extends React.Component {
 				<span className="content-title-label">Add Source</span>
 			</h2>
 			<div className="property-content">
-				<Property {...utilMapboxSpec.getProperties({group, key: 'url', value: url})}
+				<Property {...utilMaplibreSpec.getProperties({group, key: 'url', value: url})}
 					handle={handle}
 					key={'url'}
 					label={'url'}
@@ -101,7 +101,7 @@ class SourceAdd extends React.Component {
 					type={'string'}
 					value={id}
 				/>
-				<Property {...utilMapboxSpec.getProperties({group, key: 'type', value: type})}
+				<Property {...utilMaplibreSpec.getProperties({group, key: 'type', value: type})}
 					handle={handle}
 					key={'type'}
 					label={'type'}

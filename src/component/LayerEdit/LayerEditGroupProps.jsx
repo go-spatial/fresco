@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Map} from 'immutable'
 
-import utilMapboxSpec from '../../utility/utilMapboxSpec'
+import utilMaplibreSpec from '../../utility/utilMaplibreSpec'
 
 import Property from '../Property'
 import PropertyAdd from '../Property/PropertyAdd'
@@ -36,7 +36,7 @@ class LayerEditGroupProps extends React.Component {
 		const value = layer.getIn([group, key])
 
 		const property = {
-			...utilMapboxSpec.getProperties({group, layer, key, value}),
+			...utilMaplibreSpec.getProperties({group, layer, key, value}),
 			key: key,
 			name: key,
 			label: key,

@@ -33,7 +33,7 @@ const	getKey = (error)=>{
 const getMessage = (error)=>{
 	if (!error) return
 	if (!error.message && error.stack) return error.stack
-	if (!error.message && !error.stack) return 'unidentified mapbox error'
+	if (!error.message && !error.stack) return 'unidentified maplibre error'
 	if (error.message.indexOf(': ') === -1) return error.message
 	return error.message.split(': ')[1]
 }

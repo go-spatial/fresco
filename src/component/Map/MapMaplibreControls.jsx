@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Icon from '../Icon'
 import Infotip from '../Infotip'
 
-class MapMapboxControls extends React.Component {
+class MapMaplibreControls extends React.Component {
 
 	constructor (props){
 		super(props)
@@ -32,14 +32,14 @@ class MapMapboxControls extends React.Component {
 
 		return (
 			<React.Fragment>			
-				<div onClick={handleLocationToggle} className="mapboxgl-ctrl mapboxgl-ctrl-group infotip-trigger map-control">
-					<button className={`mapboxgl-ctrl-icon`}>
+				<div onClick={handleLocationToggle} className="Maplibregl-ctrl Maplibregl-ctrl-group infotip-trigger map-control">
+					<button className={`Maplibregl-ctrl-icon`}>
 						<Icon icon={'location'}/>
 					</button>
 					<Infotip direction={'x'} message={'jump to location'}/>
 				</div>
-				<div onClick={this.handleDebugLinesToggle} className="mapboxgl-ctrl mapboxgl-ctrl-group infotip-trigger map-control">
-					<button className={`mapboxgl-ctrl-icon ${debugLines? 'active': ''}`}>
+				<div onClick={this.handleDebugLinesToggle} className="Maplibregl-ctrl Maplibregl-ctrl-group infotip-trigger map-control">
+					<button className={`Maplibregl-ctrl-icon ${debugLines? 'active': ''}`}>
 						<Icon icon={'debug-lines'}/>
 					</button>
 					<Infotip direction={'x'} message={`debug lines ${debugLines? 'off': 'on'}`}/>
@@ -50,9 +50,9 @@ class MapMapboxControls extends React.Component {
 
 }
 
-MapMapboxControls.propTypes = {
+MapMaplibreControls.propTypes = {
 	handleLocationToggle: PropTypes.func,
 	map:PropTypes.object,
 }
 
-export default MapMapboxControls
+export default MapMaplibreControls

@@ -4,14 +4,14 @@ import {connect} from 'react-redux'
 
 import modelMap from '../../model/map'
 
-import MapMapbox from './MapMapbox'
+import MapMaplibre from './MapMaplibre'
 
 class Map extends React.Component {
 	render (){
 		const {focus, style} = this.props
 
 		return (
-			<MapMapbox focus={focus} style={style}/>
+			<MapMaplibre focus={focus} style={style}/>
 		)
 	}
 }

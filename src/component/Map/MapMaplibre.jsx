@@ -7,20 +7,20 @@ import {withRouter} from 'react-router-dom'
 import modelMap from '../../model/map'
 import modelStyle from '../../model/style'
 
-import MapboxGl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import MaplibreGl from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
 import constants from './constants'
 import utilUrl from '../../utility/utilUrl'
 
 import Dropdown from '../Dropdown'
-import MapMapboxControls from './MapMapboxControls'
+import MapMaplibreControls from './MapMaplibreControls'
 
 class CustomControls {
 	handleLocationToggle = null
 	onAdd(map) {
 		this._container = document.createElement('div')
-		ReactDOM.render(<MapMapboxControls handleLocationToggle={this.handleLocationToggle} map={map}/>,this._container)
+		ReactDOM.render(<MapMaplibreControls handleLocationToggle={this.handleLocationToggle} map={map}/>,this._container)
 		return this._container
 	}
 	onRemove() {
@@ -29,7 +29,7 @@ class CustomControls {
 	}
 }
 
-class MapMapbox extends React.Component {
+class MapMaplibre extends React.Component {
 
 	applyFeatureStates = async ()=>{
 		const {featureStates, featureStateDeploy} = this.props
@@ -83,7 +83,7 @@ class MapMapbox extends React.Component {
 			this.map.remove()
 		}
 
-		if (accessTokens && accessTokens.has('mapbox')) MapboxGl.accessToken = accessTokens.get('mapbox')
+		if (accessTokens && accessTokens.has('maplibre')) MaplibreGl.accessToken = accessTokens.get('maplibre')
 
 		window.onerror = (message, source, lineno, colno, error)=>{
 			const errString = JSON.stringify(error)
@@ -96,7 +96,7 @@ class MapMapbox extends React.Component {
 			})
 		}
 
-		const map = new MapboxGl.Map({
+		const map = new MaplibreGl.Map({
 			attributionControl:false,
 			logoPosition:'bottom-right',
 			container: this.container,
@@ -110,11 +110,11 @@ class MapMapbox extends React.Component {
 
 		map.addControl(Controls)
 
-		map.addControl(new MapboxGl.AttributionControl({
+		map.addControl(new MaplibreGl.AttributionControl({
 			compact: true
 		}))
 
-		const nav = new MapboxGl.NavigationControl()
+		const nav = new MaplibreGl.NavigationControl()
 		map.addControl(nav, 'top-right')
 
 		map.on('error',(e)=>{
@@ -185,7 +185,7 @@ class MapMapbox extends React.Component {
 			el.innerHTML = `<span class="marker-number"><span>${features.length}</span><span class="marker-close" onclick="window.mapMarkerClose(event)"><i class="fas fa-times"></i></span></span><i class="fas fa-map-marker text-info"></i>`
 			el.className = 'marker'
 			if (this.clickMarker) this.clickMarker.remove()
-			this.clickMarker = new MapboxGl.Marker(el, {offset:[0,-17]})
+			this.clickMarker = new MaplibreGl.Marker(el, {offset:[0,-17]})
 				.setLngLat(focus)
 				.addTo(this.map)
 		} else {
@@ -364,7 +364,7 @@ class MapMapbox extends React.Component {
 	}
 }
 
-MapMapbox.propTypes = {
+MapMaplibre.propTypes = {
 	accessTokenDeploy: PropTypes.bool,
 	domainHeaders: PropTypes.object,
 	featureStates: PropTypes.object,
@@ -392,5 +392,5 @@ const mapStoreToProps = (store, props)=>{
 
 export default connect(
 	mapStoreToProps,
-)(withRouter(MapMapbox))
+)(withRouter(MapMaplibre))
 

@@ -10,7 +10,7 @@ import stylesDefault from '../../config/stylesDefault'
 import utilType from '../../utility/utilType'
 import utilFile from '../../utility/utilFile'
 import utilLocalStorage from '../../utility/utilLocalStorage'
-import utilMapboxErr from '../../utility/utilMapboxErr'
+import utilMaplibreErr from '../../utility/utilMaplibreErr'
 import utilUid from '../../utility/utilUid'
 import utilUrl from '../../utility/utilUrl'
 
@@ -21,7 +21,7 @@ const add = async ({makeLayers, name, source, sourceType})=>{
 		name,
 	}
 	style.id = utilUid.make()
-	style.version = constants.defaultMapboxVersion
+	style.version = constants.defaultMaplibreVersion
 	if (source && sourceType){
 		const sourceId = utilUrl.getName(source)
 		style.sources = {
@@ -67,7 +67,7 @@ const addFromJson = async ({json})=>{
 	}
 	//TODO check if ID is unique
 	style.id = utilUid.make()
-	style.version = json.get('version') || constants.defaultMapboxVersion
+	style.version = json.get('version') || constants.defaultMaplibreVersion
 
 	const styleImm = fromJS(style)
 	const stylePath = [style.id, 'current']
@@ -136,9 +136,9 @@ const download = async ({style})=>{
 
 const errorSet = async ({error, path})=>{ 
 
-	const errPath = utilMapboxErr.getKey(error)
+	const errPath = utilMaplibreErr.getKey(error)
 	const fullPath = [...path, 'current', ...errPath]
-	const errMsg = utilMapboxErr.getMessage(error)
+	const errMsg = utilMaplibreErr.getMessage(error)
 
 	Store.dispatch({
 		type:'STYLE_ERROR_SETIN',
