@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "",
   "dependencies": {
-    "@mapbox/mapbox-gl-style-spec": "^13.13.1",
+    "@mapbox/mapbox-gl-style-spec": "^13.28.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -14,7 +14,7 @@
     "immutable": "^4.0.0-rc.12",
     "js-file-download": "^0.4.11",
     "jshint": "^2.11.0",
-    "mapbox-gl": "^1.9.1",
+    "mapbox-gl": "^1.13.3",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
